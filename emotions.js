@@ -74,6 +74,26 @@ bot.on("message", msg =>{
 				"name": "foxgirl",
 				"mention": false,
 				"action": neko.getSFWFoxGirl
+			},
+			{
+				"name": "patas",
+				"mention": false,
+				"action": neko.getSFWEroFeet
+			},
+			{
+				"name": "nekogif",
+				"mention": false,
+				"action": neko.getSFWNekogif
+			},
+			{
+				"name": "kemono",
+				"mention": false,
+				"action": neko.getSFWKemonomimi
+			},
+			{
+				"name": "holo",
+				"mention": false,
+				"action": neko.getSFWHolo
 			}
 		];
 		for (var i = commands.length - 1; i >= 0; i--) {
