@@ -11,17 +11,17 @@ const Discord = require("discord.js");
 						.setFooter("© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png")
 	    			msg.channel.send({embed});
 
-	    			let sdc = msg.guild.roles.get(" Rol ");
-	    			let acended = msg.guild.roles.get(" Rol ");
-	    			let fresh = msg.guild.roles.get(" Rol ");
+	    			let sdc = msg.guild.roles.get("432982578920816640");
+	    			let acended = msg.guild.roles.get("404711787414421525");
+	    			let fresh = msg.guild.roles.get("404508273635491842");
 
-	    			if (usermentioned.roles.has(" Rol ")){
+	    			if (usermentioned.roles.has("432982578920816640")){
 	    				usermentioned.removeRole(sdc.id).catch(console.error);
 	    			}
-	    			if (usermentioned.roles.has(" Rol ")){
+	    			if (usermentioned.roles.has("404711787414421525")){
 	    				usermentioned.removeRole(acended).catch(console.error);
 	    			}
-	    			if (usermentioned.roles.has(" Rol ")){
+	    			if (usermentioned.roles.has("404508273635491842")){
 	    				usermentioned.removeRole(fresh).catch(console.error);
 	    			}
 	    		}

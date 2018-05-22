@@ -3,9 +3,6 @@ exports.reaction = function(bot){
 var umiyadosList = ['chale', 'umiyaron', 'umiyado']; 
 
 bot.on('message', msg => {
-    if (msg.content === '<:toot:419010247248707586>') {
-    	msg.react("419010247248707586");
-    }
     if (msg.content.toLowerCase() === 'mamey') {
       msg.channel.send('coman mamey <:pacman:420980551105642516>');
     }

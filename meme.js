@@ -18,7 +18,7 @@ bot.on('message', msg => {
       var chop = msg.content.split('>');
       var pichula = chop[1].split('|');
       console.log("Meme generated for",mentioned['username']); 
-      msg.channel.send({files: [memeCreator(pichula[0],pichula[1],pic)]});
+      msg.channel.send({files: [memeCreator(pichula[0],pichula[1],pic)]}).catch(console.error);
     } else {
       msg.channel.send('esperate pendejo');
       }

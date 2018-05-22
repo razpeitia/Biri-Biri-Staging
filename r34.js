@@ -125,7 +125,18 @@ const neko = new client();
 		    			msg.channel.send({embed});
 				}
 				anal();
-			}										
+			}
+			if(msg.content.startsWith(prefix + "loli")){
+				async function loli() {
+				  let obj = await neko.getNSFWAnal();
+				   const embed = new Discord.RichEmbed()
+							.setColor(0xff0000)
+							.addField("No mames marrano", "**LLAMARE A LA POLICIA**")
+							.setFooter("© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png")
+		    			msg.channel.send({embed});
+				}
+				loli();
+			}												
 		}		
 	});
 }
