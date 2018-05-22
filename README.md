@@ -30,5 +30,5 @@ This is a custom bot for discord, is not recommendable use in a new Guild, this 
   
  Special thanks to:
  
-`Hiro - And everyone who apports to the bot via discord.`
+`Hiro-Inu, razpeitia#5174 - And everyone who apports to the bot via discord.`
  
