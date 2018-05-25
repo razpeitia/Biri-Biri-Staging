@@ -2,7 +2,38 @@ exports.emotions = function (bot){
 const prefix = "n!";
 const Discord = require("discord.js");
 const client = require('nekos.life');
+const cute = require("cuteapi");
+const config = require("./config.json");
+
 const neko = new client();
+const cuteapi = new cute(config.cuteapi_token);
+
+const cuteapiTypes = [
+	"cry",
+	"pinch",
+	"poke",
+	"highfive",
+	"nani",
+	"punch",
+	"hug",
+	"nom",
+	"woop",
+	"cuddle",
+	"tickle",
+	"slap",
+	"smug",
+	"sleep",
+	"pat",
+	"lick",
+	"kiss",
+	"neko",
+	"dancing",
+	"triggered",
+	"meme",
+	"yaoi",
+	"loli",
+	"yuri"
+];
 const color = 0xff0000;
 const footer = ["© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png"];
 
@@ -12,11 +43,11 @@ bot.on("message", msg =>{
 		let hasMention = msg.mentions.members.first() !== undefined;
 		let mention = hasMention ? msg.mentions.members.first().user.username : undefined;
 		let cmd = msg.content.trim().split(" ")[0];
-		
+
 		let commands = [
 			{
 				"name": "pat",
-			 	"mention": true, 
+			 	"mention": true,
 			 	"action": neko.getSFWPat,
 			 	"title": `**${mention}** *recibiste un pat de* **${author}**`
 			},
@@ -90,6 +121,23 @@ bot.on("message", msg =>{
 				"name": "holo",
 				"mention": false,
 				"action": neko.getSFWHolo
+			},
+			{
+				"name": "cuteapi",
+				"init": (msg) => {
+					let maybeType = msg.content.trim().toLowerCase().split(/\s+/)[1];
+					let hasType = cuteapiTypes.includes(maybeType);
+					let randomType = cuteapiTypes[Math.floor(Math.random()*cuteapiTypes.length)];
+					let type = hasType ? maybeType : randomType;
+			    return {"type": type};
+				},
+				"title": (state) => {
+					return `Usted a recibido un(a) ${state.type}`;
+				},
+				"action": (state) => {
+					isNSFW = false;
+					return cuteapi.getJSON(state.type, isNSFW);
+				}
 			}
 		];
 
@@ -258,7 +306,7 @@ bot.on("message", msg =>{
 				let command = commandList[i];
 				let fullCommandName = prefix + command.name;
 				let isValidMention = (hasMention && command.mention) || !command.mention;
-				
+
 				if(cmd === fullCommandName) {
 					if(!isNSWFChannel && isCommandListNSFW) {
 						(async () => {
@@ -268,9 +316,11 @@ bot.on("message", msg =>{
 					}
 					if (isValidMention) {
 						(async () => {
-							let imgUrl = (await command.action()).url;
+							let state = command.init instanceof Function ? command.init(msg) : undefined;
+							let imgUrl = (await command.action(state)).url;
+							let title = command.title instanceof Function ? command.title(state) : command.title || "";
 							const embed = new Discord.RichEmbed()
-													 .setTitle(command.title || "")
+													 .setTitle(title)
 													 .setColor(color)
 													 .setImage(imgUrl)
 													 .setFooter(...footer)
@@ -282,14 +332,14 @@ bot.on("message", msg =>{
 							msg.channel.send(`\`${fullCommandName}\` necesita una mencion`);
 						})();
 					}
-					
+
 				}
-				
-			}	
+
+			}
 		}
 
 		dispatch(commands, false);
 		dispatch(NSFWCommands, true);
-		
+
 	});
 }
