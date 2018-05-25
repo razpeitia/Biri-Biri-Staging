@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "cooldown": "^0.2.0",
+    "cuteapi": "0.0.3",
     "discord.js": "^11.3.2",
     "json-find": "^2.0.3",
     "nekos.life": "github:razpeitia/nekos-dot-life#v1.0.0",

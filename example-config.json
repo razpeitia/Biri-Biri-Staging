@@ -1,2 +1,4 @@
-{ "token"  : "your supersecret key"
+{
+	"token"  : "your supersecret token",
+	"cuteapi_token": "your supersecret cuteapi token"
 }
