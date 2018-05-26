@@ -46,6 +46,21 @@ bot.on("message", msg =>{
 
 		let commands = [
 			{
+				"name": "roll",
+				"init": (msg) => {
+					let maybeNumber = msg.content.trim().split(/\s+/)[1];
+					let sides = /^\d{1,3}$/.test(maybeNumber) ? Number.parseInt(maybeNumber) : 6;
+					let randomNumber = Math.floor(Math.random() * sides) + 1;
+					return {"number": randomNumber, "sides": sides};
+				},
+				"title": (state) => {
+					return `**${author}** te sacaste un ${state.number} de un dado de ${state.sides} caras`;
+				},
+				"action": (state) => {
+					return {url: ""};
+				}
+			},
+			{
 				"name": "pat",
 			 	"mention": true,
 			 	"action": neko.getSFWPat,
