@@ -6,15 +6,14 @@ exports.reaction = function(bot) {
     return keywords.filter(kw => uniqueWords.has(kw)).length > 0;
   }
 
-  class Reaction() {
-
+  class Reaction {
     constructor(r, msg) {
       if(r.message instanceof Array) {
         this.isValid = () => {
           return hasSomeWords(r.message, msg.content);
         };
       }
-      else if(r.message instanceof String) {
+      else if(typeof r.message === "string") {
         this.isValid = () => {
           return msg.content.toLowerCase() === r.message;
         };
@@ -37,9 +36,10 @@ exports.reaction = function(bot) {
   };
 
   bot.on('message', msg => {
-    const config = hotconfig.config.data;
-    let reactions = config.reactions.map(r => { new Reaction(r, msg); });
-    reactions.filter(r => { return r.isValid(); }).forEach(r => { r.action(); });
+    hotconfig.config.data.reactions
+    .map(r => { return new Reaction(r, msg); })
+    .filter(r => { return r.isValid(); })
+    .forEach(r => { r.action(); });
   });
 
 };
