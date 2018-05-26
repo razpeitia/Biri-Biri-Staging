@@ -1,6 +1,11 @@
 exports.reaction = function(bot){
 
-var umiyadosList = ['chale', 'umiyaron', 'umiyado']; 
+var umiyadosList = ['chale', 'umiyaron', 'umiyado'];
+
+function hasSomeWords(keywords, string) {
+    let uniqueWords = new Set(string.toLowerCase().split(/\s+/));
+    return keywords.filter(kw => uniqueWords.has(kw)).length > 0;
+}
 
 bot.on('message', msg => {
     if (msg.content.toLowerCase() === 'mamey') {
@@ -22,7 +27,7 @@ bot.on('message', msg => {
     	msg.react("412474913883160577");
     }
     if (msg.content === '<a:truleado:415551980719702016>'){
-    	msg.react("415551980719702016"); 
+    	msg.react("415551980719702016");
     }
     if (msg.content.toLowerCase() === 'cuack') {
     	msg.react("🦆");
@@ -31,9 +36,9 @@ bot.on('message', msg => {
     	msg.react("419006807147675679");
     }
      if (msg.content === 'fastsucc'){
-    	msg.react("419006860062883843"); 
+    	msg.react("419006860062883843");
     }
-    if (umiyadosList.some((v) => msg.content.toLowerCase().includes(v) )) {
+    if (hasSomeWords(umiyadosList, msg.content)) {
       msg.react("415551980719702016");
     }
   });
