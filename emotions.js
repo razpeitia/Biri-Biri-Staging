@@ -3,41 +3,23 @@ const prefix = "n!";
 const Discord = require("discord.js");
 const client = require('nekos.life');
 const cute = require("cuteapi");
-const config = require("./config.json");
+const hotconfig = require("./hotconfig");
 
 const neko = new client();
-const cuteapi = new cute(config.cuteapi_token);
+const cuteapi = new cute(hotconfig.config.data.cuteapi.token);
 
-const cuteapiTypes = [
-	"cry",
-	"pinch",
-	"poke",
-	"highfive",
-	"nani",
-	"punch",
-	"hug",
-	"nom",
-	"woop",
-	"cuddle",
-	"tickle",
-	"slap",
-	"smug",
-	"sleep",
-	"pat",
-	"lick",
-	"kiss",
-	"neko",
-	"dancing",
-	"triggered",
-	"meme",
-	"yaoi",
-	"loli",
-	"yuri"
-];
-const color = 0xff0000;
-const footer = ["© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png"];
+function famfamoMsg(title, imgUrl) {
+	const color = 0xff0000;
+	const footer = ["© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png"];
+	return new Discord.RichEmbed()
+										.setTitle(title)
+										.setColor(color)
+										.setImage(imgUrl)
+										.setFooter(...footer);
+}
 
-bot.on("message", msg =>{
+bot.on("message", msg => {
+		const config = hotconfig.config.data;
 		let isNSWFChannel = msg.channel.nsfw;
 		let author = msg.author.username;
 		let hasMention = msg.mentions.members.first() !== undefined;
@@ -83,7 +65,6 @@ bot.on("message", msg =>{
 			},
 			{
 				"name": "meaw",
-				"mention": false,
 				"action": neko.getSFWNeko
 			},
 			{
@@ -94,42 +75,39 @@ bot.on("message", msg =>{
 			},
 			{
 				"name": "tickle",
-				"mention": false,
 				"action": neko.getSFWTickle
 			},
 			{
 				"name": "lizzard",
-				"mention": false,
 				"action": neko.getSFWLizard
 			},
 			{
 				"name": "foxgirl",
-				"mention": false,
 				"action": neko.getSFWFoxGirl
 			},
 			{
 				"name": "nekogif",
-				"mention": false,
 				"action": neko.getSFWNekogif
 			},
 			{
 				"name": "kemono",
-				"mention": false,
 				"action": neko.getSFWKemonomimi
 			},
 			{
 				"name": "holo",
-				"mention": false,
 				"action": neko.getSFWHolo
 			},
 			{
 				"name": "cuteapi",
 				"init": (msg) => {
+					let cuteapiTypes = hotconfig.config.data.cuteapi.types;
 					let maybeType = msg.content.trim().toLowerCase().split(/\s+/)[1];
-					let hasType = cuteapiTypes.includes(maybeType);
+					let hasType = cuteapiTypes.some((cuteType) => {
+																											return cuteType.name === maybeType
+																										});
 					let randomType = cuteapiTypes[Math.floor(Math.random()*cuteapiTypes.length)];
 					let type = hasType ? maybeType : randomType;
-			    return {"type": type};
+			    return {"type": type.name};
 				},
 				"title": (state) => {
 					return `Usted a recibido un(a) ${state.type}`;
@@ -142,161 +120,160 @@ bot.on("message", msg =>{
 		];
 
 		let NSFWCommands = [
-			{	"name": "eron",
-				"mention": false,
+			{
+				"name": "eron",
 				"action": neko.getNSFWEroNeko
 			},
-			{	"name": "holoero",
-				"mention": false,
+			{
+				"name": "holoero",
 				"action": neko.getNSFWHoloEro
 			},
 			{
 				"name": "patas",
-				"mention": false,
 				"action": neko.getSFWEroFeet
 			},
-			{	"name": "loli",
-				"mention": false,
+			{
+				"name": "loli",
 				"action": neko.getNSFWSmallBoobs
 			},
-			{	"name": "pussy",
-				"mention": false,
+			{
+				"name": "pussy",
 				"action": neko.getNSFWPussyGif
 			},
-			{	"name": "analart",
-				"mention": false,
+			{
+				"name": "analart",
 				"action": neko.getNSFWAnalArts
 			},
-			{	"name": "lewdnekogif",
-				"mention": false,
+			{
+				"name": "lewdnekogif",
 				"action": neko.getNSFWNekoGif
 			},
-			{	"name": "pussyart",
-				"mention": false,
+			{
+				"name": "pussyart",
 				"action": neko.getNSFWPussyArt
 			},
-			{	"name": "pwankg",
-				"mention": false,
+			{
+				"name": "pwankg",
 				"action": neko.getNSFWPussyWankGif
 			},
-			{	"name": "eroyuri",
-				"mention": false,
+			{
+				"name": "eroyuri",
 				"action": neko.getNSFWEroYuri
 			},
-			{	"name": "erokemo",
-				"mention": false,
+			{
+				"name": "erokemo",
 				"action": neko.getNSFWEroKemonomimi
 			},
-			{	"name": "blowjob",
-				"mention": false,
+			{
+				"name": "blowjob",
 				"action": neko.getNSFWBlowJob
 			},
-			{	"name": "trap",
-				"mention": false,
+			{
+				"name": "trap",
 				"action": neko.getNSFWTrap
 			},
-			{	"name": "tits",
-				"mention": false,
+			{
+				"name": "tits",
 				"action": neko.getNSFWTits
 			},
-			{	"name": "solo",
-				"mention": false,
+			{
+				"name": "solo",
 				"action": neko.getNSFWGirlSolo
 			},
-			{	"name": "solog",
-				"mention": false,
+			{
+				"name": "solog",
 				"action": neko.getNSFWGirlSoloGif
 			},
-			{	"name": "anal",
-				"mention": false,
+			{
+				"name": "anal",
 				"action": neko.getNSFWAnal
 			},
-			{	"name": "kuni",
-				"mention": false,
+			{
+				"name": "kuni",
 				"action": neko.getNSFWKuni
 			},
-			{	"name": "random",
-				"mention": false,
+			{
+				"name": "random",
 				"action": neko.getNSFWRandomHentaiGif
 			},
-			{	"name": "lewdkemo",
-				"mention": false,
+			{
+				"name": "lewdkemo",
 				"action": neko.getNSFWKemonomimi
 			},
-			{	"name": "feet",
-				"mention": false,
+			{
+				"name": "feet",
 				"action": neko.getNSFWFeet
 			},
-			{	"name": "ero",
-				"mention": false,
+			{
+				"name": "ero",
 				"action": neko.getNSFWEro
 			},
-			{	"name": "cumart",
-				"mention": false,
+			{
+				"name": "cumart",
 				"action": neko.getNSFWCumArts
 			},
-			{	"name": "cum",
-				"mention": false,
+			{
+				"name": "cum",
 				"action": neko.getNSFWCumsluts
 			},
-			{	"name": "classic",
-				"mention": false,
+			{
+				"name": "classic",
 				"action": neko.getNSFWClassic
 			},
-			{	"name": "pussy",
-				"mention": false,
+			{
+				"name": "pussy",
 				"action": neko.getNSFWPussy
 			},
-			{	"name": "futanari",
-				"mention": false,
+			{
+				"name": "futanari",
 				"action": neko.getNSFWFutanari
 			},
-			{	"name": "boobs",
-				"mention": false,
+			{
+				"name": "boobs",
 				"action": neko.getNSFWBoobs
 			},
-			{	"name": "keta",
-				"mention": false,
+			{
+				"name": "keta",
 				"action": neko.getNSFWKeTa
 			},
-			{	"name": "bj",
-				"mention": false,
+			{
+				"name": "bj",
 				"action": neko.getNSFWBj
 			},
-			{	"name": "erok",
-				"mention": false,
+			{
+				"name": "erok",
 				"action": neko.getNSFWEroKitsune
 			},
-			{	"name": "hololewd",
-				"mention": false,
+			{
+				"name": "hololewd",
 				"action": neko.getNSFWHolo
 			},
-			{	"name": "yuri",
-				"mention": false,
+			{
+				"name": "yuri",
 				"action": neko.getNSFWYuri
 			},
-			{	"name": "feetgif",
-				"mention": false,
+			{
+				"name": "feetgif",
 				"action": neko.getNSFWFeetGif
 			},
-			{	"name": "lewdk",
-				"mention": false,
+			{
+				"name": "lewdk",
 				"action": neko.getNSFWKitsune
 			},
-			{	"name": "lewd",
-				"mention": false,
+			{
+				"name": "lewd",
 				"action": neko.getNSFWNeko
 			},
-			{	"name": "femdom",
-				"mention": false,
+			{
+				"name": "femdom",
 				"action": neko.getNSFWFemdom
 			},
-			{	"name": "hentai",
-				"mention": false,
+			{
+				"name": "hentai",
 				"action": neko.getNSFWHentai
 			},
-			{	"name": "les",
-				"mention": false,
+			{
+				"name": "les",
 				"action": neko.getNSFWLesbian
 			}
 		];
@@ -308,6 +285,13 @@ bot.on("message", msg =>{
 				let isValidMention = (hasMention && command.mention) || !command.mention;
 
 				if(cmd === fullCommandName) {
+					let isCommandEnable = config.commands.some(c => {
+						return c.name === command.name && (c.enable === undefined || c.enable === true);
+					});
+					if(!isCommandEnable) {
+						return;
+					}
+
 					if(!isNSWFChannel && isCommandListNSFW) {
 						(async () => {
 							msg.channel.send(`\`${fullCommandName}\` es NSFW solo funciona dentro de un canal NSFW`);
@@ -319,12 +303,7 @@ bot.on("message", msg =>{
 							let state = command.init instanceof Function ? command.init(msg) : undefined;
 							let imgUrl = (await command.action(state)).url;
 							let title = command.title instanceof Function ? command.title(state) : command.title || "";
-							const embed = new Discord.RichEmbed()
-													 .setTitle(title)
-													 .setColor(color)
-													 .setImage(imgUrl)
-													 .setFooter(...footer)
-							msg.channel.send({embed});
+							msg.channel.send(famfamoMsg(title, imgUrl));
 						})();
 					}
 					else {
