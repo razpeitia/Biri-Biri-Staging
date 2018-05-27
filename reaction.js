@@ -1,5 +1,5 @@
 exports.reaction = function(bot) {
-  const hotconfig = require("./hotconfig");
+  const config = require("./commands_config.json");
 
   function hasSomeWords(keywords, string) {
     let uniqueWords = new Set(string.toLowerCase().split(/\s+/));
@@ -36,7 +36,7 @@ exports.reaction = function(bot) {
   };
 
   bot.on('message', msg => {
-    hotconfig.config.data.reactions
+    config.reactions
     .map(r => { return new Reaction(r, msg); })
     .filter(r => { return r.isValid(); })
     .forEach(r => { r.action(); });
