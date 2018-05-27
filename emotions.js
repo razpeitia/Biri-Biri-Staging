@@ -52,8 +52,11 @@ bot.on("message", msg => {
 					if(state.command === undefined) {
 						return "Necesitas especificar un comando";
 					}
+					if(state.command === "comando") {
+						return "No >:@ wanwan";
+					}
 					if(!state.hasCommands) {
-						return `Commando \`${state.command}\` no encontrado`;
+						return `Comando \`${state.command}\` no encontrado`;
 					}
 					if(state.action !== "activar" && state.action !== "desactivar") {
 						return `Necesitas especificar una action "activar" o "desactivar"`;
