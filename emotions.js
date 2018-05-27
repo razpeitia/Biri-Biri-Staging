@@ -1,12 +1,13 @@
 exports.emotions = function (bot){
 const prefix = "n!";
 const Discord = require("discord.js");
-const client = require('nekos.life');
+const client = require("nekos.life");
 const cute = require("cuteapi");
-const hotconfig = require("./hotconfig");
+const tokens = require("./secrets.json");
+const config = require("./commands_config.json");
 
 const neko = new client();
-const cuteapi = new cute(hotconfig.config.data.cuteapi.token);
+const cuteapi = new cute(tokens.cuteapi);
 
 function famfamoMsg(title, imgUrl) {
 	const color = 0xff0000;
@@ -19,7 +20,6 @@ function famfamoMsg(title, imgUrl) {
 }
 
 bot.on("message", msg => {
-		const config = hotconfig.config.data;
 		let isNSWFChannel = msg.channel.nsfw;
 		let author = msg.author.username;
 		let hasMention = msg.mentions.members.first() !== undefined;
@@ -100,13 +100,13 @@ bot.on("message", msg => {
 			{
 				"name": "cuteapi",
 				"init": (msg) => {
-					let cuteapiTypes = hotconfig.config.data.cuteapi.types;
+					let cuteapiTypes = config.cuteapi.types;
 					let maybeType = msg.content.trim().toLowerCase().split(/\s+/)[1];
 					let hasType = cuteapiTypes.some((cuteType) => {
 																											return cuteType.name === maybeType
 																										});
 					let randomType = cuteapiTypes[Math.floor(Math.random()*cuteapiTypes.length)];
-					let type = hasType ? maybeType : randomType;
+					let type = hasType ? {"name": maybeType} : randomType;
 			    return {"type": type.name};
 				},
 				"title": (state) => {

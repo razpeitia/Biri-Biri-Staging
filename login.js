@@ -13,7 +13,7 @@ const meme = require("./meme.js");
 const webos = require("./webos.js");
 const help = require("./help.js");
 const emotions = require("./emotions.js");
-const config = require("./config.json");
+const tokens = require("./secrets.json");
 
 startup.startup(bot);
 emotions.emotions(bot);
@@ -22,4 +22,4 @@ meme.meme(bot);
 webos.webos(bot);
 reaction.reaction(bot);
 
-bot.login(config.token);
+bot.login(tokens.discord);
