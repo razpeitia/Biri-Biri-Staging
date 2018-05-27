@@ -1,5 +1,5 @@
 exports.reaction = function(bot) {
-  const config = require("./commands_config.json");
+  const config = require("./config_commands.json");
 
   function hasSomeWords(keywords, string) {
     let uniqueWords = new Set(string.toLowerCase().split(/\s+/));

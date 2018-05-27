@@ -1,7 +1,7 @@
 exports.startup = function(bot){
 
 	bot.on('ready', () => {
-	  bot.user.setActivity("n!help V1.8.3");
+	  bot.user.setActivity("n!help V1.9.2");
 	  console.log("")
 	  console.log(`Bot iniciado, con ${bot.users.size} usuarios, en ${bot.guilds.size} servidor/es.`);
 	  console.log("")

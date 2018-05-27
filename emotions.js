@@ -3,11 +3,13 @@ const prefix = "n!";
 const Discord = require("discord.js");
 const client = require("nekos.life");
 const cute = require("cuteapi");
-const tokens = require("./secrets.json");
-const config = require("./commands_config.json");
+const config = require("./config_commands.json");
+var Cooldown = require('cooldown');
+let img = new Cooldown(50000);
+let text = new Cooldown(50000);
 
 const neko = new client();
-const cuteapi = new cute(tokens.cuteapi);
+const cuteapi = new cute(config.cuteapi_token);
 
 function famfamoMsg(title, imgUrl) {
 	const color = 0xff0000;
@@ -89,6 +91,36 @@ bot.on("message", msg => {
 				"title": `**${mention}** recibiste un Abrazo de **${author}**`
 			},
 			{
+				"name": "flip",
+				"init": (msg) => {
+					return {"coin": Math.round(Math.random()) };
+				},
+				"title": (state) => {
+					if(state.coin === 1) {
+						if (text.fire()) {
+						return `**${author}** te sacaste aguila`;
+						}else{
+						return `Debes esperar para poder tirar otra moneda!`; 
+						}
+					}else {
+						if (text.fire()){
+						return `**${author}** te sacaste sol`;
+						}else{
+						return `Debes esperar para poder tirar otra moneda!`; 
+						}
+					}
+				},
+				"action": (state) => {
+					if (img.fire()) {
+					let aguilaUrl = "https://i.imgur.com/VpcIiTD.gif";
+					let solUrl = "https://i.imgur.com/3ECJb4T.gif";
+					return {"url": state.coin === 1 ? aguilaUrl : solUrl}
+					}else{
+						return {"url": "https://i.imgur.com/VbCqD59.png"}
+					}
+				}
+			},
+			{
 				"name": "tickle",
 				"action": neko.getSFWTickle
 			},
@@ -113,7 +145,7 @@ bot.on("message", msg => {
 				"action": neko.getSFWHolo
 			},
 			{
-				"name": "cuteapi",
+				"name": "c",
 				"init": (msg) => {
 					let cuteapiTypes = config.cuteapi.types;
 					let maybeType = msg.content.trim().toLowerCase().split(/\s+/)[1];

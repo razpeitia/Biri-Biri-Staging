@@ -2,8 +2,8 @@ exports.webos = function (bot){
 const Discord = require("discord.js");
 	bot.on("message", msg => {
 		if(msg.author.id === "159985870458322944"){
-				var test = ['40', '25', '15']; 
-				if (test.some((v) => msg.content.toLowerCase().includes(v) )) {
+				var test = ['40', '25', '15'];
+				if (msg.content === '40' || msg.content === '25' || msg.content === '15') {
 					var usermentioned = msg.mentions.members.first();
 		     		const embed = new Discord.RichEmbed()
 						.addField("Webos que <:pacman:420980551105642516>",`<@${usermentioned.id}>`) //
