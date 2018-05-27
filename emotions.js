@@ -1,12 +1,13 @@
 exports.emotions = function (bot){
 const prefix = "n!";
 const Discord = require("discord.js");
-const client = require('nekos.life');
+const client = require("nekos.life");
 const cute = require("cuteapi");
-const hotconfig = require("./hotconfig");
+const tokens = require("./secret.json");
+const config = require("./command_config.json");
 
 const neko = new client();
-const cuteapi = new cute(hotconfig.config.data.cuteapi.token);
+const cuteapi = new cute(tokens.cuteapi);
 
 function famfamoMsg(title, imgUrl) {
 	const color = 0xff0000;
