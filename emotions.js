@@ -100,13 +100,13 @@ bot.on("message", msg => {
 						if (text.fire()) {
 						return `**${author}** te sacaste aguila`;
 						}else{
-						return `Debes esperar para poder tirar otra moneda!`; 
+						return `Debes esperar para poder tirar otra moneda!`;
 						}
 					}else {
 						if (text.fire()){
 						return `**${author}** te sacaste sol`;
 						}else{
-						return `Debes esperar para poder tirar otra moneda!`; 
+						return `Debes esperar para poder tirar otra moneda!`;
 						}
 					}
 				},
@@ -143,6 +143,24 @@ bot.on("message", msg => {
 			{
 				"name": "holo",
 				"action": neko.getSFWHolo
+			},
+			{
+				"name": "triggered",
+				"init": (msg) => {
+					let author = msg.author;
+					let hasMention = msg.mentions.members.first() !== undefined;
+					let mention = hasMention ? msg.mentions.members.first().user : author;
+
+					return {"mention": mention};
+				},
+				"title": (state) => {
+					return `**${state.mention.username}** ha sido triggereado`;
+				},
+				"action": async (state) => {
+					let url = `https://cdn.discordapp.com/avatars/${state.mention.id}/${state.mention.avatar}.jpg?size=2048`;
+					let imgUrl = await cuteapi.generate("triggered", url);
+					return {"url": imgUrl};
+				}
 			},
 			{
 				"name": "c",

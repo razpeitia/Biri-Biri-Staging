@@ -77,6 +77,9 @@
    },
    "commands":[
       {
+         "name": "triggered"
+      },
+      {
         	"name": "flip"
       },
       {
