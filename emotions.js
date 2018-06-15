@@ -9,7 +9,7 @@ let img = new Cooldown(50000);
 let text = new Cooldown(50000);
 
 const neko = new client();
-const cuteapi = new cute(config.cuteapi_token);
+const cuteapi = new cute('04a3611ef7da5a03656bc5f3d28803418b95a8d6bfb0a92761e57ab368679530ea12903dbb13721fd111367cf82df5dc6f43ad539bc35a0504f1b387e9506e03');
 
 function famfamoMsg(title, imgUrl) {
 	const color = 0xff0000;
@@ -29,6 +29,45 @@ bot.on("message", msg => {
 		let cmd = msg.content.trim().split(" ")[0];
 
 		let commands = [
+			{
+				"name": "comando",
+				"init": (msg) => {
+					let isAdmin = config.admins.some(uid => { return uid === msg.author.id; });
+					let maybeCommand = msg.content.trim().split(/\s+/)[1];
+					let maybeAction = msg.content.trim().split(/\s+/)[2];
+					let cmds = config.commands.filter(c => { return c.name === maybeCommand; });
+					return {
+									"command": maybeCommand,
+									"commands": cmds,
+									"hasCommands": cmds.length > 0,
+									"action": maybeAction,
+									"isAdmin": isAdmin
+								};
+				},
+				"title": (state) => {
+					if(!state.isAdmin) {
+						return `Necesitas ser un admin, pendejo`;
+					}
+					if(state.command === undefined) {
+						return "Necesitas especificar un comando, pendejo";
+					}
+					if(state.command === "comando") {
+						return "No <:wanwan:403968696067948554>";
+					}
+					if(!state.hasCommands) {
+						return `Comando \`${state.command}\` no encontrado`;
+					}
+					if(state.action !== "activar" && state.action !== "desactivar") {
+						return `Necesitas especificar una action "activar" o "desactivar, pendejo"`;
+					}
+					let action = (state.action === "activar") ? "activado" : "desactivado";
+					state.commands.forEach(c => { c.enable = (state.action === "activar"); });
+					return `(${state.commands.length}) comando ${state.command} ${action}`;
+				},
+				"action": (state) => {
+					return {"url": ""}
+				}
+			},
 			{
 				"name": "roll",
 				"init": (msg) => {
@@ -79,7 +118,7 @@ bot.on("message", msg => {
 				"mention": true,
 				"action": neko.getSFWFeed,
 				"title": `**${mention}** te está alimentando **${author}**`
-			},
+			},		
 			{
 				"name": "meaw",
 				"action": neko.getSFWNeko
@@ -157,7 +196,11 @@ bot.on("message", msg => {
 			    return {"type": type.name};
 				},
 				"title": (state) => {
-					return `Usted a recibido un(a) ${state.type}`;
+					if(!mention){
+						return `${author} recibiste ${state.type}`
+					}else{
+						return `${mention} recibiste ${state.type} de ${author}`;
+					}
 				},
 				"action": (state) => {
 					isNSFW = false;
