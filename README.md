@@ -21,8 +21,6 @@ This is a custom bot for discord, is not recommendable use in a new Guild, this 
 
 * Things you must change:
   * Token of conection
-  * Reclamo(api conection url)
-  * Role (ID of the roles)
   * Every if with the channel.id = " # "
   
   
