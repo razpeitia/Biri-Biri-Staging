@@ -22,6 +22,15 @@ function hasMention (msg) {
   return msg.mentions.members.length > 0
 }
 
+async function sendfamfamoMessage (msg, command) {
+  let state = command.init instanceof Function ? command.init(msg) : {}
+  state.author = msg.author.username
+  state.mention = hasMention(msg) ? msg.mentions.members.first().user.username : undefined
+  let imgUrl = (await command.action(state)).url
+  let title = command.title instanceof Function ? command.title(state) : command.title || ''
+  msg.channel.send(famfamoMsg(title, imgUrl))
+}
+
 function dispatch (msg, commands) {
   commands.filter(command => {
     // Check if it matches the command name
@@ -29,7 +38,7 @@ function dispatch (msg, commands) {
     return cmd === (prefix + command.name)
   }).filter(command => {
     // El comando esta activo?
-    return command.enable === false
+    return command.enable === undefined || command.enable === true
   }).filter(command => {
     // El comando esta pausado?
     if (command.cooldown === undefined) {
