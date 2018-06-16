@@ -1,12 +1,12 @@
 const prefix = 'n!'
 const Discord = require('discord.js')
-const NekoClient = require('nekos.life')
-const CuteAPI = require('cuteapi')
+const client = require("nekos.life")
+const cute = require('cuteapi')
 const config = require('./config_commands.json')
 const Cooldown = require('cooldown')
 
-const neko = new NekoClient()
-const cuteapi = new CuteAPI(config.cuteapi_token)
+const neko = new client();
+const cuteapi = new cute(process.env.CUTE_TOKEN);
 
 function famfamoMsg (title, imgUrl) {
   const color = 0xff0000
@@ -22,44 +22,73 @@ function hasMention (msg) {
   return msg.mentions.members.length > 0
 }
 
-async function sendfamfamoMessage (msg, command) {
-  let state = command.init instanceof Function ? command.init(msg) : {}
-  state.author = msg.author.username
-  state.mention = hasMention(msg) ? msg.mentions.members.first().user.username : undefined
-  let imgUrl = (await command.action(state)).url
-  let title = command.title instanceof Function ? command.title(state) : command.title || ''
-  msg.channel.send(famfamoMsg(title, imgUrl))
-}
-
 function dispatch (msg, commands) {
   commands.filter(command => {
     // Check if it matches the command name
     let cmd = msg.content.trim().split(' ', 1)[0].toLowerCase()
     return cmd === (prefix + command.name)
   }).filter(command => {
-    // Check if the command is enable
-    let configCommands = config.commands || []
-    return !configCommands
-      .filter(c => { return c.name === command.name })
-      .some(c => { return c.enable === false })
+    // El comando esta activo?
+    return command.enable === false
   }).filter(command => {
-    // Check for cooldown
+    // El comando esta pausado?
     if (command.cooldown === undefined) {
       return true
     }
     return command.cooldown.fire()
   }).filter(command => {
-    // Check if mention was required and it has a mention
+    // La mencion es requerida?
     return (hasMention(msg) && command.mention) || !command.mention
   }).filter(command => {
-    // Check if command is appropiate for channel
+    // El comando y el canal es NSFW?
     return msg.channel.nsfw || !(command.nsfw === true)
   }).forEach(command => {
+    // Envia un mensaje por cada comando que pase todos los filtros anteriores
+    // Tal vez podemos cambiar esto a un map en el futuro
     sendfamfamoMessage(msg, command)
   })
 }
 
 let commands = [
+  {
+    "name": "comando",
+    "init": (msg) => {
+      let isAdmin = config.admins.some(uid => { return uid === msg.author.id; });
+      let maybeCommand = msg.content.trim().split(/\s+/)[1];
+      let maybeAction = msg.content.trim().split(/\s+/)[2];
+      let cmds = commands.filter(c => { return c.name === maybeCommand; });
+      return {
+              "command": maybeCommand,
+              "commands": cmds,
+              "hasCommands": cmds.length > 0,
+              "action": maybeAction,
+              "isAdmin": isAdmin
+            };
+    },
+    "title": (state) => {
+      if(!state.isAdmin) {
+        return `Necesitas ser un admin, pendejo`;
+      }
+      if(state.command === undefined) {
+        return "Necesitas especificar un comando, pendejo";
+      }
+      if(state.command === "comando") {
+        return "No <:wanwan:403968696067948554>";
+      }
+      if(!state.hasCommands) {
+        return `Comando \`${state.command}\` no encontrado`;
+      }
+      if(state.action !== "activar" && state.action !== "desactivar") {
+        return `Necesitas especificar una action "activar" o "desactivar, pendejo"`;
+      }
+      let action = (state.action === "activar") ? "activado" : "desactivado";
+      state.commands.forEach(c => { c.enable = (state.action === "activar"); });
+      return `(${state.commands.length}) comando ${state.command} ${action}`;
+    },
+    "action": (state) => {
+      return {"url": ""}
+    }
+  },
   {
     'name': 'roll',
     'init': (msg) => {

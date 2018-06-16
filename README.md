@@ -12,17 +12,13 @@ This is a custom bot for discord, is not recommendable use in a new Guild, this 
 * `git clone https://github.com/LucasBares/Biri-Biri-Staging.git`
 * `cd Biri-Biri-Staging`
 * `npm install --save`
-* Go to the `example-config.json`, remove the `example-` from the name of the file, and change the token of the bot
-
 
 ## How to Run the Bot 
 
-* `node login.js`
+* `npm start`
 
 * Things you must change:
   * Token of conection
-  * Reclamo(api conection url)
-  * Role (ID of the roles)
   * Every if with the channel.id = " # "
   
   

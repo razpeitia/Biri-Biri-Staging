@@ -1,10 +1,22 @@
-{
+{   
+   "admins": [
+      "274159725967572992",
+      "147090103859150848",
+      "226471573907963904",
+      "313068940651921408",
+      "250044591686811669",
+      "110249625713127424",
+      "300409676091097098",
+      "232370719407734784",
+      "365285848112955403",
+      "314619604590919681"
+   ],
    "cuteapi":{
       "types": ["cry", "pinch", "poke", "highfive", "nani", "punch", "hug",
                 "nom", "woop", "cuddle", "tickle", "slap", "smug", "sleep",
                 "pat", "lick", "kiss", "neko", "dancing", "triggered",
                 "meme", "yaoi", "loli", "yuri"]
-   },
+   },   
    "reactions":[
       {
          "message":"mamey",

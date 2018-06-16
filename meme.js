@@ -2,7 +2,7 @@ exports.meme = function (bot){
 
 
 var schedule = require('node-schedule');
-var Cooldown = require('cooldown'); 
+var Cooldown = require('cooldown');
 
 var cd = new Cooldown(25000);
 var memeCommands = ['n!meme'];
@@ -17,7 +17,7 @@ bot.on('message', msg => {
       var pic = mAvatarURL.replace(".png?size=2048", ".png");
       var chop = msg.content.split('>');
       var pichula = chop[1].split('|');
-      console.log("Meme generated for",mentioned['username']); 
+      console.log("Meme generated for",mentioned['username']);
       msg.channel.send({files: [memeCreator(pichula[0],pichula[1],pic)]});
     } else {
       msg.channel.send('esperate pendejo');

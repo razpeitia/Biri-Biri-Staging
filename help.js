@@ -19,6 +19,7 @@ const Discord = require("discord.js");
 							.addBlankField()
 							.addField("Para ver los comandos de Emociones con CuteApi pon", "► **n!hc**")
 							.addBlankField()
+							.addField("Para ver los cambios de la Version pon", "► **n!changelog")
 							.setColor(0xff0000)
 							.setFooter("© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png")
 		    			msg.channel.send({embed}).catch(console.error);
