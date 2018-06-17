@@ -33,6 +33,12 @@ function getRandom(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
+function getMessage(msg) {
+  let arr = msg.content.trim().split(' ')
+  arr.shift()
+  return arr.join(' ')
+}
+
 async function sendfamfamoMessage (msg, command) {
   let state = command.init instanceof Function ? command.init(msg) : {}
   state.author = msg.author.username
@@ -185,12 +191,13 @@ let commands = [
     'init': (msg) => {
       return {
         'valid': msg.content.split(' ').length >= 2,
+        'mensaje': getMessage(msg),
         'invalid': 'Se debe meter algo a alguien para ratear, pendejo',
         'calculado': Math.floor(Math.random() * 101)
       }
     },
     'title': (state) => {
-      return state.valid ? `La puntuacion de **${state.author}** es de **${state.calculado}**/100` : state.invalid
+      return state.valid ? `La puntuacion de **${state.mensaje}** es de **${state.calculado}**/100` : state.invalid
     },
     'image': (state) => { return {'url': ''} }
   },
@@ -247,6 +254,16 @@ let commands = [
       return `**${state.author}** te sacaste un ${state.number} de un dado de ${state.sides} caras`
     },
     'image': (state) => { return {url: ''} }
+  },
+  {
+    'name': 'f',
+    'init': (msg) => {
+      return {'mensaje': getMessage(msg) }
+    },
+    'title': (state) => {
+      return `**${state.author}** ha dado sus respetos por ${state.mensaje} <:feelsbadman:407397670341050368>`
+    },
+    'image': (state) => { return {'url': ''} }
   },
   {
     'name': 'pat',
