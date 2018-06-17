@@ -1,1 +1,1 @@
-worker: node login.js
+worker: npm start

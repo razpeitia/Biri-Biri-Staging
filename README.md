@@ -15,7 +15,7 @@ This is a custom bot for discord, is not recommendable use in a new Guild, this 
 
 ## How to Run the Bot 
 
-* `node login.js`
+* `npm start`
 
 * Things you must change:
   * Token of conection
