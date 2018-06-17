@@ -4,6 +4,7 @@ const client = require("nekos.life")
 const cute = require('cuteapi')
 const config = require('./config_commands.json')
 const Cooldown = require('cooldown')
+var request = require('request-promise')
 
 const neko = new client();
 const cuteapi = new cute(process.env.CUTE_TOKEN);
@@ -222,6 +223,17 @@ let commands = [
       return `${randomMention1} y ${randomMention2}`;
     },
     'image': (state) => { return {'url': ''} }
+  },
+  {
+    'name': 'birb',
+    'title': (state) => { return `${state.author} fue pajaredo!!!!!` },
+    'image': async (state) => {
+                let response = await request({
+                    url: 'https://random.birb.pw/tweet.json/',
+                    json: true,
+                });
+                return {url: `https://random.birb.pw/img/${response.file}`}
+            }
   },
   {
     'name': 'roll',
