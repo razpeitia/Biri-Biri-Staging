@@ -89,7 +89,7 @@ let commands = [
               "command": maybeCommand,
               "commands": cmds,
               "hasCommands": cmds.length > 0,
-              'image': maybeAction,
+              'action': maybeAction,
               "isAdmin": isAdmin
             };
     },
@@ -107,7 +107,7 @@ let commands = [
         return `Comando \`${state.command}\` no encontrado`;
       }
       if(state.action !== "activar" && state.action !== "desactivar") {
-        return `Necesitas especificar una action "activar" o "desactivar, pendejo"`;
+        return `Necesitas especificar una action "activar" o "desactivar", pendejo`;
       }
       let action = (state.action === "activar") ? "activado" : "desactivado";
       state.commands.forEach(c => { c.enable = (state.action === "activar"); });
