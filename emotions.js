@@ -243,6 +243,17 @@ let commands = [
             }
   },
   {
+    'name': 'dog',
+    'title': (state) => { return `<:webos:450520773652905984>` },
+    'image': async (state) => {
+                let response = await request({
+                    url: 'https://dog.ceo/api/breeds/image/random',
+                    json: true,
+                });
+                return {url: `${response.message}`}
+            }
+  },
+  {
     'name': 'roll',
     'init': (msg) => {
       let maybeNumber = msg.content.trim().split(/\s+/)[1]
