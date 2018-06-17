@@ -16,7 +16,58 @@
                 "nom", "woop", "cuddle", "tickle", "slap", "smug", "sleep",
                 "pat", "lick", "kiss", "neko", "dancing", "triggered",
                 "meme", "yaoi", "loli", "yuri"]
-   },   
+   },
+   "dab": {
+      "images": [
+         "https://cdn.weeb.sh/images/S1TQsg1c-.jpeg",
+         "https://cdn.weeb.sh/images/HJxaUzSa-.jpeg",
+         "https://cdn.weeb.sh/images/HyZZ2xJ5b.gif",
+         "https://cdn.weeb.sh/images/r13gL0tTb.png",
+         "https://media.giphy.com/media/ordLtY9K29ZMk/giphy.gif"
+      ],
+      "texts": [
+         "#DabIsDead",
+         "Dabear es de nubs",
+         "El Dab está fuera de moda"
+      ]
+   },
+   "wag": {
+      "images": [
+         "https://cdn.weeb.sh/images/rynHqkKD-.gif",
+         "https://cdn.weeb.sh/images/HkgnV9JYD-.jpeg",
+         "https://cdn.weeb.sh/images/S1ircyFwb.gif",
+         "https://cdn.weeb.sh/images/ByJ85ktDb.gif",
+         "https://cdn.weeb.sh/images/rJtHqkYw-.gif",
+         "https://cdn.weeb.sh/images/rJCVcytDW.gif",
+         "https://cdn.weeb.sh/images/ByQUc1YP-.jpeg",
+         "https://cdn.weeb.sh/images/HklUqyFP-.gif"
+       ]
+   },
+   "culear": {
+      "images": [
+         "https://cdn.discordapp.com/attachments/422831676155232267/450890728084733954/46782b53-e91a-4957-8aa5-af74b911f2ad.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/450890837149089793/tenor.gif",
+         "https://media.giphy.com/media/Saavhnp9YYN7a/giphy.gif",
+         "https://cdn.discordapp.com/attachments/451019016652324874/451191910657163265/SelfassuredAbleGermanshorthairedpointer-size_restricted.gif",
+         "https://cdn.discordapp.com/attachments/451019016652324874/451191909185224725/unnamed_3.gif",
+         "https://cdn.discordapp.com/attachments/451019016652324874/451191908744560643/unnamed_2.gif",
+         "https://cdn.discordapp.com/attachments/451019016652324874/451191908744560641/unnamed_5.gif",
+         "https://cdn.discordapp.com/attachments/439976223104303134/451201080273928232/330554__UNOPT__safe_scootaloo_gif_chicken.gif",
+         "https://cdn.discordapp.com/attachments/439976223104303134/451201073743527947/zzzzz.gif",
+         "https://cdn.discordapp.com/attachments/439976223104303134/451200701637591070/weird-funny-gif-mini-me.gif",
+         "https://cdn.discordapp.com/attachments/439976223104303134/451200671102795777/1365623937070.gif",
+         "https://cdn.discordapp.com/attachments/451019016652324874/455386923683414026/unnamed_4.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389300633370625/unnamed_8.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389301220442112/unnamed_6.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389301220442113/unnamed_7.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389331729940490/unnamed_1.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389331729940491/unnamed.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389362134450177/unnamed_3.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389362134450177/unnamed_3.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389419231379486/1482958306_16e0bd444240f2b7bd0312a67f6af211.gif",
+         "https://cdn.discordapp.com/attachments/422831676155232267/455389421198508042/aa2.gif"
+      ]
+   },
    "reactions":[
       {
          "message":"mamey",

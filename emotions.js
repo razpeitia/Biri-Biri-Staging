@@ -8,34 +8,46 @@ const Cooldown = require('cooldown')
 const neko = new client();
 const cuteapi = new cute(process.env.CUTE_TOKEN);
 
-function famfamoMsg (title, imgUrl) {
+function famfamoMsg (title, fields, imgUrl) {
   const color = 0xff0000
   const footer = ['© FAMFAMO ~ ', 'https://cdn.discordapp.com/emojis/411791637870542851.png']
-  return new Discord.RichEmbed()
-    .setTitle(title)
-    .setColor(color)
-    .setImage(imgUrl)
-    .setFooter(...footer)
+  let msg = new Discord.RichEmbed()
+  msg.setTitle(title)
+  msg.setColor(color)
+  msg.setImage(imgUrl)
+  fields.forEach((f) => msg.addField(...f))
+  msg.setFooter(...footer)
+  return msg
+}
+
+function countMentions(msg) {
+  return msg.mentions.members.size
 }
 
 function hasMention (msg) {
-  return msg.mentions.members.length > 0
+  return countMentions(msg) > 0
+}
+
+function getRandom(items) {
+  return items[Math.floor(Math.random() * items.length)];
 }
 
 async function sendfamfamoMessage (msg, command) {
   let state = command.init instanceof Function ? command.init(msg) : {}
   state.author = msg.author.username
   state.mention = hasMention(msg) ? msg.mentions.members.first().user.username : undefined
-  let imgUrl = (await command.action(state)).url
+  let imgUrl = (await command.image(state)).url
   let title = command.title instanceof Function ? command.title(state) : command.title || ''
-  msg.channel.send(famfamoMsg(title, imgUrl))
+  let fields = command.fields instanceof Function ? command.fields(state) : command.fields || []
+  msg.channel.send(famfamoMsg(title, fields, imgUrl))
 }
 
 function dispatch (msg, commands) {
   commands.filter(command => {
     // Check if it matches the command name
     let cmd = msg.content.trim().split(' ', 1)[0].toLowerCase()
-    return cmd === (prefix + command.name)
+    let alias = command.alias || [];
+    return cmd === (prefix + command.name) || alias.some((a) => { return (prefix + a) === cmd })
   }).filter(command => {
     // El comando esta activo?
     return command.enable === undefined || command.enable === true
@@ -47,7 +59,7 @@ function dispatch (msg, commands) {
     return command.cooldown.fire()
   }).filter(command => {
     // La mencion es requerida?
-    return (hasMention(msg) && command.mention) || !command.mention
+    return (command.mention === undefined) || (command.mention === countMentions(msg))
   }).filter(command => {
     // El comando y el canal es NSFW?
     return msg.channel.nsfw || !(command.nsfw === true)
@@ -70,7 +82,7 @@ let commands = [
               "command": maybeCommand,
               "commands": cmds,
               "hasCommands": cmds.length > 0,
-              "action": maybeAction,
+              'image': maybeAction,
               "isAdmin": isAdmin
             };
     },
@@ -94,9 +106,122 @@ let commands = [
       state.commands.forEach(c => { c.enable = (state.action === "activar"); });
       return `(${state.commands.length}) comando ${state.command} ${action}`;
     },
-    "action": (state) => {
+    'image': (state) => {
       return {"url": ""}
     }
+  },
+  {
+    'name': 'dab',
+    'init': (msg) => {
+      return {
+        "img": getRandom(config.dab.images),
+        "text": uitls.random(config.dab.texts)
+      }
+    },
+    'title': (state) => { return state.text },
+    'image': (state) => { return {url: state.img} }
+  },
+  {
+    'name': 'wag',
+    'init': (msg) => { return {img: getRandom(config.wag.images)} },
+    'title': (state) => { return '' },
+    'image': (state) => { return '' }
+  },
+  {
+    'name': 'culear',
+    'alias': ['culiar'],
+    'mention': 1,
+    'init': (msg) => {
+      let author = msg.author.username
+      let mention = msg.mentions.members.first().user.username
+      if(author !== mention) {
+        return {
+          title: `${author}, te esta culeando ${mention}`,
+          image: getRandom(config.culear.images)
+        }
+      } else {
+        return {
+          title: 'No te puedes culear a ti mismo, pendejo',
+          image: ''
+        }
+      }
+    },
+    'title': (state) => { return state.title },
+    'image': (state) => { return {'url': state.image} }
+  },
+  {
+    'name': 'lovecalc',
+    'mention': 2,
+    'init': (msg) => {
+      let mention1 = msg.mentions.members.first().user.username;
+      let mention2 = msg.mentions.members.last().user.username;
+      if(mention1 !== mention2) {
+        let calculado = Math.floor(Math.random() * 101);
+        return {
+          title: '❤ Calculador de Amor ❤',
+          fields: [[`El amor entre ${mention1} y ${mention2} es de`, `${calculado}%`]],
+          image: ''
+        }
+      } else {
+        return {'title': 'Forever alone </3', image: ''}
+      }
+    },
+    'title': (state) => { return state.title },
+    'fields': (state) => { return state.fields },
+    'image': (state) => { return {url: state.image} }
+  },
+  {
+    'name': 'ping',
+    'init': (msg) => {
+      latency = new Date().getTime() - msg.createdTimestamp
+      return {'latency':  latency + ' ms'}
+    },
+    'title': (state) => { return state.latency },
+    'image': (state) => { return {'url': ''} }
+  },
+  {
+    'name': 'rate',
+    'init': (msg) => {
+      return {
+        'valid': msg.content.split(' ').length >= 2,
+        'invalid': 'Se debe meter algo a alguien para ratear, pendejo',
+        'calculado': Math.floor(Math.random() * 101)
+      }
+    },
+    'title': (state) => {
+      return state.valid ? `La puntuacion de **${state.author}** es de **${state.calculado}**/100` : state.invalid
+    },
+    'image': (state) => { return {'url': ''} }
+  },
+  {
+    'name': 'avatar',
+    'init': (msg) => {
+      let avatar = hasMention(msg) ? msg.mentions.members.first() : msg.author.avatarURL
+      return {'avatar': avatar}
+    },
+    'image': (state) => {
+      return {'url': state.avatar}
+    }
+  },
+  {
+    'name': 'ship',
+    'mention': 2,
+    'init': (msg) => {
+      return {
+        'mention1': msg.mentions.members.first().user.username,
+        'mention2': msg.mentions.members.last().user.username
+      }
+    },
+    'title': (state) => {
+      let random1 =  Math.floor((Math.random()* 5) + 1);
+      let random2 =  Math.floor((Math.random()* 5) + 1);
+      let random3 =  Math.floor((Math.random()* 5) + 1);
+      let random4  =  Math.floor((Math.random()* 5) + 1);
+      let randomMention1 = state.mention1.slice(random1, random2);
+      let randomMention2 = state.mention2.slice(random3, random4);
+      return `${randomMention1} y ${randomMention2}`;
+    },
+    'image': (state) => { return {'url': ''} }
   },
   {
     'name': 'roll',
@@ -109,52 +234,52 @@ let commands = [
     'title': (state) => {
       return `**${state.author}** te sacaste un ${state.number} de un dado de ${state.sides} caras`
     },
-    'action': (state) => { return {url: ''} }
+    'image': (state) => { return {url: ''} }
   },
   {
     'name': 'pat',
-    'mention': true,
-    'action': neko.getSFWPat,
+    'mention': 1,
+    'image': neko.getSFWPat,
     'title': state => { return `**${state.mention}** *recibiste un pat de* **${state.author}**` }
   },
   {
     'name': 'kiss',
-    'mention': true,
-    'action': neko.getSFWKiss,
+    'mention': 1,
+    'image': neko.getSFWKiss,
     'title': state => { return `**${state.mention}** recibiste un beso de **${state.author}**` }
   },
   {
     'name': 'slap',
-    'mention': true,
-    'action': neko.getSFWSlap,
+    'mention': 1,
+    'image': neko.getSFWSlap,
     'title': state => { return `**${state.mention}** recibiste un Slap de **${state.author}**` }
   },
   {
     'name': 'hug',
-    'mention': true,
-    'action': neko.getSFWHug,
+    'mention': 1,
+    'image': neko.getSFWHug,
     'title': state => { return `**${state.mention}** recibiste un Abrazo de **${state.author}**` }
   },
   {
     'name': 'poke',
-    'mention': true,
-    'action': neko.getSFWPoke,
+    'mention': 1,
+    'image': neko.getSFWPoke,
     'title': state => { return `**${state.mention}** recibiste un Poke de **${state.author}**` }
   },
   {
     'name': 'feed',
-    'mention': true,
-    'action': neko.getSFWFeed,
+    'mention': 1,
+    'image': neko.getSFWFeed,
     'title': state => { return `**${state.mention}** te está alimentando **${state.author}**` }
   },
   {
     'name': 'meaw',
-    'action': neko.getSFWNeko
+    'image': neko.getSFWNeko
   },
   {
     'name': 'cuddle',
-    'mention': true,
-    'action': neko.getSFWCuddle,
+    'mention': 1,
+    'image': neko.getSFWCuddle,
     'title': state => { return `**${state.mention}** recibiste un Abrazo de **${state.author}**` }
   },
   {
@@ -166,32 +291,32 @@ let commands = [
       return {'lado': 'sol', 'url': 'https://i.imgur.com/3ECJb4T.gif'}
     },
     'title': (state) => { return `**${state.author}** te sacaste ${state.lado}` },
-    'action': (state) => { return {'url': state.url} },
+    'image': (state) => { return {'url': state.url} },
     'cooldown': new Cooldown(30 * 1000) // 30 seconds
   },
   {
     'name': 'tickle',
-    'action': neko.getSFWTickle
+    'image': neko.getSFWTickle
   },
   {
     'name': 'lizzard',
-    'action': neko.getSFWLizard
+    'image': neko.getSFWLizard
   },
   {
     'name': 'foxgirl',
-    'action': neko.getSFWFoxGirl
+    'image': neko.getSFWFoxGirl
   },
   {
     'name': 'nekogif',
-    'action': neko.getSFWNekogif
+    'image': neko.getSFWNekogif
   },
   {
     'name': 'kemono',
-    'action': neko.getSFWKemonomimi
+    'image': neko.getSFWKemonomimi
   },
   {
     'name': 'holo',
-    'action': neko.getSFWHolo
+    'image': neko.getSFWHolo
   },
   {
     'name': 'triggered',
@@ -202,7 +327,7 @@ let commands = [
     'title': (state) => {
       return `**${state.mention.username}** ha sido triggereado`
     },
-    'action': async (state) => {
+    'image': async (state) => {
       let url = `https://cdn.discordapp.com/avatars/${state.mention.id}/${state.mention.avatar}.jpg?size=2048`
       let imgUrl = await cuteapi.generate('triggered', url)
       return {'url': imgUrl}
@@ -218,202 +343,202 @@ let commands = [
       return {'type': type}
     },
     'title': (state) => { return `Usted a recibido un(a) ${state.type}` },
-    'action': (state) => { return cuteapi.getJSON(state.type, false) }
+    'image': (state) => { return cuteapi.getJSON(state.type, false) }
   },
   // NSFW Commands
   {
     'name': 'eron',
-    'action': neko.getNSFWEroNeko,
+    'image': neko.getNSFWEroNeko,
     'nsfw': true
   },
   {
     'name': 'holoero',
-    'action': neko.getNSFWHoloEro,
+    'image': neko.getNSFWHoloEro,
     'nsfw': true
   },
   {
     'name': 'patas',
-    'action': neko.getSFWEroFeet,
+    'image': neko.getSFWEroFeet,
     'nsfw': true
   },
   {
     'name': 'loli',
-    'action': neko.getNSFWSmallBoobs,
+    'image': neko.getNSFWSmallBoobs,
     'nsfw': true
   },
   {
     'name': 'pussy',
-    'action': neko.getNSFWPussyGif,
+    'image': neko.getNSFWPussyGif,
     'nsfw': true
   },
   {
     'name': 'analart',
-    'action': neko.getNSFWAnalArts,
+    'image': neko.getNSFWAnalArts,
     'nsfw': true
   },
   {
     'name': 'lewdnekogif',
-    'action': neko.getNSFWNekoGif,
+    'image': neko.getNSFWNekoGif,
     'nsfw': true
   },
   {
     'name': 'pussyart',
-    'action': neko.getNSFWPussyArt,
+    'image': neko.getNSFWPussyArt,
     'nsfw': true
   },
   {
     'name': 'pwankg',
-    'action': neko.getNSFWPussyWankGif,
+    'image': neko.getNSFWPussyWankGif,
     'nsfw': true
   },
   {
     'name': 'eroyuri',
-    'action': neko.getNSFWEroYuri,
+    'image': neko.getNSFWEroYuri,
     'nsfw': true
   },
   {
     'name': 'erokemo',
-    'action': neko.getNSFWEroKemonomimi,
+    'image': neko.getNSFWEroKemonomimi,
     'nsfw': true
   },
   {
     'name': 'blowjob',
-    'action': neko.getNSFWBlowJob,
+    'image': neko.getNSFWBlowJob,
     'nsfw': true
   },
   {
     'name': 'trap',
-    'action': neko.getNSFWTrap,
+    'image': neko.getNSFWTrap,
     'nsfw': true
   },
   {
     'name': 'tits',
-    'action': neko.getNSFWTits,
+    'image': neko.getNSFWTits,
     'nsfw': true
   },
   {
     'name': 'solo',
-    'action': neko.getNSFWGirlSolo,
+    'image': neko.getNSFWGirlSolo,
     'nsfw': true
   },
   {
     'name': 'solog',
-    'action': neko.getNSFWGirlSoloGif,
+    'image': neko.getNSFWGirlSoloGif,
     'nsfw': true
   },
   {
     'name': 'anal',
-    'action': neko.getNSFWAnal,
+    'image': neko.getNSFWAnal,
     'nsfw': true
   },
   {
     'name': 'kuni',
-    'action': neko.getNSFWKuni,
+    'image': neko.getNSFWKuni,
     'nsfw': true
   },
   {
     'name': 'random',
-    'action': neko.getNSFWRandomHentaiGif,
+    'image': neko.getNSFWRandomHentaiGif,
     'nsfw': true
   },
   {
     'name': 'lewdkemo',
-    'action': neko.getNSFWKemonomimi,
+    'image': neko.getNSFWKemonomimi,
     'nsfw': true
   },
   {
     'name': 'feet',
-    'action': neko.getNSFWFeet,
+    'image': neko.getNSFWFeet,
     'nsfw': true
   },
   {
     'name': 'ero',
-    'action': neko.getNSFWEro,
+    'image': neko.getNSFWEro,
     'nsfw': true
   },
   {
     'name': 'cumart',
-    'action': neko.getNSFWCumArts,
+    'image': neko.getNSFWCumArts,
     'nsfw': true
   },
   {
     'name': 'cum',
-    'action': neko.getNSFWCumsluts,
+    'image': neko.getNSFWCumsluts,
     'nsfw': true
   },
   {
     'name': 'classic',
-    'action': neko.getNSFWClassic,
+    'image': neko.getNSFWClassic,
     'nsfw': true
   },
   {
     'name': 'pussy',
-    'action': neko.getNSFWPussy,
+    'image': neko.getNSFWPussy,
     'nsfw': true
   },
   {
     'name': 'futanari',
-    'action': neko.getNSFWFutanari,
+    'image': neko.getNSFWFutanari,
     'nsfw': true
   },
   {
     'name': 'boobs',
-    'action': neko.getNSFWBoobs,
+    'image': neko.getNSFWBoobs,
     'nsfw': true
   },
   {
     'name': 'keta',
-    'action': neko.getNSFWKeTa,
+    'image': neko.getNSFWKeTa,
     'nsfw': true
   },
   {
     'name': 'bj',
-    'action': neko.getNSFWBj,
+    'image': neko.getNSFWBj,
     'nsfw': true
   },
   {
     'name': 'erok',
-    'action': neko.getNSFWEroKitsune,
+    'image': neko.getNSFWEroKitsune,
     'nsfw': true
   },
   {
     'name': 'hololewd',
-    'action': neko.getNSFWHolo,
+    'image': neko.getNSFWHolo,
     'nsfw': true
   },
   {
     'name': 'yuri',
-    'action': neko.getNSFWYuri,
+    'image': neko.getNSFWYuri,
     'nsfw': true
   },
   {
     'name': 'feetgif',
-    'action': neko.getNSFWFeetGif,
+    'image': neko.getNSFWFeetGif,
     'nsfw': true
   },
   {
     'name': 'lewdk',
-    'action': neko.getNSFWKitsune,
+    'image': neko.getNSFWKitsune,
     'nsfw': true
   },
   {
     'name': 'lewd',
-    'action': neko.getNSFWNeko,
+    'image': neko.getNSFWNeko,
     'nsfw': true
   },
   {
     'name': 'femdom',
-    'action': neko.getNSFWFemdom,
+    'image': neko.getNSFWFemdom,
     'nsfw': true
   },
   {
     'name': 'hentai',
-    'action': neko.getNSFWHentai,
+    'image': neko.getNSFWHentai,
     'nsfw': true
   },
   {
     'name': 'les',
-    'action': neko.getNSFWLesbian,
+    'image': neko.getNSFWLesbian,
     'nsfw': true
   }
 ]
