@@ -6,8 +6,9 @@ const Discord = require("discord.js");
 		if(msg.content.startsWith(prefix + "changelog")){
 			const embed = new Discord.RichEmbed()
 							.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
-							.addField(`Changelog de Biri Biri`, "Versión actual: 2.2 ~ ")
+							.addField(`Changelog de Biri Biri`, "Versión actual: 2.3 ~ ")
 							.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
+							.addField("Version 2.3", "Cambio de Servidor / Agregado n!avatar")
 							.addField("Version 2.2", "Agregado n!dab")
 							.addField("Version 2.1", "Agregado más gifs de culear")
 							.addField("Version 2.0", "Agregado n!culear | n!culiar")

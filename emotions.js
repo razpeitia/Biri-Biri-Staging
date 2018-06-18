@@ -9,11 +9,12 @@ var request = require('request-promise')
 const neko = new client();
 const cuteapi = new cute(process.env.CUTE_TOKEN);
 
-function famfamoMsg (title, fields, imgUrl) {
+function famfamoMsg (title, description, fields, imgUrl) {
   const color = 0xff0000
   const footer = ['© FAMFAMO ~ ', 'https://cdn.discordapp.com/emojis/411791637870542851.png']
   let msg = new Discord.RichEmbed()
   msg.setTitle(title)
+  msg.setDescription(description)
   msg.setColor(color)
   msg.setImage(imgUrl)
   fields.forEach((f) => msg.addField(...f))
@@ -45,8 +46,9 @@ async function sendfamfamoMessage (msg, command) {
   state.mention = hasMention(msg) ? msg.mentions.members.first().user.username : undefined
   let imgUrl = (await command.image(state)).url
   let title = command.title instanceof Function ? command.title(state) : command.title || ''
+  let description = command.description instanceof Function ? command.description(state) : command.description || ''
   let fields = command.fields instanceof Function ? command.fields(state) : command.fields || []
-  msg.channel.send(famfamoMsg(title, fields, imgUrl))
+  msg.channel.send(famfamoMsg(title, description, fields, imgUrl))
 }
 
 function dispatch (msg, commands) {
@@ -143,7 +145,7 @@ let commands = [
       let mention = msg.mentions.members.first().user.username
       if(author !== mention) {
         return {
-          title: `${author}, te esta culeando ${mention}`,
+          title: `${mention}, te esta culeando ${author}`,
           image: getRandom(config.culear.images)
         }
       } else {
@@ -271,8 +273,8 @@ let commands = [
     'init': (msg) => {
       return {'mensaje': getMessage(msg) }
     },
-    'title': (state) => {
-      return `**${state.author}** ha dado sus respetos por ${state.mensaje} <:feelsbadman:407397670341050368>`
+    'description': (state) => {
+      return `**${state.author}** ha dado sus respetos por ${state.mensaje} <:sad:403381288188510210>`
     },
     'image': (state) => { return {'url': ''} }
   },
