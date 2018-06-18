@@ -1,12 +1,11 @@
-# Javascript Node CircleCI 2.0 configuration file
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
+# Configuracion para deploy,
+# solamente se conecta a la instancia de Digital Ocean
+# y corre un script de deploy
 version: 2
 
 jobs:
   deploy:
     docker:
-      # specify the version you desire here
       - image: circleci/node:8.2.1
     working_directory: ~/repo
     steps:
