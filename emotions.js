@@ -274,7 +274,7 @@ let commands = [
       return {'mensaje': getMessage(msg) }
     },
     'description': (state) => {
-      return `**${state.author}** ha dado sus respetos por ${state.mensaje} <:feelsbadman:407397670341050368>`
+      return `**${state.author}** ha dado sus respetos por ${state.mensaje} <:sad:403381288188510210>`
     },
     'image': (state) => { return {'url': ''} }
   },
