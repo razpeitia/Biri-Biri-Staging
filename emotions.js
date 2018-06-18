@@ -143,7 +143,7 @@ let commands = [
       let mention = msg.mentions.members.first().user.username
       if(author !== mention) {
         return {
-          title: `${author}, te esta culeando ${mention}`,
+          title: `${mention}, te esta culeando ${author}`,
           image: getRandom(config.culear.images)
         }
       } else {
