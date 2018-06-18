@@ -204,7 +204,7 @@ let commands = [
   {
     'name': 'avatar',
     'init': (msg) => {
-      let avatar = hasMention(msg) ? msg.mentions.members.first() : msg.author.avatarURL
+      let avatar = hasMention(msg) ? msg.mentions.members.first().avatarURL : msg.author.avatarURL
       return {'avatar': avatar}
     },
     'image': (state) => {
