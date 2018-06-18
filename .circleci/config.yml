@@ -1,0 +1,29 @@
+# Configuracion para deploy,
+# solamente se conecta a la instancia de Digital Ocean
+# y corre un script de deploy
+version: 2
+
+jobs:
+  deploy:
+    docker:
+      - image: circleci/node:8.2.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "a2:dd:67:d0:58:c3:19:db:c3:b2:65:5a:d2:cc:26:89"
+            - "77:f3:7b:59:20:ca:c1:9a:5f:03:62:7f:93:0b:40:0b"
+            - "74:cd:aa:f5:3b:c0:2d:59:c8:12:ae:c6:8e:90:c1:e2"
+      - run:
+          name: Deploy
+          command: ssh -o StrictHostKeyChecking=no $DO_USER@$DO_IP "/app/deploy.sh"
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - production
