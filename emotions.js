@@ -40,6 +40,44 @@ function getMessage(msg) {
   return arr.join(' ')
 }
 
+function combinename(name1, name2) {
+  const vowels = ['a','e','i','o','u','y'];
+  let count1 =- 1, count2 = -1;
+  let mid1 = Math.ceil(name1.length/2)-1;
+  let mid2 = Math.ceil(name2.length/2)-1;
+  let noVowel1 = false, noVowel2 = false;
+  let i;
+  for(i = mid1; i >= 0; i--) {
+    count1++
+    if(vowels.includes(name1.charAt(i).toLowerCase())){
+      i = -1;
+    } else if(i == 0) {
+      noVowel1 = true;
+    }
+  }
+  for(i = mid2; i < name2.length; i++) {
+    count2++;
+    if(vowels.includes(name2.charAt(i).toLowerCase())){
+      i = name2.length;
+    } else if(i == name2.length - 1) {
+      noVowel2 = true;
+    }
+  }
+
+  var name = "";
+  if(noVowel1 && noVowel2) {
+    name = name1.substring(0, mid1 + 1);
+    name += name2.substring(mid2);
+  } else if(count1 <= count2) {
+    name = name1.substring(0,mid1-count1+1);
+    name += name2.substring(mid2);
+  } else {
+    name = name1.substring(0, mid1 + 1);
+    name += name2.substring(mid2 + count2);
+  }
+  return name;
+}
+
 async function sendfamfamoMessage (msg, command) {
   let state = command.init instanceof Function ? command.init(msg) : {}
   state.author = msg.author.username
@@ -223,13 +261,7 @@ let commands = [
       }
     },
     'title': (state) => {
-      let random1 =  Math.floor((Math.random()* 5) + 1);
-      let random2 =  Math.floor((Math.random()* 5) + 1);
-      let random3 =  Math.floor((Math.random()* 5) + 1);
-      let random4  =  Math.floor((Math.random()* 5) + 1);
-      let randomMention1 = state.mention1.slice(random1, random2);
-      let randomMention2 = state.mention2.slice(random3, random4);
-      return `${randomMention1} y ${randomMention2}`;
+      return `${state.mention1} y ${state.mention2} = ${combinename(state.mention1, state.mention2)}`;
     },
     'image': (state) => { return {'url': ''} }
   },
