@@ -9,6 +9,9 @@ var request = require('request-promise')
 const neko = new client();
 const cuteapi = new cute(process.env.CUTE_TOKEN);
 
+const StatsD = require('hot-shots');
+const dogstatsd = new StatsD();
+
 function famfamoMsg (title, description, fields, imgUrl) {
   const color = 0xff0000
   const footer = ['© FAMFAMO ~ ', 'https://cdn.discordapp.com/emojis/411791637870542851.png']
@@ -90,6 +93,12 @@ async function sendfamfamoMessage (msg, command) {
 }
 
 function dispatch (msg, commands) {
+  // It is not a command, so I don't care
+  if(!msg.content.startsWith(prefix)) return;
+
+  // You are a bot, your command is not important
+  if(msg.author.bot) return;
+
   commands.filter(command => {
     // Check if it matches the command name
     let cmd = msg.content.trim().split(' ', 1)[0].toLowerCase()
@@ -617,4 +626,18 @@ let commands = [
   }
 ]
 
-exports.emotions = (bot) => { bot.on('message', msg => { dispatch(msg, commands) }) }
+exports.emotions = (bot) => {
+
+  // Emmit bot metrics every 10 seconds
+  setInterval(() => {
+    dogstatsd.histogram('discord.users', bot.users.size)
+    dogstatsd.histogram('discord.servers', bot.guilds.size)
+  }, 10 * 1000)
+
+  bot.on('message', msg => {
+    let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
+    dogstatsd.increment('discord.message', 1, tags)
+    dogstatsd.histogram('discord.latency', bot.ping, tags)
+    dispatch(msg, commands)
+  })
+}
