@@ -9,6 +9,9 @@ var request = require('request-promise')
 const neko = new client();
 const cuteapi = new cute(process.env.CUTE_TOKEN);
 
+const StatsD = require('hot-shots');
+const dogstatsd = new StatsD();
+
 function famfamoMsg (title, description, fields, imgUrl) {
   const color = 0xff0000
   const footer = ['© FAMFAMO ~ ', 'https://cdn.discordapp.com/emojis/411791637870542851.png']
@@ -40,6 +43,44 @@ function getMessage(msg) {
   return arr.join(' ')
 }
 
+function combinename(name1, name2) {
+  const vowels = ['a','e','i','o','u','y'];
+  let count1 =- 1, count2 = -1;
+  let mid1 = Math.ceil(name1.length/2)-1;
+  let mid2 = Math.ceil(name2.length/2)-1;
+  let noVowel1 = false, noVowel2 = false;
+  let i;
+  for(i = mid1; i >= 0; i--) {
+    count1++
+    if(vowels.includes(name1.charAt(i).toLowerCase())){
+      i = -1;
+    } else if(i == 0) {
+      noVowel1 = true;
+    }
+  }
+  for(i = mid2; i < name2.length; i++) {
+    count2++;
+    if(vowels.includes(name2.charAt(i).toLowerCase())){
+      i = name2.length;
+    } else if(i == name2.length - 1) {
+      noVowel2 = true;
+    }
+  }
+
+  var name = "";
+  if(noVowel1 && noVowel2) {
+    name = name1.substring(0, mid1 + 1);
+    name += name2.substring(mid2);
+  } else if(count1 <= count2) {
+    name = name1.substring(0,mid1-count1+1);
+    name += name2.substring(mid2);
+  } else {
+    name = name1.substring(0, mid1 + 1);
+    name += name2.substring(mid2 + count2);
+  }
+  return name;
+}
+
 async function sendfamfamoMessage (msg, command) {
   let state = command.init instanceof Function ? command.init(msg) : {}
   state.author = msg.author.username
@@ -52,6 +93,12 @@ async function sendfamfamoMessage (msg, command) {
 }
 
 function dispatch (msg, commands) {
+  // It is not a command, so I don't care
+  if(!msg.content.startsWith(prefix)) return;
+
+  // You are a bot, your command is not important
+  if(msg.author.bot) return;
+
   commands.filter(command => {
     // Check if it matches the command name
     let cmd = msg.content.trim().split(' ', 1)[0].toLowerCase()
@@ -223,13 +270,7 @@ let commands = [
       }
     },
     'title': (state) => {
-      let random1 =  Math.floor((Math.random()* 5) + 1);
-      let random2 =  Math.floor((Math.random()* 5) + 1);
-      let random3 =  Math.floor((Math.random()* 5) + 1);
-      let random4  =  Math.floor((Math.random()* 5) + 1);
-      let randomMention1 = state.mention1.slice(random1, random2);
-      let randomMention2 = state.mention2.slice(random3, random4);
-      return `${randomMention1} y ${randomMention2}`;
+      return `${state.mention1} y ${state.mention2} = ${combinename(state.mention1, state.mention2)}`;
     },
     'image': (state) => { return {'url': ''} }
   },
@@ -585,4 +626,18 @@ let commands = [
   }
 ]
 
-exports.emotions = (bot) => { bot.on('message', msg => { dispatch(msg, commands) }) }
+exports.emotions = (bot) => {
+
+  // Emmit bot metrics every 10 seconds
+  setInterval(() => {
+    dogstatsd.histogram('discord.users', bot.users.size)
+    dogstatsd.histogram('discord.servers', bot.guilds.size)
+  }, 10 * 1000)
+
+  bot.on('message', msg => {
+    let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
+    dogstatsd.increment('discord.message', 1, tags)
+    dogstatsd.histogram('discord.latency', bot.ping, tags)
+    dispatch(msg, commands)
+  })
+}
