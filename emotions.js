@@ -190,7 +190,7 @@ let commands = [
     'init': (msg) => {
       return {
         "img": getRandom(config.dab.images),
-        "text": uitls.random(config.dab.texts)
+        "text": getRandom(config.dab.texts)
       }
     },
     'title': (state) => { return state.text },
