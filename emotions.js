@@ -12,6 +12,9 @@ const cuteapi = new cute(process.env.CUTE_TOKEN);
 const StatsD = require('hot-shots');
 const dogstatsd = new StatsD();
 
+const Trello = require('trello')
+const trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN);
+
 function famfamoMsg (title, description, fields, imgUrl) {
   const color = 0xff0000
   const footer = ['© FAMFAMO ~ ', 'https://cdn.discordapp.com/emojis/411791637870542851.png']
@@ -165,6 +168,22 @@ let commands = [
     'image': (state) => {
       return {"url": ""}
     }
+  },
+  {
+    'name': 'dev',
+    'init': (msg) => {
+      let content = getMessage(msg)
+      if(content.trim() === "") {
+        return {'title': 'Tienes que darnos un mensaje pendejo'}
+      } else {
+        let ts = new Date().toISOString();
+        let sugestion = `@${msg.author.username}(${msg.author.id})[${ts}]`
+        trello.addCard(sugestion, getMessage(msg), "5b27dfc25561a398e3c26e3e").then( (x) => {} )
+        return {'title': 'Gracias lo tomaremos en cuenta'}
+      }
+    },
+    'title': (state) => { return state.title },
+    'image': (state) => { return {url: ''} }
   },
   {
     'name': 'dab',
