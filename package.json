@@ -23,6 +23,7 @@
     "node-schedule": "^1.3.0",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
-    "snekfetch": "^4.0.0"
+    "snekfetch": "^4.0.0",
+    "trello": "^0.9.0"
   }
 }
