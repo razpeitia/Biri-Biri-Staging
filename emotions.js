@@ -174,12 +174,12 @@ let commands = [
     'init': (msg) => {
       let content = getMessage(msg)
       if(content.trim() === "") {
-        return {'title': 'Tienes que darnos un mensaje pendejo'}
+        return {'title': 'Tienes que darnos un mensaje, pendejo'}
       } else {
         let ts = new Date().toISOString();
         let sugestion = `@${msg.author.username}(${msg.author.id})[${ts}]`
         trello.addCard(sugestion, getMessage(msg), "5b27dfc25561a398e3c26e3e").then( (x) => {} )
-        return {'title': 'Gracias lo tomaremos en cuenta'}
+        return {'title': 'Gracias, lo tomaremos en cuenta'}
       }
     },
     'title': (state) => { return state.title },
@@ -190,7 +190,7 @@ let commands = [
     'init': (msg) => {
       return {
         "img": getRandom(config.dab.images),
-        "text": uitls.random(config.dab.texts)
+        "text": getRandom(config.dab.texts)
       }
     },
     'title': (state) => { return state.text },
