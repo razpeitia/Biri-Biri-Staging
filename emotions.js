@@ -200,7 +200,7 @@ let commands = [
     'name': 'wag',
     'init': (msg) => { return {img: getRandom(config.wag.images)} },
     'title': (state) => { return '' },
-    'image': (state) => { return '' }
+    'image': (state) => { return { 'url': state.img } }
   },
   {
     'name': 'culear',
