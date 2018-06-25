@@ -1,19 +1,5 @@
 const prefix = 'n!'
 const Discord = require('discord.js')
-const client = require("nekos.life")
-const cute = require('cuteapi')
-const config = require('./config_commands.json')
-const Cooldown = require('cooldown')
-var request = require('request-promise')
-
-const neko = new client();
-const cuteapi = new cute(process.env.CUTE_TOKEN);
-
-const StatsD = require('hot-shots');
-const dogstatsd = new StatsD();
-
-const Trello = require('trello')
-const trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN)
 
 function famfamoMsg (title, description, fields, imgUrl) {
   const color = 0xff0000
@@ -26,15 +12,6 @@ function famfamoMsg (title, description, fields, imgUrl) {
   fields.forEach((f) => msg.addField(...f))
   msg.setFooter(...footer)
   return msg
-}
-
-function cooldown(params) {
-  let ms = params.milliseconds || 0
-  let seconds = params.seconds || 0
-  let minutes = params.minutes || 0
-  let hours = params.hours || 0
-  let total = (1000 * ((hours * 3600) + (minutes * 60) + seconds)) + ms
-  return new Cooldown(total)
 }
 
 function countMentions(msg) {
@@ -106,10 +83,10 @@ async function sendfamfamoMessage (msg, command) {
 
 function dispatch (msg, commands) {
   // It is not a command, so I don't care
-  if(!msg.content.startsWith(prefix)) return;
+  if(!msg.content.startsWith(prefix)) return [];
 
   // You are a bot, your command is not important
-  if(msg.author.bot) return;
+  if(msg.author.bot) return [];
 
   return commands.filter(command => {
     // Check if it matches the command name
@@ -142,7 +119,16 @@ function execute(msg, commands) {
   })
 }
 
-let commands = [
+exports.commands = (clients) => {
+  let neko = clients.neko
+  let trello = clients.trello
+  let cuteapi = clients.cuteapi
+  let request = clients.request
+  let dogstatsd = clients.dogstatsd
+  let config = clients.config
+  let cooldown = clients.cooldown
+
+  return [
   {
     "name": "comando",
     "init": (msg) => {
@@ -657,22 +643,18 @@ let commands = [
     'nsfw': true
   }
 ]
+}
 
-exports.emotions = (bot) => {
+exports.emotions = (bot, commands, clients) => {
   bot.on('message', msg => {
     let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
-    dogstatsd.increment('discord.message', 1, tags)
-    dogstatsd.histogram('discord.latency', bot.ping, tags)
+    clients.dogstatsd.increment('discord.message', 1, tags)
+    clients.dogstatsd.histogram('discord.latency', bot.ping, tags)
     execute(msg, dispatch(msg, commands))
   })
 }
 
 
 // Exports due testing
-exports.dispatchTest = (msg) => {
-  // Remove cooldown for testing
-  // FIXME: Find a way to test cooldown
-  commands.forEach((command) => command.cooldown = undefined)
-  return dispatch(msg, commands)
-}
+exports.dispatchTest = dispatch
 exports.executeTest = execute
