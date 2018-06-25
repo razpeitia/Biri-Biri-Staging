@@ -50,7 +50,10 @@ function makeFakeClients() {
     },
     // FIXME; Don't use actual config
     'config': config,
-    'cooldown': (_) => undefined
+    'cooldown': (_) => undefined,
+    'cuteapi': {
+      'getJSON': (type, nsfw) => {'url': `https://cuteapi/${type}.png`}
+    }
   }
 }
 
@@ -107,6 +110,18 @@ describe('Dab command', () => {
       expect(msg.image.url).toBe('https://example.com/pat.png')
     }
     let msg = new MessageTest('n!pat', handler, true, [makeMention('someMention')])
+    execute(msg, commands)
+  })
+
+  it('Should kiss', () => {
+    let handler = (message, msg) => {
+      expectNotEmpty(msg.title)
+      expect(msg.title).toBe('**someMention** *recibiste un pat de* **someUsername**')
+      expectNotEmpty(msg.image.url)
+      expectUrl(msg.image.url)
+      expect(msg.image.url).toBe('https://example.com/pat.png')
+    }
+    let msg = new MessageTest('n!c kiss', handler, true, [makeMention('someMention')])
     execute(msg, commands)
   })
 })
