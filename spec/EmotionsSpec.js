@@ -52,7 +52,7 @@ function makeFakeClients() {
     'config': config,
     'cooldown': (_) => undefined,
     'cuteapi': {
-      'getJSON': (type, nsfw) => {'url': `https://cuteapi/${type}.png`}
+      'getJSON': (type, nsfw) => ({'url': `https://cuteapi/${type}.png`})
     }
   }
 }
@@ -74,7 +74,7 @@ function execute(msg, commands) {
   emotions.executeTest(msg, responseCommands)
 }
 
-describe('Dab command', () => {
+describe('Emotion commands', () => {
   let commands = makeCommands()
   it('Should run dab', () => {
     let msg = new MessageTest('n!dab', ((message, msg) => {
@@ -116,10 +116,10 @@ describe('Dab command', () => {
   it('Should kiss', () => {
     let handler = (message, msg) => {
       expectNotEmpty(msg.title)
-      expect(msg.title).toBe('**someMention** *recibiste un pat de* **someUsername**')
+      expect(msg.title).toBe('Usted a recibido un(a) kiss')
       expectNotEmpty(msg.image.url)
       expectUrl(msg.image.url)
-      expect(msg.image.url).toBe('https://example.com/pat.png')
+      expect(msg.image.url).toBe('https://cuteapi/kiss.png')
     }
     let msg = new MessageTest('n!c kiss', handler, true, [makeMention('someMention')])
     execute(msg, commands)
