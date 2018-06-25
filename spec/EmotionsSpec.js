@@ -3,6 +3,24 @@ const events = require('events');
 const Collection = require('discord.js/src/util/Collection')
 const config = require('../config_commands.json')
 
+function makeUser(username, bot) {
+  return {
+    'id': 123,
+    'name': username,
+    'username': username,
+    'bot': bot || false
+  }
+}
+
+function makeMention(username) {
+  return {
+    'user': {
+      'id': 321,
+      'username': username
+    }
+  }
+}
+
 class MessageTest {
   constructor (content, handler, nsfw, mentions) {
     this.content = content
@@ -14,21 +32,22 @@ class MessageTest {
         handler(this, msg)
       }
     }
-    this.author = {
-      'name': 'someUsername',
-      'username': 'someUsername',
-      'bot': false
-    }
+    this.author = makeUser('someUsername')
+    let m = new Collection()
+    if(mentions !== undefined)
+      mentions.forEach((mention) => m.set(mention.id, mention))
     this.mentions = {
-      'members': new Collection(mentions || [])
+      'members': m
     }
-    this.wasMessageSent = false
+
   }
 }
 
 function makeFakeClients() {
   return {
-    'neko': {},
+    'neko': {
+      'getSFWPat': () => ({'url': 'https://example.com/pat.png'})
+    },
     // FIXME; Don't use actual config
     'config': config,
     'cooldown': (_) => undefined
@@ -78,4 +97,16 @@ describe('Dab command', () => {
   }
   it('Should run flip (aguila)', flipTest('aguila'))
   it('Should run flip (sol)', flipTest('sol'))
+
+  it('Should pat a mention', () => {
+    let handler = (message, msg) => {
+      expectNotEmpty(msg.title)
+      expect(msg.title).toBe('**someMention** *recibiste un pat de* **someUsername**')
+      expectNotEmpty(msg.image.url)
+      expectUrl(msg.image.url)
+      expect(msg.image.url).toBe('https://example.com/pat.png')
+    }
+    let msg = new MessageTest('n!pat', handler, true, [makeMention('someMention')])
+    execute(msg, commands)
+  })
 })
