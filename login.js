@@ -24,3 +24,9 @@ reaction.reaction(bot);
 changelog.changelog(bot);
 
 bot.login(process.env.BOT_TOKEN);
+
+// Emmit bot metrics every 10 seconds
+setInterval(() => {
+  dogstatsd.histogram('discord.users', bot.users.size)
+  dogstatsd.histogram('discord.servers', bot.guilds.size)
+}, 10 * 1000)

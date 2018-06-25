@@ -13,7 +13,7 @@ const StatsD = require('hot-shots');
 const dogstatsd = new StatsD();
 
 const Trello = require('trello')
-const trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN);
+const trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN)
 
 function famfamoMsg (title, description, fields, imgUrl) {
   const color = 0xff0000
@@ -26,6 +26,15 @@ function famfamoMsg (title, description, fields, imgUrl) {
   fields.forEach((f) => msg.addField(...f))
   msg.setFooter(...footer)
   return msg
+}
+
+function cooldown(params) {
+  let ms = params.milliseconds || 0
+  let seconds = params.seconds || 0
+  let minutes = params.minutes || 0
+  let hours = params.hours || 0
+  let total = (1000 * ((hours * 3600) + (minutes * 60) + seconds)) + ms
+  return new Cooldown(total)
 }
 
 function countMentions(msg) {
@@ -102,7 +111,7 @@ function dispatch (msg, commands) {
   // You are a bot, your command is not important
   if(msg.author.bot) return;
 
-  commands.filter(command => {
+  return commands.filter(command => {
     // Check if it matches the command name
     let cmd = msg.content.trim().split(' ', 1)[0].toLowerCase()
     let alias = command.alias || [];
@@ -122,7 +131,11 @@ function dispatch (msg, commands) {
   }).filter(command => {
     // El comando y el canal es NSFW?
     return msg.channel.nsfw || !(command.nsfw === true)
-  }).forEach(command => {
+  })
+}
+
+function execute(msg, commands) {
+  commands.forEach(command => {
     // Envia un mensaje por cada comando que pase todos los filtros anteriores
     // Tal vez podemos cambiar esto a un map en el futuro
     sendfamfamoMessage(msg, command)
@@ -394,7 +407,7 @@ let commands = [
     },
     'title': (state) => { return `**${state.author}** te sacaste ${state.lado}` },
     'image': (state) => { return {'url': state.url} },
-    'cooldown': new Cooldown(30 * 1000) // 30 seconds
+    'cooldown': cooldown({'seconds': 30})
   },
   {
     'name': 'tickle',
@@ -646,17 +659,20 @@ let commands = [
 ]
 
 exports.emotions = (bot) => {
-
-  // Emmit bot metrics every 10 seconds
-  setInterval(() => {
-    dogstatsd.histogram('discord.users', bot.users.size)
-    dogstatsd.histogram('discord.servers', bot.guilds.size)
-  }, 10 * 1000)
-
   bot.on('message', msg => {
     let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
     dogstatsd.increment('discord.message', 1, tags)
     dogstatsd.histogram('discord.latency', bot.ping, tags)
-    dispatch(msg, commands)
+    execute(msg, dispatch(msg, commands))
   })
 }
+
+
+// Exports due testing
+exports.dispatchTest = (msg) => {
+  // Remove cooldown for testing
+  // FIXME: Find a way to test cooldown
+  commands.forEach((command) => command.cooldown = undefined)
+  return dispatch(msg, commands)
+}
+exports.executeTest = execute
