@@ -60,7 +60,6 @@ describe('Emotion commands', () => {
         'https://cuteapi/kiss.png')
     }
     let msg = new MessageTest('n!c kiss', handler)
-    msg.addMention('someMention', 321)
     expectExec(msg, commands)
   })
 })
