@@ -7,11 +7,9 @@ exports.startup = function(bot){
 	  console.log("")
 	});
 
-
-	bot.on('guildMemberAdd',(gm) => {
-	    gm.guild.channels
-	    .find('name','lobby')
-	    .send('Bienvenido '+'<@' + gm.id +  '>' + ' <:vohiyo:412474913883160577>, no olvides leer las <#402905862274023435> <:pacman:420980551105642516>');
+	bot.on("guildMemberAdd", member => {
+	  const channel = find('name','lobby');
+	  channel.send('Bienvenido '+'<@' + gm.id +  '>' + ' <:vohiyo:412474913883160577>, no olvides leer las <#402905862274023435> <:pacman:420980551105642516>');
 	});
 
 	bot.on("disconnect", event => {
