@@ -1,101 +1,40 @@
 const emotions = require('../emotions.js')
-const events = require('events');
-const Collection = require('discord.js/src/util/Collection')
-const config = require('../config_commands.json')
 
-function makeUser(username, bot) {
-  return {
-    'id': 123,
-    'name': username,
-    'username': username,
-    'bot': bot || false
-  }
+const models = require('./support/models.js')
+const MessageTest = models.MessageTest
+
+const utils = require('./support/utils.js')
+const expectExec = (msg, commands) => {
+  let dispatch = emotions.dispatchTest
+  let execute = emotions.executeTest
+  utils.expectExec(msg, commands, dispatch, execute)
 }
-
-function makeMention(username) {
-  return {
-    'user': {
-      'id': 321,
-      'username': username
-    }
-  }
-}
-
-class MessageTest {
-  constructor (content, handler, nsfw, mentions) {
-    this.content = content
-    this.channel = {
-      'type': 'text',
-      'name': 'someChannel',
-      'nswf': nsfw || false,
-      'send': (msg) => {
-        handler(this, msg)
-      }
-    }
-    this.author = makeUser('someUsername')
-    let m = new Collection()
-    if(mentions !== undefined)
-      mentions.forEach((mention) => m.set(mention.id, mention))
-    this.mentions = {
-      'members': m
-    }
-
-  }
-}
-
-function makeFakeClients() {
-  return {
-    'neko': {
-      'getSFWPat': () => ({'url': 'https://example.com/pat.png'})
-    },
-    // FIXME; Don't use actual config
-    'config': config,
-    'cooldown': (_) => undefined,
-    'cuteapi': {
-      'getJSON': (type, nsfw) => ({'url': `https://cuteapi/${type}.png`})
-    }
-  }
-}
-
-let makeCommands = () => emotions.commands(makeFakeClients())
-
-function expectNotEmpty(value) {
-  expect(value !== undefined).toBeTruthy()
-  expect(value !== '').toBeTruthy()
-}
-
-function expectUrl(value) {
-  expect(/^https?:\/\/.*$/.test(value)).toBeTruthy()
-}
-
-function execute(msg, commands) {
-  let responseCommands = emotions.dispatchTest(msg, commands)
-  expect(responseCommands.length).toBe(1)
-  emotions.executeTest(msg, responseCommands)
-}
+const expectTitleImage = utils.expectTitleImage
+const makeFakeClients = utils.makeFakeClients
 
 describe('Emotion commands', () => {
-  let commands = makeCommands()
+  let commands = emotions.commands(makeFakeClients())
+
   it('Should run dab', () => {
+    spyOn(Math, 'random').and.returnValue(0)
     let msg = new MessageTest('n!dab', ((message, msg) => {
-      expectNotEmpty(msg.title)
-      expectNotEmpty(msg.image.url)
-      expectUrl(msg.image.url)
+      expectTitleImage(msg,
+        '#DabIsDead',
+        'https://cdn.weeb.sh/images/S1TQsg1c-.jpeg')
     }))
-    execute(msg, commands)
+    expectExec(msg, commands)
   })
 
   let flipTest = (expectedValue) => {
     return () => {
       let randomValue = expectedValue === 'aguila' ? 1.0 : 0.0
+      let expectedImage = expectedValue === 'aguila' ? 'https://i.imgur.com/VpcIiTD.gif' : 'https://i.imgur.com/3ECJb4T.gif'
       spyOn(Math, 'random').and.returnValue(randomValue)
       let msg = new MessageTest('n!flip', ((message, msg) => {
-        expectNotEmpty(msg.title)
-        expect(msg.title).toBe(`**${message.author.name}** te sacaste ${expectedValue}`)
-        expectNotEmpty(msg.image.url)
-        expectUrl(msg.image.url)
+        let expectedTitle = `**${message.author.name}** te sacaste ${expectedValue}`
+        expectTitleImage(msg, expectedTitle, expectedImage)
       }))
-      execute(msg, commands)
+      expectExec(msg, commands)
     }
   }
   it('Should run flip (aguila)', flipTest('aguila'))
@@ -103,25 +42,25 @@ describe('Emotion commands', () => {
 
   it('Should pat a mention', () => {
     let handler = (message, msg) => {
-      expectNotEmpty(msg.title)
-      expect(msg.title).toBe('**someMention** *recibiste un pat de* **someUsername**')
-      expectNotEmpty(msg.image.url)
-      expectUrl(msg.image.url)
-      expect(msg.image.url).toBe('https://example.com/pat.png')
+      let expectedMention = message.mentions.members.first().user.username
+      let expectedAuthor = message.author.username
+      expectTitleImage(msg,
+        `**${expectedMention}** *recibiste un pat de* **${expectedAuthor}**`,
+        'https://example.com/pat.png')
     }
-    let msg = new MessageTest('n!pat', handler, true, [makeMention('someMention')])
-    execute(msg, commands)
+    let msg = new MessageTest('n!pat', handler)
+    msg.addMention('someMention', 321)
+    expectExec(msg, commands)
   })
 
   it('Should kiss', () => {
     let handler = (message, msg) => {
-      expectNotEmpty(msg.title)
-      expect(msg.title).toBe('Usted a recibido un(a) kiss')
-      expectNotEmpty(msg.image.url)
-      expectUrl(msg.image.url)
-      expect(msg.image.url).toBe('https://cuteapi/kiss.png')
+      expectTitleImage(msg,
+        'Usted a recibido un(a) kiss',
+        'https://cuteapi/kiss.png')
     }
-    let msg = new MessageTest('n!c kiss', handler, true, [makeMention('someMention')])
-    execute(msg, commands)
+    let msg = new MessageTest('n!c kiss', handler)
+    msg.addMention('someMention', 321)
+    expectExec(msg, commands)
   })
 })
