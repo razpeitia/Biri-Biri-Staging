@@ -4,6 +4,9 @@
 
 --------------- */
 
+var Raven = require('raven');
+Raven.config(process.env.SENTRY_URI).install();
+
 const Discord = require("discord.js");
 const bot = new Discord.Client({autoReconnect: true, max_message_cache: 0});
 
