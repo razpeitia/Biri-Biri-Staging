@@ -6,8 +6,9 @@ const Discord = require("discord.js");
 		if(msg.content.startsWith(prefix + "changelog")){
 			const embed = new Discord.RichEmbed()
 							.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
-							.addField(`Changelog de Biri Biri`, "Versión actual: 2.6 ~ ")
+							.addField(`Changelog de Biri Biri`, "Versión actual: 2.7 ~ ")
 							.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
+							.addField("Versión 2.7", "Agregado comando Putear")
 							.addField("Versión 2.6", "Agregado Panel de errores")
 							.addField("Versión 2.5", "Agregado n!dev [Comando para enviar sugerencias]")
 							.addField("Versión 2.4", "Agregado n!avatar entre otros bugfixing")
