@@ -1,4 +1,4 @@
-exports.meme = function (bot){
+exports.custom = function (bot){
 
 const request = require('request');
 const prefix = "n!";
