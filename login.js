@@ -18,8 +18,10 @@ const meme = require("./meme.js");
 const help = require("./help.js");
 const emotions = require("./emotions.js");
 const changelog = require("./changelog.js")
+const custom = require("./custom.js");
 
 startup.startup(bot);
+custom.custom(bot);
 emotions.emotions(bot);
 help.help(bot);
 meme.meme(bot);
