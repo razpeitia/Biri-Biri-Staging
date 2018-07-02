@@ -39,22 +39,22 @@ exports.custom = function (bot){
           });
         }
     });
-
   bot.on('message', msg => {
     const Pornsearch = require('pornsearch');
-      if(msg.content.startsWith(prefix + "video")){
-        function getMessage(msg) {
-          let arr = msg.content.trim().split(' ')
-            arr.shift()
-        return arr.join(' ')
-        } 
-
-    const Searcher = new Pornsearch(getMessage(msg));
-      Searcher.videos()
-      .then(videos =>{
-        msg.channel.send(`Titulo: ${videos[0].title}`)
-        msg.channel.send(`Url: ${videos[0].url}`);
-      });
+      if(msg.channel.id == "402670297402310657"){
+        if(msg.content.startsWith(prefix + "video")){
+          function getMessage(msg) {
+            let arr = msg.content.trim().split(' ')
+              arr.shift()
+          return arr.join(' ')
+          }
+        const Searcher = new Pornsearch(getMessage(msg));
+        Searcher.videos()
+        .then(videos =>{
+          msg.channel.send(`Titulo: ${videos[0].title}`)
+          msg.channel.send(`Url: ${videos[0].url}`);
+        });
       }
-    });
+    }
+  });
 };
