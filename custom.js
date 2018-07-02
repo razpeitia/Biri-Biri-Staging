@@ -41,8 +41,8 @@ exports.custom = function (bot){
     });
   bot.on('message', msg => {
     const Pornsearch = require('pornsearch');
-      if(msg.channel.id == "402670297402310657"){
-        if(msg.content.startsWith(prefix + "video")){
+     if(msg.content.startsWith(prefix + "video")){
+      if(msg.channel.nsfw === true){
           function getMessage(msg) {
             let arr = msg.content.trim().split(' ')
               arr.shift()
@@ -54,6 +54,8 @@ exports.custom = function (bot){
           msg.channel.send(`Titulo: ${videos[0].title}`)
           msg.channel.send(`Url: ${videos[0].url}`);
         });
+      }else{
+        msg.channel.send("Solo puedo enviar esto en un canal NSFW, marrano");
       }
     }
   });
