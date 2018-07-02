@@ -80,7 +80,7 @@ exports.custom = function (bot){
         .setTitle(`Información de ${msg.guild}`,true)
         .addField("Dueño del Servidor", msg.guild.owner,true)
         .addField("Usuarios",msg.guild.memberCount,true)
-        .addField("Creado el ",msg.guild.createdAt,true)
+        .addField("Creado el ",formatDate(msg.guild.createdAt),true)
       msg.channel.send(embed);
     }
 
