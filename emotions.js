@@ -203,7 +203,7 @@ exports.commands = (clients) => {
   },
   {
     'name': 'culear',
-    'alias': ['culiar'],
+    'alias': ['culiar','culiada'],
     'mention': 1,
     'init': (msg) => {
       let author = msg.author.username
@@ -216,6 +216,28 @@ exports.commands = (clients) => {
       } else {
         return {
           title: 'No te puedes culear a ti mismo, pendejo',
+          image: ''
+        }
+      }
+    },
+    'title': (state) => { return state.title },
+    'image': (state) => { return {'url': state.image} }
+  },
+  {
+    'name': 'putear',
+    'alias': ['putiar','putiza'],
+    'mention': 1,
+    'init': (msg) => {
+      let author = msg.author.username
+      let mention = msg.mentions.members.first().user.username
+      if(author !== mention) {
+        return {
+          title: `${mention}, te esta puteando ${author}`,
+          image: getRandom(config.putear.images)
+        }
+      } else {
+        return {
+          title: 'No te puedes putear a ti mismo, pendejo',
           image: ''
         }
       }
