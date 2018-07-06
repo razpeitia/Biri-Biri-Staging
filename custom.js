@@ -59,4 +59,54 @@ exports.custom = function (bot){
       }
     }
   });
+  bot.on('message',msg => {
+  let user = msg.mentions.users.first() || msg.author;
+  let join = user.createdAt || msg.author.createdAt; 
+  function formatDate(data) {
+    var d = data,
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [day,month,year].join('/');
+  }
+    if(msg.content.startsWith(prefix + "serverinfo")){
+      let embed = new Discord.RichEmbed()
+        .setColor(0x74DF00)
+        .setThumbnail(msg.guild.iconURL)
+        .setTitle(`Información de ${msg.guild}`,true)
+        .addField("Dueño del Servidor", msg.guild.owner,true)
+        .addField("Usuarios",msg.guild.memberCount,true)
+        .addField("Creado el ",formatDate(msg.guild.createdAt),true)
+      msg.channel.send(embed);
+    }
+
+    if(msg.content.startsWith(prefix + "userinfo")){
+      let embed = new Discord.RichEmbed()
+        .setColor(0x74DF00)
+        .setThumbnail(user.avatarURL)
+        .setTitle(`Información de ${user.username}`,true)
+        .addField(`Nombre Completo:`,user.tag,true)
+        .addField(`Nickname:`,user.username,true)
+        .addField("Se unió a discord el: ",formatDate(join),true)
+      msg.channel.send(embed);
+    }
+});
+bot.on('message', msg => {
+  if (msg.content.startsWith(prefix + "joto")){
+    msg.delete();
+      msg.channel.awaitMessages(username => username,{
+        max: 1,
+        time: 300000,
+        errors: ['time'],
+      }).then((collected) => {
+        msg.channel.send(`**${collected.first().author.username}** es joto <:pacman:420980551105642516>`);
+      }).catch(() => {
+        msg.channel.send('Nadie escribió nada :c');
+      });
+   }
+});
 };
