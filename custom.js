@@ -95,4 +95,19 @@ exports.custom = function (bot){
       msg.channel.send(embed);
     }
 });
+bot.on('message', msg => {
+  if (msg.content.startsWith(prefix + "joto")){
+    msg.delete();
+      msg.channel.awaitMessages(username => username,{
+        max: 1,
+        time: 300000,
+        errors: ['time'],
+      }).then((collected) => {
+        msg.channel.send(`**${collected.first().author.username}** es joto <:pacman:420980551105642516>`);
+      }).catch(() => {
+        msg.delete();
+        msg.channel.send('Nadie escribió nada :c');
+      });
+   }
+});
 };
