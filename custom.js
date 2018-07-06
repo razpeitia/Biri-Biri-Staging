@@ -105,7 +105,6 @@ bot.on('message', msg => {
       }).then((collected) => {
         msg.channel.send(`**${collected.first().author.username}** es joto <:pacman:420980551105642516>`);
       }).catch(() => {
-        msg.delete();
         msg.channel.send('Nadie escribió nada :c');
       });
    }
