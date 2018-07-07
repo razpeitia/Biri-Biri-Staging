@@ -1,8 +1,8 @@
 // NSFW commands
 
-const Command = require('../core/command.js').NSFWCommand
+const NSFWCommand = require('../core/command.js').NSFWCommand
 
-let nsfw = (name, imageFunc) => new NSFWCommand(name, imageFunc)
+let nsfw = (name, imageFunc) => new NSFWCommand({'name': name, 'image': imageFunc})
 
 exports.getCommands = (clients) => {
   let neko = clients.neko

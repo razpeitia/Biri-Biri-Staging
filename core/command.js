@@ -91,7 +91,7 @@ class ImageTitleCommand extends Command {
     let author = utils.getAuthor(msg)
     let replyMessage = new message.BaseMessage()
     let imgUrl = this.imageFunc()
-    let title = this.dispatchTitle(title)
+    let title = this.dispatchTitle()
     replyMessage.setImageUrl(imgUrl)
     if(!utils.isEmpty(this.title)) {
       replyMessage.setTitle(sprintf(title, {'author': author}))
@@ -108,7 +108,7 @@ class MentionImageTitleCommand extends Command {
     this.title = params.title || ''
   }
 
-  execute(msg) {
+  async execute(msg) {
     let mention = utils.getFirstMention(msg)
     let author = utils.getAuthor(msg)
     let replyMessage = new message.BaseMessage()
@@ -145,10 +145,27 @@ class RandomLocalImage extends ImageTitleCommand {
   constructor(params) {
     super(params)
     let images = params.images
-    let titles = params.titles
     this.imageFunc = () => utils.getRandom(images)
-    this.titleFunc = () => utils.getRandom(titles)
+
+    let titles = params.titles
+    if(titles !== undefined) {
+      this.titleFunc = () => utils.getRandom(titles)
+    }
+
+    this.selfError = params.selfError
   }
+
+  execute(msg) {
+    let author = utils.getAuthor(msg)
+    if(this.selfError !== undefined && author === utils.getFirstMention(msg)) {
+      let replyMessage = new message.BaseMessage()
+      replyMessage.setTitle(this.selfError)
+      msg.channel.send(replyMessage)
+    } else {
+      super.execute(msg)
+    }
+  }
+
 }
 
 class CustomCommand extends Command {
@@ -164,4 +181,4 @@ exports.ImageTitleCommand = ImageTitleCommand
 exports.MentionImageTitleCommand = MentionImageTitleCommand
 exports.NSFWCommand = NSFWCommand
 exports.RandomLocalImage = RandomLocalImage
-exports.MentionRandomLocalImage = MentionRandomLocalImage
+exports.CustomCommand = CustomCommand

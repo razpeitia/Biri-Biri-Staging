@@ -1,7 +1,6 @@
 const commands = require('../core/command.js')
 const message = require('../core/message.js')
 const RandomLocalImage = commands.RandomLocalImage
-const MentionRandomLocalImage = commands.MentionRandomLocalImage
 const CustomCommand = commands.CustomCommand
 const ImageTitleCommand = commands.ImageTitleCommand
 
@@ -20,16 +19,18 @@ exports.getCommands = (clients) => {
     'images': config.wag.images
   }),
 
-  new MentionRandomLocalImage({
+  new RandomLocalImage({
     'name': 'culear',
+    'mention': 1,
     'alias': ['culiar','culiada'],
     'selfError': 'No te puedes culear a ti mismo, pendejo!',
-    'images': config.culear.images
+    'images': config.culear.images,
     'titles': config.culear.texts
   }),
 
-  new MentionRandomLocalImage({
+  new RandomLocalImage({
     'name': 'putear',
+    'mention': 1,
     'alias': ['putiar','putiza'],
     'selfError': 'No te puedes putear a ti mismo, pendejo',
     'images': config.putear.images,
@@ -59,7 +60,7 @@ exports.getCommands = (clients) => {
     'name': 'ping',
     'execute': (msg) => {
       latency = new Date().getTime() - msg.createdTimestamp
-      let title = 'latency':  latency + ' ms'
+      let title = latency + ' ms'
       let replyMessage = new message.BaseMessage()
       replyMessage.setTitle(title)
       msg.channel.send(replyMessage)
@@ -107,7 +108,7 @@ exports.getCommands = (clients) => {
 
   new ImageTitleCommand({
     'name': 'dog',
-    'title': '<:webos:450520773652905984>'
+    'title': '<:webos:450520773652905984>',
     'image': async () => {
       let params = {
         'url': 'https://dog.ceo/api/breeds/image/random',

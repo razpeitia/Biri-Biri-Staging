@@ -16,17 +16,19 @@ class Dispatcher {
 
   enforceUniqueCommand(command) {
     this.enforceUniqueName(command.name)
-    command.alias.forEach(this.enforceUniqueName)
+    command.alias.forEach((c) => this.enforceUniqueName(c))
   }
 
   add(modulePath) {
     let module = require(modulePath)
     let commands = this.commands
-    let enforceUniqueCommand = this.enforceUniqueCommand
     let prefix = this.prefix
+    if(!module.hasOwnProperty('getCommands')) {
+      throw new Error(`${modulePath} doesn't have getCommands implemented`)
+    }
     module.getCommands(this.clients).forEach(command => {
       command.setPrefix(prefix)
-      enforceUniqueCommand(command)
+      this.enforceUniqueCommand(command)
       commands[command.getFullName()] = command
       command.getFullAlias().forEach(name => { commands[name] = command})
     })
@@ -51,7 +53,7 @@ class Dispatcher {
     // If the command doesn't exists then we don't care
     if(!this.commands.hasOwnProperty(commandName)) return
 
-    let = this.commands[commandName]
+    let command = this.commands[commandName]
 
     // If you are not enable we don't care
     if(!command.isEnable(msg)) {
@@ -79,3 +81,5 @@ class Dispatcher {
     this.bot.on('message', this.dispatch)
   }
 }
+
+exports.Dispatcher = Dispatcher

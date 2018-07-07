@@ -13,8 +13,8 @@ if(env === 'production') {
   }).install()
 }
 
-const Discord = require('discord.js');
-const bot = new Discord.Client({autoReconnect: true, max_message_cache: 0});
+const Discord = require('discord.js')
+const bot = new Discord.Client({autoReconnect: true, max_message_cache: 0})
 
 const startup = require('./startup.js')
 const reaction = require('./reaction.js')
@@ -23,14 +23,21 @@ reaction.reaction(bot)
 
 // Command register
 const prefix = 'n!'
-const ds = require('./commands/dispatcher.js')
+const ds = require('./core/dispatcher.js')
 const clients = require("./core/clients.js")
 let dispatcher = new ds.Dispatcher(prefix, bot, clients)
-dispatcher.add('./commands/meme.js')
-dispatcher.add('./commands/help.js')
-dispatcher.add('./commands/emotions.js')
-dispatcher.add('./commands/changelog.js')
-dispatcher.add('./commands/custom.js')
+dispatcher.add('../commands/admin.js')
+dispatcher.add('../commands/changelog.js')
+dispatcher.add('../commands/custom.js')
+dispatcher.add('../commands/cute.js')
+dispatcher.add('../commands/help.js')
+dispatcher.add('../commands/meme.js')
+dispatcher.add('../commands/misc.js')
+dispatcher.add('../commands/neko.js')
+dispatcher.add('../commands/nsfw.js')
+dispatcher.add('../commands/roles.js')
+dispatcher.add('../commands/ship.js')
+dispatcher.add('../commands/trello.js')
 dispatcher.register()
 
 bot.login(process.env.BOT_TOKEN)

@@ -11,7 +11,7 @@ var request = require('request-promise')
 const StatsD = require('hot-shots')
 const dogstatsd = new StatsD()
 
-const config = require('./config_commands.json')
+const config = require('../commands/config.json')
 
 const Cooldown = require('cooldown')
 

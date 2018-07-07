@@ -8,7 +8,7 @@ function send(msg, title) {
   msg.channel.send(replyMessage)
 }
 
-exports.getCommands => (clients) {
+exports.getCommands = (clients) => {
   return [
     new CustomCommand({
       'name': 'comando',

@@ -38,3 +38,7 @@ f1();
 
 
 };
+
+exports.getCommands = (clients) => {
+  return []
+}

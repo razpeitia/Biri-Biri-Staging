@@ -1,20 +1,21 @@
-const Command = require('../core/command.js').Command
+const CustomCommand = require('../core/command.js').CustomCommand
 const message = require('../core/message.js')
 
-class ShipCommand extends Command {
-  execute(msg) {
-    let mention1 = msg.mentions.members.first().user.username
-    let mention2 = msg.mentions.members.last().user.username
-    let title = `${mention1} + ${mention2} = ${combinename(mention1, mention2)}`
-    let replyMessage = new message.BaseMessage()
-    replyMessage.setTitle(title)
-    // TODO: Add image: avatar1, heart, avatar2
-    msg.channel.send(replyMessage)
-  }
-}
-
-exports.getCommands => (clients) {
-  return [new ShipCommand('ship')]
+exports.getCommands = (clients) => {
+  return [
+    new CustomCommand({
+      'name': 'ship',
+      'execute': (msg) => {
+        let mention1 = msg.mentions.members.first().user.username
+        let mention2 = msg.mentions.members.last().user.username
+        let title = `${mention1} + ${mention2} = ${combinename(mention1, mention2)}`
+        let replyMessage = new message.BaseMessage()
+        replyMessage.setTitle(title)
+        // TODO: Add image: avatar1, heart, avatar2
+        msg.channel.send(replyMessage)
+      }
+    })
+  ]
 }
 
 function combinename(name1, name2) {

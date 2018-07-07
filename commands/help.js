@@ -128,3 +128,7 @@ const Discord = require("discord.js");
 		}
 	});
 }
+
+exports.getCommands = (clients) => {
+	return []
+}

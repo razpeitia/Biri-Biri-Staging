@@ -6,7 +6,7 @@ bot.on("message", msg =>{
 
 	if (msg.content.startsWith(prefix + "marrano")){
 		let role = msg.guild.roles.get(" Role ");
-		
+
 		let guildMember = msg.member;
 		let author = msg.author.username;
 
@@ -24,7 +24,7 @@ bot.on("message", msg =>{
 	    	msg.channel.send({embed});
 
 		guildMember.addRole(role).catch(console.error);
-		}	
+		}
 	}
 
 
@@ -54,10 +54,10 @@ bot.on("message", msg =>{
 
 	if (msg.content.startsWith(prefix + "dev")){
 		let role = msg.guild.roles.get(" Role ");
-		
+
 		let guildMember = msg.member;
 		let author = msg.author.username;
-		
+
 		if(msg.member.roles.has(" Role ")) {
 		  const embed = new Discord.RichEmbed()
 						.addField(`${author}`, "Ya tienes este rol <:pacman:420980551105642516>")
@@ -72,7 +72,7 @@ bot.on("message", msg =>{
 	    	msg.channel.send({embed});
 
 		guildMember.addRole(role).catch(console.error);
-		}	
+		}
 	}
 
 
@@ -81,7 +81,7 @@ bot.on("message", msg =>{
 
 		let guildMember = msg.member;
 		let author = msg.author.username;
-		
+
 		if(msg.member.roles.has(" Role ")) {
 			const embed = new Discord.RichEmbed()
 						.addField(`${author}`, "Ya no tienes el rol de Dev <:pacman:420980551105642516>")
@@ -102,7 +102,7 @@ bot.on("message", msg =>{
 
 	if (msg.content.startsWith(prefix + "realtalk")){
 		let role = msg.guild.roles.get(" Role ");
-		
+
 		let guildMember = msg.member;
 		let author = msg.author.username;
 		if(msg.member.roles.has(" Role ")) {
@@ -119,7 +119,7 @@ bot.on("message", msg =>{
 	    	msg.channel.send({embed});
 
 		guildMember.addRole(role).catch(console.error);
-		}	
+		}
 	}
 
 
@@ -144,4 +144,8 @@ bot.on("message", msg =>{
 		}
 	}
 });
+}
+
+exports.getCommands = function (clients) {
+	return []
 }

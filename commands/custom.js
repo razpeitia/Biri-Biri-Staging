@@ -60,3 +60,7 @@ exports.custom = function (bot){
     }
   });
 };
+
+exports.getCommands = (clients) => {
+  return []
+}
