@@ -9,7 +9,7 @@ class Command {
     this.cooldown = params.cooldown
     this.nsfw = params.nsfw || false
     this.mentions = params.mentions
-    this.enable = true
+    this._enable = true
     this.prefix = ''
   }
 
@@ -26,14 +26,14 @@ class Command {
     return this.alias.map(a => prefix + a)
   }
 
-  disable() { this.enable = false }
+  disable() { this._enable = false }
 
-  enable() { this.enable = true }
+  enable() { this._enable = true }
 
   isEnable(msg) {
     // TODO: In the future we want more granular control
     // eg. check if it is enable for the author of this message
-    return this.enable
+    return this._enable
   }
 
   onDisable(msg) {
