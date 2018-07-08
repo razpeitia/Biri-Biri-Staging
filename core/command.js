@@ -158,13 +158,13 @@ class NSFWCommand extends Command {
   }
 
   onNSFW(msg) {
-    msg.channel.send("No seas marrano ese comando es NSFW")
+    utils.sendText(msg, 'No seas marrano ese comando es NSFW')
   }
 
   async execute(msg) {
     let imgUrl = (await this.imageFunc()).url
     let replyMessage = new message.BaseMessage()
-    msg.setImage(imgUrl)
+    replyMessage.setImage(imgUrl)
     msg.channel.send(replyMessage)
   }
 }
