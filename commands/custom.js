@@ -1,66 +1,53 @@
-exports.custom = function (bot){
-
-  const request = require('request');
-  const prefix = "n!";
-  const Discord = require('discord.js');
-
-    bot.on('message', msg => {
-        if (msg.content.startsWith(prefix + "clima")){
-
-          function getMessage(msg) {
-            let arr = msg.content.trim().split(' ')
-            arr.shift()
-            return arr.join(' ')
-          }
-
-          let apiKey = `f877bb870097bca070d49bca3070cd84`;
-          let city = getMessage(msg);
-          let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-
-          request(url, function (err, response, body) {
-            if(err){
-              console.log('error:', error);
-            } else {
-              let weather = JSON.parse(body)
-              if (weather.message === "city not found") return msg.channel.send("No pude encontrar nada con esa ciudad :c")
-              const embed = new Discord.RichEmbed()
-                  .setTitle(`Clima en ${weather.name}`)
-                  .addField("Temperatura", `${weather.main.temp}°C`,true)
-                  .addField("Presión", `${weather.main.pressure} hPa`,true)
-                  .addField("Humedad", `${weather.main.humidity}%`,true)
-                  .addField("Viento", `${weather.wind.speed} km/h`,true)
-                  .addField("Direccion del viento", `${weather.wind.deg}°`,true)
-                  .addField("Pais", `${weather.sys.country}`,true)
-                  .setColor(0x74DF00)
-                  .setFooter("© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png")
-                            .setTimestamp();
-                   msg.channel.send({embed});
-            }
-          });
-        }
-    });
-  bot.on('message', msg => {
-    const Pornsearch = require('pornsearch');
-     if(msg.content.startsWith(prefix + "video")){
-      if(msg.channel.nsfw === true){
-          function getMessage(msg) {
-            let arr = msg.content.trim().split(' ')
-              arr.shift()
-          return arr.join(' ')
-          }
-        const Searcher = new Pornsearch(getMessage(msg));
-        Searcher.videos()
-        .then(videos =>{
-          msg.channel.send(`Titulo: ${videos[0].title}`)
-          msg.channel.send(`Url: ${videos[0].url}`);
-        });
-      }else{
-        msg.channel.send("Solo puedo enviar esto en un canal NSFW, marrano");
-      }
-    }
-  });
-};
+const CustomCommand = require('../core/command.js').CustomCommand
+const utils = require('../core/utils.js')
+const message = require('../core/message.js')
 
 exports.getCommands = (clients) => {
-  return []
+  return [new CustomCommand({
+    'name': 'clima',
+    'execute': async (msg) => {
+      // FIXME: Don't hardcode api key
+      let apiKey = `f877bb870097bca070d49bca3070cd84`
+      let city = utils.getMessage(msg)
+      let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+      let params = {'url': url, 'json': true}
+      clients.request(params)
+      .then(weather => {
+        let reply = new message.BaseMessage()
+        reply.setTitle(`Clima en ${weather.name}`)
+        reply.addField("Temperatura", `${weather.main.temp}°C`,true)
+        reply.addField("Presión", `${weather.main.pressure} hPa`,true)
+        reply.addField("Humedad", `${weather.main.humidity}%`,true)
+        reply.addField("Viento", `${weather.wind.speed} km/h`,true)
+        reply.addField("Direccion del viento", `${weather.wind.deg}°`,true)
+        reply.addField("Pais", `${weather.sys.country}`,true)
+        reply.setTimestamp()
+        msg.channel.send(reply)
+      })
+      .catch(e => {
+          utils.sendText(msg, 'No pude encontrar nada con esa ciudad :c')
+      })
+
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'video',
+    'nsfw': true,
+    'execute': async (msg) => {
+        let searchTerm = utils.getMessage(msg)
+        if(utils.isEmpty(searchTerm)) {
+          utils.sendText(msg, 'Aber pendejo, necesito un termino')
+          return
+        }
+        const Searcher = new clients.pornsearch()
+        let videos = await Searcher.videos()
+        if(videos === undefined || videos.length === 0) {
+          utils.sendText(msg, `No terminos encontrados para "${searchTerm}"`)
+        } else {
+          msg.channel.send(`Titulo: ${videos[0].title}`)
+          msg.channel.send(`Url: ${videos[0].url}`);
+        }
+    }
+  })]
 }

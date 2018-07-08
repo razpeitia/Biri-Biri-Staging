@@ -14,6 +14,7 @@ const dogstatsd = new StatsD()
 const config = require('../commands/config.json')
 
 const Cooldown = require('cooldown')
+const Pornsearch = require('pornsearch')
 
 function cooldown(params) {
   let ms = params.milliseconds || 0
@@ -31,3 +32,4 @@ exports.request = request
 exports.config = config
 exports.dogstatsd = dogstatsd
 exports.cooldown = cooldown
+exports.pornsearch = Pornsearch
