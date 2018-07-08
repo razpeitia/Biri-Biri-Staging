@@ -1,4 +1,5 @@
 const utils = require('./utils.js')
+const message = require('./message.js')
 const sprintf = require('sprintf-js').sprintf
 
 class Command {
@@ -7,7 +8,7 @@ class Command {
     this.alias = params.alias || []
     this.cooldown = params.cooldown
     this.nsfw = params.nsfw || false
-    this.mentions = params.mentions || 0
+    this.mentions = params.mentions
     this.enable = true
     this.prefix = ''
   }
@@ -53,17 +54,27 @@ class Command {
     return this.nsfw
   }
 
-  onNSWF(msg) {
+  onNSFW(msg) {
     // Maybe you want to do something
     // if the command is NSFW but the channel not
   }
 
   areMentionsValid(msg) {
-    if(this.mentions === 0) return true
+    if(this.mentions === undefined) return true
     return this.mentions === utils.countMentions(msg)
   }
 
   onInvalidMentions(msg) {
+
+  }
+
+  isSelfMention(msg) {
+    if(this.mentions === undefined || this.mentions === 0) return false
+    if(this.selfError === undefined) return false
+    return utils.isFirstMentionAuthor(msg)
+  }
+
+  onSelfMention(msg) {
 
   }
 
@@ -92,7 +103,7 @@ class ImageTitleCommand extends Command {
     let replyMessage = new message.BaseMessage()
     let imgUrl = this.imageFunc()
     let title = this.dispatchTitle()
-    replyMessage.setImageUrl(imgUrl)
+    replyMessage.setImage(imgUrl)
     if(!utils.isEmpty(this.title)) {
       replyMessage.setTitle(sprintf(title, {'author': author}))
     }
@@ -102,10 +113,27 @@ class ImageTitleCommand extends Command {
 
 class MentionImageTitleCommand extends Command {
   constructor(params) {
-    params.mention = 1
+    if(params.mentions === undefined) params.mentions = 1
     super(params)
     this.imageFunc = params.image
     this.title = params.title || ''
+    this.selfError = params.selfError || 'Aber pendejo, no puedes hacer eso contigo mismo'
+  }
+
+  onSelfMention(msg) {
+    utils.sendText(msg, this.selfError)
+  }
+
+  onInvalidMentions(msg) {
+    var title
+    if(this.mentions === 1) {
+      title = 'Necesito solo una mencion, pendejo'
+    } else if(this.mentions >= 2) {
+      title = `Necesito exactamente {this.mentions} menciones, pendejo`
+    } else {
+      title = 'El dev cabron hizo algo mal reportalo'
+    }
+    utils.sendText(msg, title)
   }
 
   async execute(msg) {
@@ -113,7 +141,7 @@ class MentionImageTitleCommand extends Command {
     let author = utils.getAuthor(msg)
     let replyMessage = new message.BaseMessage()
     let imgUrl = (await this.imageFunc()).url
-    replyMessage.setImageUrl(imgUrl)
+    replyMessage.setImage(imgUrl)
     if(!utils.isEmpty(this.title)) {
       let title = sprintf(this.title, {'mention': mention, 'author': author})
       replyMessage.setTitle(title)
@@ -136,7 +164,7 @@ class NSFWCommand extends Command {
   async execute(msg) {
     let imgUrl = (await this.imageFunc()).url
     let replyMessage = new message.BaseMessage()
-    msg.setImageUrl(imgUrl)
+    msg.setImage(imgUrl)
     msg.channel.send(replyMessage)
   }
 }

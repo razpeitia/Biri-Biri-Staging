@@ -41,11 +41,11 @@ class Dispatcher {
 
   dispatch(msg) {
     let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
-    clients.dogstatsd.increment('discord.message', 1, tags)
+    this.clients.dogstatsd.increment('discord.message', 1, tags)
 
     // Is this a command?
     // Or if you are a bot, your opinion is not important
-    if(!msg.content.startsWith(prefix) || msg.author.bot) return
+    if(!msg.content.startsWith(this.prefix) || msg.author.bot) return
 
     // Maybe there is a better way to do this
     let commandName = msg.content.trim().split(' ', 1)[0].toLowerCase()
@@ -69,8 +69,18 @@ class Dispatcher {
 
     // If command is NSFW and channel is not
     // we can't execute this
-    if(command.isNSFW && !msg.channel.nsfw) {
+    if(command.isNSFW(msg) && !msg.channel.nsfw) {
       command.onNSFW(msg)
+      return
+    }
+
+    if(!command.areMentionsValid(msg)) {
+      command.onInvalidMentions(msg)
+      return
+    }
+
+    if(command.isSelfMention(msg)) {
+      command.onSelfMention(msg)
       return
     }
 
@@ -78,7 +88,7 @@ class Dispatcher {
   }
 
   register() {
-    this.bot.on('message', this.dispatch)
+    this.bot.on('message', (msg) => this.dispatch(msg))
   }
 }
 

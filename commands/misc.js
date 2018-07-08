@@ -151,7 +151,7 @@ exports.getCommands = (clients) => {
       }
       let replyMessage = new message.BaseMessage()
       let title = `**${state.author}** te sacaste ${state.lado}`
-      msg.channel.send(replyMessage.setTitle(title).setImageUrl(url))
+      msg.channel.send(replyMessage.setTitle(title).setImage(url))
     }
   })
   ]

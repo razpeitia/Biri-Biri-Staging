@@ -1,3 +1,5 @@
+const message = require('./message.js')
+
 function isEmpty(string) {
   return string === undefined || string.trim() === ''
 }
@@ -8,6 +10,10 @@ function getAuthor(msg) {
 
 function getFirstMention(msg) {
   return msg.mentions.members.first().user.username
+}
+
+function isFirstMentionAuthor(msg) {
+  return msg.author.id === msg.mentions.members.first().user.id
 }
 
 function countMentions(msg) {
@@ -29,6 +35,12 @@ function getMessage(msg) {
   return arr.join(' ')
 }
 
+function sendText(msg, text) {
+  let reply = new message.BaseMessage()
+  reply.setTitle(text)
+  msg.channel.send(reply)
+}
+
 exports.isEmpty = isEmpty
 exports.getAuthor = getAuthor
 exports.getFirstMention = getFirstMention
@@ -36,3 +48,5 @@ exports.countMentions = countMentions
 exports.hasMention = hasMention
 exports.getRandom = getRandom
 exports.getMessage = getMessage
+exports.sendText = sendText
+exports.isFirstMentionAuthor = isFirstMentionAuthor

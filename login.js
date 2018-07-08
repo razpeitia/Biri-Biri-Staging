@@ -3,19 +3,25 @@
     Biribiri Bot
 
 --------------- */
-
+console.time('total')
 let env = process.env.NODE_ENV || 'dev';
 
 if(env === 'production') {
+  console.time('SENTRY')
   var Raven = require('raven');
   Raven.config(process.env.SENTRY_URI, {
     captureUnhandledRejections: true
   }).install()
+  console.timeEnd('SENTRY')
 }
 
+console.time('discord')
 const Discord = require('discord.js')
 const bot = new Discord.Client({autoReconnect: true, max_message_cache: 0})
+bot.login(process.env.BOT_TOKEN)
+console.timeEnd('discord')
 
+console.time('dispatcher')
 const startup = require('./startup.js')
 const reaction = require('./reaction.js')
 startup.startup(bot)
@@ -39,12 +45,14 @@ dispatcher.add('../commands/roles.js')
 dispatcher.add('../commands/ship.js')
 dispatcher.add('../commands/trello.js')
 dispatcher.register()
-
-bot.login(process.env.BOT_TOKEN)
+console.timeEnd('dispatcher')
 
 // Emmit bot metrics every 10 seconds
+console.time('datadog')
 setInterval(() => {
   clients.dogstatsd.histogram('discord.users', bot.users.size)
   clients.dogstatsd.histogram('discord.servers', bot.guilds.size)
-  clients.dogstatsd.histogram('discord.latency', bot.ping, tags)
+  clients.dogstatsd.histogram('discord.latency', bot.ping)
 }, 10 * 1000)
+console.timeEnd('datadog')
+console.timeEnd('total')
