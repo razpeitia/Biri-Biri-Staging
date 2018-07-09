@@ -11,11 +11,48 @@
       "365285848112955403",
       "314619604590919681"
    ],
+   "neko": {
+      "messages": {
+         "pat": "**%(mention)s** *recibiste un pat de* **%(author)s**",
+         "kiss": "**%(mention)s** recibiste un beso de **%(author)s**",
+         "slap": "**%(mention)s** recibiste un cachetada de **%(author)s**",
+         "hug": "**%(mention)s** recibiste un abrazo de **%(author)s**",
+         "poke": "**%(mention)s** recibiste un toque de **%(author)s**",
+         "feed": "**%(mention)s** te está alimentando **%(author)s**",
+         
+         "meaw": "**%(mention)s** te ha mauyado **%(author)s**",
+         "tickle": "**%(mention)s** te esta haciendo cosquillas **%(author)s**",
+         "lizzard": "**%(mention)s** te ha mandado una lagartija **%(author)s**",
+         "foxgirl": "**%(mention)s** te ha mandado una zorrita **%(author)s**",
+         "nekogif": "**%(mention)s** he ha mandado un nekito kawai uwu **%(author)s**",
+         "kemono": "**%(mention)s** te ha mandado una kemona **%(author)s**",
+         "holo": "**%(mention)s** te está alimentando **%(author)s**"
+      }
+   },
    "cuteapi":{
-      "types": ["cry", "pinch", "poke", "highfive", "nani", "punch", "hug",
-                "nom", "woop", "cuddle", "tickle", "slap", "smug", "sleep",
-                "pat", "lick", "kiss", "neko", "dancing", "triggered",
-                "meme", "yaoi", "loli", "yuri"]
+      "types": [
+         {"name": "cry", "title": "%(author)s esta llorando"},
+         {"name": "pinch", "title": "%(author)s te esta pelliscando"},
+         {"name": "poke", "title": "%(author)s te esta tocando"},
+         {"name": "highfive", "title": "%(author)s quiere que le des cinco"},
+         {"name": "nani", "title": "Nani!"},
+         {"name": "punch", "title": "%(author)s te dio un golpe"},
+         {"name": "hug", "title": "%(author)s te esta abrazando"},
+         {"name": "nom", "title": "%(author)s se siente con hambre"},
+         {"name": "woop", "title": "Me enwoopa"},
+         {"name": "cuddle", "title": "%(author)s te esta abrazando"},
+         {"name": "tickle", "title": "%(author)s te esta haciendo cosquillas"},
+         {"name": "slap", "title": "%(author)s esta cacheteando"},
+         {"name": "smug", "title": "%(author)s esta engreido"},
+         {"name": "sleep", "title": "%(author)s se esta durmiendo"},
+         {"name": "pat", "title": "%(author)s te esta dando una palmadita"},
+         {"name": "lick", "title": "%(author)s te esta lamiendo"},
+         {"name": "kiss", "title": "%(author)s esta besando"},
+         {"name": "neko", "title": "%(author)s se siento un nekito kawaii uwu"},
+         {"name": "dancing", "title": "%(author)s esta bailando"},
+         {"name": "meme", "title": "%(author)s esta memeando"},
+         {"name": "loli", "title": "%(author)s ha enviado una loli"}
+      ]
    },
    "dab": {
       "images": [
@@ -66,12 +103,21 @@
          "https://cdn.discordapp.com/attachments/422831676155232267/455389362134450177/unnamed_3.gif",
          "https://cdn.discordapp.com/attachments/422831676155232267/455389419231379486/1482958306_16e0bd444240f2b7bd0312a67f6af211.gif",
          "https://cdn.discordapp.com/attachments/422831676155232267/455389421198508042/aa2.gif"
+      ],
+      "texts": [
+         "%(mention)s, te esta culeando %(author)s",
+         "%(mention)s te ha culeado %(author)s",
+         "%(mention)s te esta moviendo el bote %(author)s"
       ]
    },
    "putear": {
       "images": [
          "https://i.imgur.com/wQQZl7S.gif",
          "https://i.imgur.com/euQLxmy.gif"
+      ],
+      "texts": [
+         "%(mention)s, te esta puteando %(author)s",
+         "%(mention)s, te esta poniendo una putiza %(author)s"
       ]
    },
    "reactions":[
