@@ -1,7 +1,7 @@
 const message = require('./message.js')
 
 function isEmpty(string) {
-  return string === undefined || string.trim() === ''
+  return string === undefined || string === null || string.trim() === ''
 }
 
 function getAuthor(msg) {
@@ -41,6 +41,13 @@ function sendText(msg, text) {
   msg.channel.send(reply)
 }
 
+function getContent(content) {
+  if(content === undefined) return undefined
+  if((typeof content) === 'string') return content
+  if(content instanceof Function) return (async () => await content())()
+  if(Array.isArray(content)) return getRandom(content)
+}
+
 exports.isEmpty = isEmpty
 exports.getAuthor = getAuthor
 exports.getFirstMention = getFirstMention
@@ -50,3 +57,4 @@ exports.getRandom = getRandom
 exports.getMessage = getMessage
 exports.sendText = sendText
 exports.isFirstMentionAuthor = isFirstMentionAuthor
+exports.getContent = getContent

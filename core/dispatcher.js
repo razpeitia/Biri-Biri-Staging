@@ -9,14 +9,14 @@ class Dispatcher {
 
   enforceUniqueName(name) {
     if(this.commands.hasOwnProperty(name)) {
-      let message = `${this.prefix}${name} is duplicated`
+      let message = `${name} is duplicated`
       throw new Error(message)
     }
   }
 
   enforceUniqueCommand(command) {
-    this.enforceUniqueName(command.name)
-    command.alias.forEach((c) => this.enforceUniqueName(c))
+    this.enforceUniqueName(command.getFullName())
+    command.getFullAlias().forEach((c) => this.enforceUniqueName(c))
   }
 
   add(modulePath) {

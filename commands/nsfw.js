@@ -12,7 +12,7 @@ exports.getCommands = (clients) => {
     nsfw('holoero',     neko.getNSFWHoloEro),
     nsfw('patas',       neko.getSFWEroFeet),
     nsfw('loli',        neko.getNSFWSmallBoobs),
-    nsfw('pussy',       neko.getNSFWPussyGif),
+    nsfw('pussygif',    neko.getNSFWPussyGif),
     nsfw('analart',     neko.getNSFWAnalArts),
     nsfw('lewdnekogif', neko.getNSFWNekoGif),
     nsfw('pussyart',    neko.getNSFWPussyArt),

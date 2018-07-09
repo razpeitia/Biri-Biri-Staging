@@ -42,7 +42,7 @@ class Command {
 
   isPaused(msg) {
     if(this.cooldown === undefined) return false
-    return this.cooldown.fire()
+    return !this.cooldown.fire()
   }
 
   onPaused(msg) {
@@ -86,37 +86,30 @@ class Command {
 class ImageTitleCommand extends Command {
   constructor(params) {
     super(params)
-    this.imageFunc = params.image
-    this.titleFunc = params.title
+    this.image = params.image
+    this.title = params.title
   }
 
-  dispatchTitle() {
-    let title = this.title
-    if(title === undefined) return
-    if(title instanceof String) return title
-    if(title instanceof Function) return title()
-    if(Array.isArray(title)) return utils.getRandom(title)
-  }
-
-  execute(msg) {
+  async execute(msg) {
     let author = utils.getAuthor(msg)
     let replyMessage = new message.BaseMessage()
-    let imgUrl = this.imageFunc()
-    let title = this.dispatchTitle()
+    let imgUrl = await utils.getContent(this.image)
+    let title = utils.getContent(this.title)
+
+    if(utils.isEmpty(imgUrl)) throw new Error('Una imagen es requerida')
+
     replyMessage.setImage(imgUrl)
-    if(!utils.isEmpty(this.title)) {
+    if(!utils.isEmpty(title)) {
       replyMessage.setTitle(sprintf(title, {'author': author}))
     }
     msg.channel.send(replyMessage)
   }
 }
 
-class MentionImageTitleCommand extends Command {
+class MentionImageTitleCommand extends ImageTitleCommand {
   constructor(params) {
     if(params.mentions === undefined) params.mentions = 1
     super(params)
-    this.imageFunc = params.image
-    this.title = params.title || ''
     this.selfError = params.selfError || 'Aber pendejo, no puedes hacer eso contigo mismo'
   }
 
@@ -140,11 +133,12 @@ class MentionImageTitleCommand extends Command {
     let mention = utils.getFirstMention(msg)
     let author = utils.getAuthor(msg)
     let replyMessage = new message.BaseMessage()
-    let imgUrl = (await this.imageFunc()).url
+    let imgUrl = await utils.getContent(this.image)
     replyMessage.setImage(imgUrl)
-    if(!utils.isEmpty(this.title)) {
-      let title = sprintf(this.title, {'mention': mention, 'author': author})
-      replyMessage.setTitle(title)
+    if(utils.isEmpty(imgUrl)) throw new Error('Una imagen es requerida')
+    let title = utils.getContent(this.title)
+    if(!utils.isEmpty(title)) {
+      replyMessage.setTitle(sprintf(title, {'mention': mention, 'author': author}))
     }
     msg.channel.send(replyMessage)
   }
@@ -169,33 +163,6 @@ class NSFWCommand extends Command {
   }
 }
 
-class RandomLocalImage extends ImageTitleCommand {
-  constructor(params) {
-    super(params)
-    let images = params.images
-    this.imageFunc = () => utils.getRandom(images)
-
-    let titles = params.titles
-    if(titles !== undefined) {
-      this.titleFunc = () => utils.getRandom(titles)
-    }
-
-    this.selfError = params.selfError
-  }
-
-  execute(msg) {
-    let author = utils.getAuthor(msg)
-    if(this.selfError !== undefined && author === utils.getFirstMention(msg)) {
-      let replyMessage = new message.BaseMessage()
-      replyMessage.setTitle(this.selfError)
-      msg.channel.send(replyMessage)
-    } else {
-      super.execute(msg)
-    }
-  }
-
-}
-
 class CustomCommand extends Command {
   constructor(params) {
     super(params)
@@ -208,5 +175,4 @@ exports.BaseCommand = Command
 exports.ImageTitleCommand = ImageTitleCommand
 exports.MentionImageTitleCommand = MentionImageTitleCommand
 exports.NSFWCommand = NSFWCommand
-exports.RandomLocalImage = RandomLocalImage
 exports.CustomCommand = CustomCommand
