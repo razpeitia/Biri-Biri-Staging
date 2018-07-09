@@ -1,13 +1,16 @@
 const Collection = require('discord.js/src/util/Collection')
 
 class MessageTest {
-  constructor (content, handler, nsfw) {
+  constructor (content, nsfw) {
+    this._messageSent = []
     this.content = content
     this.channel = {
       'type': 'text',
       'name': 'someChannel',
       'nswf': nsfw || false,
-      'send': (msg) => { handler(this, msg) }
+      'send': (m) => {
+        this._messageSent.push(m)
+      }
     }
     this.author = this.makeUser('someUsername')
     this.mentions = { 'members': new Collection() }

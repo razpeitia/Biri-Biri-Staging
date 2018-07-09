@@ -48,6 +48,18 @@ function getContent(content) {
   if(Array.isArray(content)) return getRandom(content)
 }
 
+function formatDate(data) {
+  var d = data,
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
+
+  return [day,month,year].join('/')
+}
+
 exports.isEmpty = isEmpty
 exports.getAuthor = getAuthor
 exports.getFirstMention = getFirstMention
@@ -58,3 +70,4 @@ exports.getMessage = getMessage
 exports.sendText = sendText
 exports.isFirstMentionAuthor = isFirstMentionAuthor
 exports.getContent = getContent
+exports.formatDate = formatDate

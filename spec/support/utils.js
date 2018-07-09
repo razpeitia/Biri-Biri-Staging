@@ -1,4 +1,4 @@
-const config = require('../../config_commands.json')
+const config = require('../../commands/config.json')
 
 function expectNotEmpty (value) {
   expect(value !== undefined).toBeTruthy()
@@ -30,11 +30,37 @@ exports.makeFakeClients = () => {
     'neko': {
       'getSFWPat': () => ({'url': 'https://example.com/pat.png'})
     },
-    // FIXME; Don't use actual config
-    'config': config,
+    'config': {
+      'neko': {
+        'messages': {
+          'pat': 'pat message'
+        }
+      }
+    },
     'cooldown': (_) => undefined,
     'cuteapi': {
       'getJSON': (type, nsfw) => ({'url': `https://cuteapi/${type}.png`})
-    }
+    },
+    'trello': {},
+    'neko': {
+      'getSFWPat': () => { return { 'url': 'https://neko.com/Pat.png'}},
+      'getSFWKiss': () => { return { 'url': 'https://neko.com/Kiss.png'}},
+      'getSFWSlap': () => { return { 'url': 'https://neko.com/Slap.png'}},
+      'getSFWHug': () => { return { 'url': 'https://neko.com/Hug.png'}},
+      'getSFWPoke': () => { return { 'url': 'https://neko.com/Poke.png'}},
+      'getSFWFeed': () => { return { 'url': 'https://neko.com/Feed.png'}},
+      'getSFWCuddle': () => { return { 'url': 'https://neko.com/Cuddle.png'}},
+      'getSFWNeko': () => { return { 'url': 'https://neko.com/Neko.png'}},
+      'getSFWTickle': () => { return { 'url': 'https://neko.com/Tickle.png'}},
+      'getSFWLizard': () => { return { 'url': 'https://neko.com/Lizard.png'}},
+      'getSFWFoxGirl': () => { return { 'url': 'https://neko.com/FoxGirl.png'}},
+      'getSFWNekogif': () => { return { 'url': 'https://neko.com/Nekogif.png'}},
+      'getSFWKemonomimi': () => { return { 'url': 'https://neko.com/Kemonomimi.png'}},
+      'getSFWHolo': () => { return { 'url': 'https://neko.com/Holo.png'}}
+  },
+    'request': {},
+    'dogstatsd': {'increment': () => {}},
+    'cooldown': {},
+    'pornsearch': {},
   }
 }

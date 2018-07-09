@@ -21,6 +21,7 @@ exports.getCommands = (clients) => {
         reply.addField("Viento", `${weather.wind.speed} km/h`,true)
         reply.addField("Direccion del viento", `${weather.wind.deg}°`,true)
         reply.addField("Pais", `${weather.sys.country}`,true)
+        reply.setColor(0x74DF00)
         reply.setTimestamp()
         msg.channel.send(reply)
       })
@@ -49,5 +50,53 @@ exports.getCommands = (clients) => {
           msg.channel.send(`Url: ${videos[0].url}`);
         }
     }
-  })]
+  }),
+
+  new CustomCommand({
+    'name': 'serverinfo',
+    'execute': (msg) => {
+      let reply = new message.BaseMessage()
+      reply.setColor(0x74DF00)
+      reply.setThumbnail(msg.guild.iconURL)
+      reply.setTitle(`Información de ${msg.guild}`, true)
+      reply.addField("Dueño del Servidor", msg.guild.owner, true)
+      reply.addField("Usuarios", msg.guild.memberCount, true)
+      reply.addField("Creado el ", utils.formatDate(msg.guild.createdAt), true)
+      msg.channel.send(reply)
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'userinfo',
+    'execute': (msg) => {
+      let user = msg.mentions.users.first() || msg.author;
+      let join = user.createdAt || msg.author.createdAt;
+
+      let reply = new message.BaseMessage()
+      reply.setColor(0x74DF00)
+      reply.setThumbnail(user.avatarURL)
+      reply.setTitle(`Información de ${user.username}`, true)
+      reply.addField(`Nombre Completo:`, user.tag, true)
+      reply.addField(`Nickname:`, user.username, true)
+      reply.addField("Se unió a discord el: ", utils.formatDate(join),true)
+      msg.channel.send(reply)
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'joto',
+    'execute': msg => {
+      msg.delete()
+      msg.channel.awaitMessages(username => username, {
+        max: 1,
+        time: 300000,
+        errors: ['time'],
+      }).then((collected) => {
+        msg.channel.send(`**${collected.first().author.username}** es joto <:pacman:420980551105642516>`);
+      }).catch(() => {
+        msg.channel.send('Nadie escribió nada :c')
+      })
+    }
+  })
+  ]
 }

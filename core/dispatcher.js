@@ -39,7 +39,7 @@ class Dispatcher {
     return this.commands[this.prefix + name]
   }
 
-  dispatch(msg) {
+  async dispatch(msg) {
     let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
     this.clients.dogstatsd.increment('discord.message', 1, tags)
 
@@ -84,7 +84,7 @@ class Dispatcher {
       return
     }
 
-    command.execute(msg)
+    await command.execute(msg)
   }
 
   register() {
