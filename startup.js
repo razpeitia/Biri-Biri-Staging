@@ -1,7 +1,7 @@
 exports.startup = function(bot){
 
 	bot.on('ready', () => {
-	  bot.user.setActivity('n!help V2.7', { type: 'WATCHING', url: 'https://twitch.tv/thekazuo'});
+	  bot.user.setActivity('n!help V3.0', { type: 'WATCHING', url: 'https://twitch.tv/thekazuo'});
 	  console.log("")
 	  console.log(`Bot iniciado, con ${bot.users.size} usuarios, en ${bot.guilds.size} servidor/es.`);
 	  console.log("")
