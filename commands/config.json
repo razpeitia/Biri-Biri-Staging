@@ -109,9 +109,9 @@
          "https://cdn.discordapp.com/attachments/422831676155232267/455389421198508042/aa2.gif"
       ],
       "texts": [
-         "%(mention)s, te esta culeando %(author)s",
-         "%(mention)s te ha culeado %(author)s",
-         "%(mention)s te esta moviendo el bote %(author)s"
+         "%(author)s te esta culeando %(mention)s",
+         "%(author)s te ha culeado %(mention)s",
+         "%(author)s te esta moviendo el bote %(mention)s"
       ]
    },
    "putear": {
