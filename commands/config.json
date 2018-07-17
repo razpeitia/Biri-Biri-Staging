@@ -1,17 +1,16 @@
-{   
-   "admins": [
-      "274159725967572992",
-      "147090103859150848",
-      "226471573907963904",
-      "313068940651921408",
-      "250044591686811669",
-      "110249625713127424",
-      "300409676091097098",
-      "232370719407734784",
-      "365285848112955403",
-      "314619604590919681",
-      "357008976052879371"
-   ],
+{
+  "admins": [
+    "274159725967572992",
+    "147090103859150848",
+    "226471573907963904",
+    "313068940651921408",
+    "250044591686811669",
+    "110249625713127424",
+    "300409676091097098",
+    "232370719407734784",
+    "365285848112955403",
+    "314619604590919681"
+  ],
    "neko": {
       "messages": {
          "pat": "**%(mention)s** *recibiste un pat de* **%(author)s**",
@@ -59,120 +58,183 @@
          {"name": "loli", "title": "%(author)s ha enviado una loli"}
       ]
    },
-   "dab": {
-      "images": [
-         "https://cdn.weeb.sh/images/S1TQsg1c-.jpeg",
-         "https://cdn.weeb.sh/images/HJxaUzSa-.jpeg",
-         "https://cdn.weeb.sh/images/HyZZ2xJ5b.gif",
-         "https://cdn.weeb.sh/images/r13gL0tTb.png",
-         "https://media.giphy.com/media/ordLtY9K29ZMk/giphy.gif"
-      ],
-      "texts": [
-         "#DabIsDead",
-         "Dabear es de nubs",
-         "El Dab está fuera de moda"
-      ]
-   },
-   "wag": {
-      "images": [
-         "https://cdn.weeb.sh/images/rynHqkKD-.gif",
-         "https://cdn.weeb.sh/images/HkgnV9JYD-.jpeg",
-         "https://cdn.weeb.sh/images/S1ircyFwb.gif",
-         "https://cdn.weeb.sh/images/ByJ85ktDb.gif",
-         "https://cdn.weeb.sh/images/rJtHqkYw-.gif",
-         "https://cdn.weeb.sh/images/rJCVcytDW.gif",
-         "https://cdn.weeb.sh/images/ByQUc1YP-.jpeg",
-         "https://cdn.weeb.sh/images/HklUqyFP-.gif"
-       ]
-   },
-   "culear": {
-      "images": [
-         "https://cdn.discordapp.com/attachments/422831676155232267/450890728084733954/46782b53-e91a-4957-8aa5-af74b911f2ad.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/450890837149089793/tenor.gif",
-         "https://media.giphy.com/media/Saavhnp9YYN7a/giphy.gif",
-         "https://cdn.discordapp.com/attachments/451019016652324874/451191910657163265/SelfassuredAbleGermanshorthairedpointer-size_restricted.gif",
-         "https://cdn.discordapp.com/attachments/451019016652324874/451191909185224725/unnamed_3.gif",
-         "https://cdn.discordapp.com/attachments/451019016652324874/451191908744560643/unnamed_2.gif",
-         "https://cdn.discordapp.com/attachments/451019016652324874/451191908744560641/unnamed_5.gif",
-         "https://cdn.discordapp.com/attachments/439976223104303134/451201080273928232/330554__UNOPT__safe_scootaloo_gif_chicken.gif",
-         "https://cdn.discordapp.com/attachments/439976223104303134/451201073743527947/zzzzz.gif",
-         "https://cdn.discordapp.com/attachments/439976223104303134/451200701637591070/weird-funny-gif-mini-me.gif",
-         "https://cdn.discordapp.com/attachments/439976223104303134/451200671102795777/1365623937070.gif",
-         "https://cdn.discordapp.com/attachments/451019016652324874/455386923683414026/unnamed_4.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389300633370625/unnamed_8.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389301220442112/unnamed_6.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389301220442113/unnamed_7.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389331729940490/unnamed_1.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389331729940491/unnamed.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389362134450177/unnamed_3.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389362134450177/unnamed_3.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389419231379486/1482958306_16e0bd444240f2b7bd0312a67f6af211.gif",
-         "https://cdn.discordapp.com/attachments/422831676155232267/455389421198508042/aa2.gif"
-      ],
-      "texts": [
-         "%(author)s te esta culeando %(mention)s",
-         "%(author)s te ha culeado %(mention)s",
-         "%(author)s te esta moviendo el bote %(mention)s"
-      ]
-   },
-   "putear": {
-      "images": [
-         "https://i.imgur.com/wQQZl7S.gif",
-         "https://i.imgur.com/euQLxmy.gif"
-      ],
-      "texts": [
-         "%(mention)s, te esta puteando %(author)s",
-         "%(mention)s, te esta poniendo una putiza %(author)s"
-      ]
-   },
-   "reactions":[
-      {
-         "message":"mamey",
-         "send":"coman mamey <:pacman:420980551105642516>"
-      },
-      {
-         "message":"<:pacman:420980551105642516>",
-         "react":"420980551105642516"
-      },
-      {
-         "message":"<:wanwan:403968696067948554>",
-         "react":"403968696067948554"
-      },
-      {
-         "message":"<:ban:403065152863469579>",
-         "react":"403065152863469579"
-      },
-      {
-         "message":"<:justmonika:410847146984734720>",
-         "react":"410847146984734720"
-      },
-      {
-         "message":"<:vohiyo:412474913883160577>",
-         "react":"412474913883160577"
-      },
-      {
-         "message":"<a:truleado:415551980719702016>",
-         "react":"415551980719702016"
-      },
-      {
-         "message":"cuack",
-         "react":"🦆"
-      },
-      {
-         "message":"succ",
-         "react":"419006807147675679"
-      },
-      {
-         "message":"fastsucc",
-         "react":"419006860062883843"
-      },
-      {
-         "message":[
-            "chale",
-            "umiyaron",
-            "umiyado"
-         ],
-         "react":"415551980719702016"
-      }
-   ]
+  "dab": {
+    "images": [
+      "https://cdn.weeb.sh/images/S1TQsg1c-.jpeg",
+      "https://cdn.weeb.sh/images/HJxaUzSa-.jpeg",
+      "https://cdn.weeb.sh/images/HyZZ2xJ5b.gif",
+      "https://cdn.weeb.sh/images/r13gL0tTb.png",
+      "https://media.giphy.com/media/ordLtY9K29ZMk/giphy.gif"
+    ],
+    "texts": ["#DabIsDead", "Dabear es de nubs", "El Dab está fuera de moda"]
+  },
+  "wag": {
+    "images": [
+      "https://cdn.weeb.sh/images/rynHqkKD-.gif",
+      "https://cdn.weeb.sh/images/HkgnV9JYD-.jpeg",
+      "https://cdn.weeb.sh/images/S1ircyFwb.gif",
+      "https://cdn.weeb.sh/images/ByJ85ktDb.gif",
+      "https://cdn.weeb.sh/images/rJtHqkYw-.gif",
+      "https://cdn.weeb.sh/images/rJCVcytDW.gif",
+      "https://cdn.weeb.sh/images/ByQUc1YP-.jpeg",
+      "https://cdn.weeb.sh/images/HklUqyFP-.gif"
+    ]
+  },
+  "bailar": {
+    "images": [
+      "https://media.giphy.com/media/3o7qE2VAxuXWeyvJIY/giphy.gif",
+      "https://media.giphy.com/media/13hxeOYjoTWtK8/giphy.gif",
+      "https://media.giphy.com/media/w7mLEAMcpjrpe/giphy.gif"
+    ]
+  },
+  "suicide": {
+    "images":[
+      "https://media.giphy.com/media/c6DIpCp1922KQ/giphy.gif",
+      "https://media.giphy.com/media/jSxK33dwEMbkY/giphy.gif",
+      "https://media.giphy.com/media/3oEjHLk2EDvfODEdri/giphy.gif"
+    ]
+  },
+  "awoo":{
+    "images":[
+      "https://i.kym-cdn.com/photos/images/original/000/910/162/3f9.gif"
+    ]
+  },
+  "culear": {
+    "images": [
+      "https://cdn.discordapp.com/attachments/422831676155232267/450890728084733954/46782b53-e91a-4957-8aa5-af74b911f2ad.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/450890837149089793/tenor.gif",
+      "https://media.giphy.com/media/Saavhnp9YYN7a/giphy.gif",
+      "https://cdn.discordapp.com/attachments/451019016652324874/451191910657163265/SelfassuredAbleGermanshorthairedpointer-size_restricted.gif",
+      "https://cdn.discordapp.com/attachments/451019016652324874/451191909185224725/unnamed_3.gif",
+      "https://cdn.discordapp.com/attachments/451019016652324874/451191908744560643/unnamed_2.gif",
+      "https://cdn.discordapp.com/attachments/451019016652324874/451191908744560641/unnamed_5.gif",
+      "https://cdn.discordapp.com/attachments/439976223104303134/451201080273928232/330554__UNOPT__safe_scootaloo_gif_chicken.gif",
+      "https://cdn.discordapp.com/attachments/439976223104303134/451201073743527947/zzzzz.gif",
+      "https://cdn.discordapp.com/attachments/439976223104303134/451200701637591070/weird-funny-gif-mini-me.gif",
+      "https://cdn.discordapp.com/attachments/439976223104303134/451200671102795777/1365623937070.gif",
+      "https://cdn.discordapp.com/attachments/451019016652324874/455386923683414026/unnamed_4.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389300633370625/unnamed_8.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389301220442112/unnamed_6.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389301220442113/unnamed_7.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389331729940490/unnamed_1.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389331729940491/unnamed.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389362134450177/unnamed_3.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389362134450177/unnamed_3.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389419231379486/1482958306_16e0bd444240f2b7bd0312a67f6af211.gif",
+      "https://cdn.discordapp.com/attachments/422831676155232267/455389421198508042/aa2.gif"
+    ],
+    "texts": [
+      "%(mention)s, te esta culeando %(author)s",
+      "%(mention)s te ha culeado %(author)s",
+      "%(mention)s te esta moviendo el bote %(author)s"
+    ]
+  },
+  "putear": {
+    "images": [
+      "https://i.imgur.com/wQQZl7S.gif",
+      "https://i.imgur.com/euQLxmy.gif"
+    ],
+    "texts": [
+      "%(mention)s, te esta puteando %(author)s",
+      "%(mention)s, te esta poniendo una putiza %(author)s"
+    ]
+  },
+  "morder":{
+    "images":[
+      "https://media.giphy.com/media/UsoixKuWhc9Vu/giphy.gif"
+    ],
+    "texts":[
+      "%(mention)s, te esta mordiendo %(author)s"
+    ]
+  },
+  "cepillar":{
+    "images":[
+      "https://cdn.discordapp.com/emojis/449830856211693578.png"
+    ],
+    "texts":[
+      "%(mention)s, te esta cepillando %(author)s"
+    ]
+  },
+  "wachar":{
+    "images":[
+      "https://media1.tenor.com/images/6063b183b860e8f55efc0b6ab64ef3ff/tenor.gif"
+    ],
+    "texts":[
+      "%(mention)s, te esta wachando %(author)s",
+      "%(mention)s, te esta mirando %(author)s"
+    ]
+  },
+  "apresiar":{
+    "images":[
+      "https://media.giphy.com/media/wAjfQ9MLUfFjq/giphy.gif",
+      "https://media.giphy.com/media/AVBo5eqFXd3SU/giphy.gif"
+    ],
+    "texts":[
+      "%(mention)s, te esta apresiando %(author)s"
+    ]
+  },
+  "secuestrar":{
+    "images":[
+      "https://media.giphy.com/media/l4q846gKGpbp7LG12/giphy.gif",
+      "https://media.giphy.com/media/3orif41pxhN6lAjtza/giphy.gif"
+    ],
+    "texts":[
+      "%(mention)s, te esta secuestrando %(author)s"
+    ]
+  },
+  "buitrear":{
+    "images":[
+      "https://media.giphy.com/media/3ohc0Rnm6JE0cg0RvG/giphy.gif",
+      "https://media.giphy.com/media/l2YWB12QrxE19odj2/giphy.gif"
+    ],
+    "texts":[
+      "%(mention)s, te esta buitreando %(author)s"
+    ]
+  },
+  "reactions": [
+    {
+      "message": "mamey",
+      "send": "coman mamey <:pacman:420980551105642516>"
+    },
+    {
+      "message": "<:pacman:420980551105642516>",
+      "react": "420980551105642516"
+    },
+    {
+      "message": "<:wanwan:403968696067948554>",
+      "react": "403968696067948554"
+    },
+    {
+      "message": "<:ban:403065152863469579>",
+      "react": "403065152863469579"
+    },
+    {
+      "message": "<:justmonika:410847146984734720>",
+      "react": "410847146984734720"
+    },
+    {
+      "message": "<:vohiyo:412474913883160577>",
+      "react": "412474913883160577"
+    },
+    {
+      "message": "<a:truleado:415551980719702016>",
+      "react": "415551980719702016"
+    },
+    {
+      "message": "cuack",
+      "react": "🦆"
+    },
+    {
+      "message": "succ",
+      "react": "419006807147675679"
+    },
+    {
+      "message": "fastsucc",
+      "react": "419006860062883843"
+    },
+    {
+      "message": ["chale", "umiyaron", "umiyado"],
+      "react": "415551980719702016"
+    }
+  ]
 }

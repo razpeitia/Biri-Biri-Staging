@@ -97,6 +97,26 @@ exports.getCommands = (clients) => {
         msg.channel.send('Nadie escribió nada :c')
       })
     }
+  }),
+
+  new CustomCommand({
+    'name': 'umiyar',
+    'execute': msg => {
+      msg.delete()
+      msg.channel.awaitMessages(username => username, {
+        max: 1,
+        time: 300000,
+        errors: ['time'],
+      }).then((collected) => {
+        let reply = new message.BaseMessage()
+        reply.setTitle(`**${collected.first().author.username}** te umiyaron`)
+        reply.setColor(0x74DF00)
+        reply.setImage("https://cdn.discordapp.com/emojis/449830856211693578.png")
+        msg.channel.send(reply)
+      }).catch(() => {
+        msg.channel.send('Nadie escribió nada :c')
+      })
+    }
   })
   ]
 }
