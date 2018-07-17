@@ -32,7 +32,7 @@ exports.getCommands = (clients) => {
           return send(msg, `Necesitas especificar una action 'activar' o 'desactivar', pendejo`)
         }
         let action = (maybeAction === 'activar') ? 'activado' : 'desactivado'
-        action === 'activado' ? command.enable() : command.disable()
+        action === 'activado' ? command.enable(msg) : command.disable(msg)
         return send(msg, `Comando ${command.name} ${action}`)
     }
     })
