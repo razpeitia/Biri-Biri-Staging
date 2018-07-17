@@ -28,6 +28,7 @@
     "snekfetch": "^4.0.0",
     "sprintf-js": "^1.1.1",
     "pg": "^7.4.3",
+    "safe-buffer": "^5.1.2",
     "trello": "^0.9.0"
   },
   "devDependencies": {
