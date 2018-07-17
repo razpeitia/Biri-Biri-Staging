@@ -19,6 +19,21 @@ exports.getCommands = (clients) => {
       'image': config.wag.images
     }),
 
+    new ImageTitleCommand({
+      'name': 'bailar',
+      'image': config.bailar.images
+    }),
+
+    new ImageTitleCommand({
+      'name': 'suicide',
+      'image': config.suicide.images
+    }),
+
+    new ImageTitleCommand({
+      'name': 'awoo',
+      'image': config.awoo.images
+    }),    
+
     new MentionImageTitleCommand({
       'name': 'culear',
       'alias': ['culiar','culiada'],
@@ -33,6 +48,54 @@ exports.getCommands = (clients) => {
       'selfError': 'No te puedes putear a ti mismo, pendejo',
       'image': config.putear.images,
       'title': config.putear.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'cepillar',
+      'alias': ['cepillada','cepillar'],
+      'selfError': 'No te puedes cepillar a ti mismo, pendejo!',
+      'image': config.cepillar.images,
+      'title': config.cepillar.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'morder',
+      'alias': ['bite'],
+      'selfError': 'No te puedes culear a ti mismo, pendejo!',
+      'image': config.morder.images,
+      'title': config.morder.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'wachar',
+      'alias': ['mirar','look'],
+      'selfError': 'No te puedes mirar a ti mismo, pendejo!',
+      'image': config.wachar.images,
+      'title': config.wachar.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'buitrear',
+      'alias': ['buitre'],
+      'selfError': 'No te puedes buitrear a ti mismo, pendejo!',
+      'image': config.buitrear.images,
+      'title': config.buitrear.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'apresiar',
+      'alias': ['apreciar','praise'],
+      'selfError': ' ',
+      'image': config.apresiar.images,
+      'title': config.apresiar.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'secuestrar',
+      'alias': ['robar','kidnap'],
+      'selfError': 'No te puedes secuestrar a ti mismo, pendejo!',
+      'image': config.secuestrar.images,
+      'title': config.secuestrar.texts
     }),
 
     new CustomCommand({
