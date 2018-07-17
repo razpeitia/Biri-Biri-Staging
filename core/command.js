@@ -1,6 +1,7 @@
 const utils = require('./utils.js')
 const message = require('./message.js')
 const sprintf = require('sprintf-js').sprintf
+const db = require('../db/index.js').db
 
 class Command {
   constructor(params) {
@@ -26,14 +27,17 @@ class Command {
     return this.alias.map(a => prefix + a)
   }
 
-  disable() { this._enable = false }
+  disable(msg) {
+    db.disableCommandForChannel(this.getFullName(), `${msg.channel.id}`)
+  }
 
-  enable() { this._enable = true }
+  enable(msg) {
+    db.enableCommandForChannel(this.getFullName(), `${msg.channel.id}`)
+  }
 
   isEnable(msg) {
-    // TODO: In the future we want more granular control
-    // eg. check if it is enable for the author of this message
-    return this._enable
+    let name = this.getFullName()
+    return db.isCommandEnableForChannel(this.getFullName(), `${msg.channel.id}`)
   }
 
   onDisable(msg) {
