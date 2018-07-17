@@ -27,6 +27,7 @@
     "request-promise": "^4.2.2",
     "snekfetch": "^4.0.0",
     "sprintf-js": "^1.1.1",
+    "pg": "^7.4.3",
     "trello": "^0.9.0"
   },
   "devDependencies": {
