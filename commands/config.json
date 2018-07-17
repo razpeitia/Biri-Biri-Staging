@@ -14,19 +14,23 @@
    "neko": {
       "messages": {
          "pat": "**%(mention)s** *recibiste un pat de* **%(author)s**",
-         "kiss": "**%(mention)s** recibiste un beso de **%(author)s**",
+         "kiss": [
+            "**%(mention)s** recibiste un beso de **%(author)s**",
+            "**%(mention)s** recibiste un besito de **%(author)s**",
+            "**%(mention)s** recibiste un beso frances de **%(author)s**",
+            "**%(mention)s** recibiste un beso apasionado de **%(author)s**"
+         ],
          "slap": "**%(mention)s** recibiste un cachetada de **%(author)s**",
          "hug": "**%(mention)s** recibiste un abrazo de **%(author)s**",
          "poke": "**%(mention)s** recibiste un toque de **%(author)s**",
-         "feed": "**%(mention)s** te está alimentando **%(author)s**",
-         
-         "meaw": "**%(mention)s** te ha mauyado **%(author)s**",
-         "tickle": "**%(mention)s** te esta haciendo cosquillas **%(author)s**",
-         "lizzard": "**%(mention)s** te ha mandado una lagartija **%(author)s**",
-         "foxgirl": "**%(mention)s** te ha mandado una zorrita **%(author)s**",
-         "nekogif": "**%(mention)s** he ha mandado un nekito kawai uwu **%(author)s**",
-         "kemono": "**%(mention)s** te ha mandado una kemona **%(author)s**",
-         "holo": "**%(mention)s** te está alimentando **%(author)s**"
+         "feed": "**%(author)s** te está alimentando **%(mention)s**",
+         "meaw": "**%(author)s** te ha mauyado **%(mention)s**",
+         "tickle": "**%(author)s** te esta haciendo cosquillas **%(mention)s**",
+         "lizzard": "**%(author)s** te ha mandado una lagartija **%(mention)s**",
+         "foxgirl": "**%(author)s** te ha mandado una zorrita **%(mention)s**",
+         "nekogif": "**%(author)s** te ha mandado un nekito kawai uwu **%(mention)s**",
+         "kemono": "**%(author)s** te ha mandado una kemona **%(mention)s**",
+         "holo": "**%(author)s** te está alimentando **%(mention)s**"
       }
    },
    "cuteapi":{
@@ -37,18 +41,18 @@
          {"name": "highfive", "title": "%(author)s quiere que le des cinco"},
          {"name": "nani", "title": "Nani!"},
          {"name": "punch", "title": "%(author)s te dio un golpe"},
-         {"name": "hug", "title": "%(author)s te esta abrazando"},
+         {"name": "hug", "title": "%(author)s se siente abrazable"},
          {"name": "nom", "title": "%(author)s se siente con hambre"},
-         {"name": "woop", "title": "Me enwoopa"},
+         {"name": "woop", "title": "%(author)s se siente mordelon"},
          {"name": "cuddle", "title": "%(author)s te esta abrazando"},
          {"name": "tickle", "title": "%(author)s te esta haciendo cosquillas"},
-         {"name": "slap", "title": "%(author)s esta cacheteando"},
+         {"name": "slap", "title": "%(author)s te esta cacheteando"},
          {"name": "smug", "title": "%(author)s esta engreido"},
          {"name": "sleep", "title": "%(author)s se esta durmiendo"},
          {"name": "pat", "title": "%(author)s te esta dando una palmadita"},
          {"name": "lick", "title": "%(author)s te esta lamiendo"},
          {"name": "kiss", "title": "%(author)s esta besando"},
-         {"name": "neko", "title": "%(author)s se siento un nekito kawaii uwu"},
+         {"name": "neko", "title": "%(author)s se siente un nekito kawaii uwu"},
          {"name": "dancing", "title": "%(author)s esta bailando"},
          {"name": "meme", "title": "%(author)s esta memeando"},
          {"name": "loli", "title": "%(author)s ha enviado una loli"}
@@ -105,9 +109,9 @@
          "https://cdn.discordapp.com/attachments/422831676155232267/455389421198508042/aa2.gif"
       ],
       "texts": [
-         "%(mention)s, te esta culeando %(author)s",
-         "%(mention)s te ha culeado %(author)s",
-         "%(mention)s te esta moviendo el bote %(author)s"
+         "%(author)s te esta culeando %(mention)s",
+         "%(author)s te ha culeado %(mention)s",
+         "%(author)s te esta moviendo el bote %(mention)s"
       ]
    },
    "putear": {
