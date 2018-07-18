@@ -74,7 +74,7 @@ exports.getCommands = (clients) => {
       reply.addField("Nivel de Invocador",`${level}`)
       reply.addField("Campeon con más maestria",`${championName} *${championDescription}*`)
       reply.addField("Nivel / Puntos de maestria",`${masteryLevel} / ${masteryPoints}`)
-      reply.setColor(#74D92D)
+      reply.setColor(0x74D92D)
     }
   }),
 
