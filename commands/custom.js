@@ -6,8 +6,7 @@ exports.getCommands = (clients) => {
   return [new CustomCommand({
     'name': 'clima',
     'execute': async (msg) => {
-      // FIXME: Don't hardcode api key
-      let apiKey = `f877bb870097bca070d49bca3070cd84`
+      let apiKey = process.env.OPEN_WEATHER_KEY
       let city = utils.getMessage(msg)
       let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
       let params = {'url': url, 'json': true}
@@ -29,6 +28,53 @@ exports.getCommands = (clients) => {
           utils.sendText(msg, 'No pude encontrar nada con esa ciudad :c')
       })
 
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'lolinfo',
+    'execute': (msg) => {
+      let searchTerm = utils.getMessage(msg)
+      let api_key = process.env.RIOT_API_KEY
+      let summonerId = null;
+      let summonerIconId = null;
+      let summonerIcon = null;
+      let masteryLevel = null;
+      let masteryPoints = null;
+      let championId = null;
+      let championName = null;
+      let championDescription = null;
+      let level = null;
+      let url_id_summoner = `https://la2.api.riotgames.com/lol/summoner/v3/summoners/by-name/${searchTerm}?api_key=${apikey}`
+      let get_id_summoner = {'url': url_id_summoner,'json':true}
+      clients.request(get_id_summoner).then(info => {
+        let summonerId = info.id;
+        let summonerIconId = info.profileIconId;
+        let summonerIcon = `http://ddragon.leagueoflegends.com/cdn/8.14.1/img/profileicon/${summonerIconId}.png`
+        let level = info.summonerLevel;
+      });
+      if (summonerId != null){
+        let urlMastery = `https://la2.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${summonerId}?api_key=${apikey}`
+        let get_mastery_summoner = {'url': urlMastery, 'json':true}
+        clients.request(get_mastery_summoner).then(info => {
+          let masteryLevel = info[0].championLevel;
+          let masteryPoints = info[0].championPoints;
+          let championId = info[0].championId;
+        });
+       let url_champion_name = `https://la2.api.riotgames.com/lol/static-data/v3/champions/${championId}?locale=es_AR&api_key=${apikey}`
+       let get_champion_name = {'url': url_champion_name,'json':true}
+       clients.request(get_champion_name).then(info => {
+       let championName = info.name;
+       let championDescription = info.title;
+      });
+      }
+      let reply = new message.BaseMessage()
+      reply.setTitle(`Informacion de ${searchTerm}`)
+      reply.setThumbnail(summonerIcon)
+      reply.addField("Nivel de Invocador",`${level}`)
+      reply.addField("Campeon con más maestria",`${championName} *${championDescription}*`)
+      reply.addField("Nivel / Puntos de maestria",`${masteryLevel} / ${masteryPoints}`)
+      reply.setColor(#74D92D)
     }
   }),
 
