@@ -33,41 +33,39 @@ exports.getCommands = (clients) => {
 
   new CustomCommand({
     'name': 'lolinfo',
-    'execute': (msg) => {
+    'execute': async (msg) => {
       let searchTerm = utils.getMessage(msg)
       let apikey = process.env.RIOT_API_KEY
-      let summonerId = null;
-      let summonerIconId = null;
-      let summonerIcon = null;
-      let masteryLevel = null;
-      let masteryPoints = null;
-      let championId = null;
-      let championName = null;
-      let championDescription = null;
-      let level = null;
+
       let url_id_summoner = `https://la2.api.riotgames.com/lol/summoner/v3/summoners/by-name/${searchTerm}?api_key=${apikey}`
       let get_id_summoner = {'url': url_id_summoner,'json':true}
-      clients.request(get_id_summoner).then(info => {
-        let summonerId = info.id;
-        let summonerIconId = info.profileIconId;
-        let summonerIcon = `http://ddragon.leagueoflegends.com/cdn/8.14.1/img/profileicon/${summonerIconId}.png`
-        let level = info.summonerLevel;
-      });
-      if (summonerId != null){
-        let urlMastery = `https://la2.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${summonerId}?api_key=${apikey}`
-        let get_mastery_summoner = {'url': urlMastery, 'json':true}
-        clients.request(get_mastery_summoner).then(info => {
-          let masteryLevel = info[0].championLevel;
-          let masteryPoints = info[0].championPoints;
-          let championId = info[0].championId;
-        });
-       let url_champion_name = `https://la2.api.riotgames.com/lol/static-data/v3/champions/${championId}?locale=es_AR&api_key=${apikey}`
-       let get_champion_name = {'url': url_champion_name,'json':true}
-       clients.request(get_champion_name).then(info => {
-       let championName = info.name;
-       let championDescription = info.title;
-      });
+      let info = await clients.request(get_id_summoner)
+
+      let summonerId = info.id;
+      let summonerIconId = info.profileIconId;
+      let summonerIcon = `http://ddragon.leagueoflegends.com/cdn/8.14.1/img/profileicon/${summonerIconId}.png`
+      let level = info.summonerLevel;
+      let urlMastery = `https://la2.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${summonerId}?api_key=${apikey}`
+      let get_mastery_summoner = {'url': urlMastery, 'json':true}
+      let infos = await clients.request(get_mastery_summoner)
+
+      var masteryLevel = "Sin Informacion"
+      var masteryPoints = "Sin Informacion"
+      var championId = "Sin Informacion"
+      var championName = "Sin Informacion"
+      var championDescription = "Sin Informacion"
+      if(infos.length > 0) {
+        masteryLevel = infos[0].championLevel
+        masteryPoints = infos[0].championPoints
+        championId = infos[0].championId
+
+        let url_champion_name = `https://la2.api.riotgames.com/lol/static-data/v3/champions/${championId}?locale=es_AR&api_key=${apikey}`
+        let get_champion_name = {'url': url_champion_name,'json': true}
+        let moreInfo = await clients.request(get_champion_name)
+        championName = moreInfo.name
+        championDescription = moreInfo.title
       }
+
       let reply = new message.BaseMessage()
       reply.setTitle(`Informacion de ${searchTerm}`)
       reply.setThumbnail(summonerIcon)
@@ -75,6 +73,7 @@ exports.getCommands = (clients) => {
       reply.addField("Campeon con más maestria",`${championName} *${championDescription}*`)
       reply.addField("Nivel / Puntos de maestria",`${masteryLevel} / ${masteryPoints}`)
       reply.setColor(0x74D92D)
+      msg.channel.send(reply)
     }
   }),
 
