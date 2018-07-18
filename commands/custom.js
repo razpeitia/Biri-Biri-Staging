@@ -35,7 +35,7 @@ exports.getCommands = (clients) => {
     'name': 'lolinfo',
     'execute': (msg) => {
       let searchTerm = utils.getMessage(msg)
-      let api_key = process.env.RIOT_API_KEY
+      let apikey = process.env.RIOT_API_KEY
       let summonerId = null;
       let summonerIconId = null;
       let summonerIcon = null;
