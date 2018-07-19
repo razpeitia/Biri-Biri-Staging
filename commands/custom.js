@@ -20,7 +20,7 @@ exports.getCommands = (clients) => {
         reply.addField("Viento", `${weather.wind.speed} km/h`,true)
         reply.addField("Clima", `${weather.weather[0].description}`,true)
         reply.addField("Pais", `${weather.sys.country}`,true)
-        reply.setColor(0x(Math.random()*(1<<24)|0).toString(16))
+        reply.setColor(getColor())
         reply.setTimestamp()
         msg.channel.send(reply)
       })
