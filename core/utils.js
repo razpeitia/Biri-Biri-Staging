@@ -28,6 +28,10 @@ function getRandom(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
+function randomColors() {
+  let colors = [0x00ff80,0xc8b40a,0x2e2538,0x02e85f,0x1f4bdb];
+  return color = getRandom(colors)
+}
 
 function getMessage(msg) {
   let arr = msg.content.trim().split(' ')

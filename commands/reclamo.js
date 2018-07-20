@@ -6,6 +6,7 @@ const db = require('../db/index.js').db
 exports.getCommands = (clients) => {
   return [new CustomCommand({
     'name': 'reclamo',
+    'alias': ['r'],
     'execute': async (msg) => {
       let term = utils.getMessage(msg)
       if(utils.isEmpty(term)) {
