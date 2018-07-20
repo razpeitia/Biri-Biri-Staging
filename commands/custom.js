@@ -8,7 +8,7 @@ exports.getCommands = (clients) => {
     'execute': async (msg) => {
       let apiKey = process.env.OPEN_WEATHER_KEY
       let city = utils.getMessage(msg)
-      let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+      let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`
       let params = {'url': url, 'json': true}
       clients.request(params)
       .then(weather => {
@@ -18,9 +18,9 @@ exports.getCommands = (clients) => {
         reply.addField("Presión", `${weather.main.pressure} hPa`,true)
         reply.addField("Humedad", `${weather.main.humidity}%`,true)
         reply.addField("Viento", `${weather.wind.speed} km/h`,true)
-        reply.addField("Direccion del viento", `${weather.wind.deg}°`,true)
+        reply.addField("Clima", `${weather.weather[0].description}`,true)
         reply.addField("Pais", `${weather.sys.country}`,true)
-        reply.setColor(0x74DF00)
+        reply.setColor(getColor())
         reply.setTimestamp()
         msg.channel.send(reply)
       })
