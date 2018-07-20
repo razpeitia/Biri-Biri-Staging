@@ -14,6 +14,10 @@ exports.getCommands = (clients) => {
         return
       }
       let reclamo = await db.getReclamo(term)
+      if(reclamo === undefined) 
+        reclamo = await db.getReclamo(term + "%")
+      if(reclamo === undefined)
+        reclamo = await db.getReclamo("%" + term + "%")
       if(reclamo === undefined) {
         msg.delete(3000);
         msg.reply("esa persona/waifu no esta en el servidor, intenta nuevamente!").then(msg =>{msg.delete(4000)})
