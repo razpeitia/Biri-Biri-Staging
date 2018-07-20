@@ -23,12 +23,18 @@ exports.getCommands = (clients) => {
       let intocable = reclamo.intocable ? "Si" : "No"
       let casado = reclamo.casado ? "Si" : "No"
       var racha
+      var candidato
       if(reclamo.racha === '0')
         racha = 'No estas en racha! <a:apepoCry:443975688152940565>'
       else if(reclamo.racha === '1')
         racha = '1 Semana <a:yey:443975690967318541>'
       else
         racha = `${reclamo.racha} Semanas <a:blobdance:432765514440245250>`
+      
+      if(reclamo.racha >= '9')
+        candidato = 'Si <a:nam:393566275286073344>'
+      else
+        candidato = 'No <a:aFbSad:393914141796073472>'
 
       let reply = new message.BaseMessage()
       reply.setTitle("Datos del Reclamo")
@@ -48,6 +54,7 @@ exports.getCommands = (clients) => {
       reply.addField("Fecha del ultimo reclamo <a:time_stop:443975698466603008> ",`${reclamo.fecha}`,true)
       reply.addField("Procedencia <a:awow:443975693781565441> ",`${reclamo.procedencia}`,true)
       reply.addField("Racha: ",`${racha}`)
+      reply.addField("Candidato a boda: ",`${candidato}`)
       reply.setImage(`${reclamo.img}`)
       reply.setTimestamp()
       msg.channel.send(reply)
