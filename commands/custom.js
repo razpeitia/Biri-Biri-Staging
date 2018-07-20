@@ -130,7 +130,6 @@ exports.getCommands = (clients) => {
 
   new CustomCommand({
     'name': 'choose',
-    'alias': 'elegir',
     'exceute': (msg) => {
       let items = msg.content.split(" ").slice(1);
       if(!items) msg.channel.send("Necesito algo para elegir, pendejo");
