@@ -51,18 +51,6 @@ exports.getCommands = (clients) => {
       reply.setImage(`${reclamo.img}`)
       reply.setTimestamp()
       msg.channel.send(reply)
-      /*
-      { fb_profile_id: '100000866887199',
-        nombre: 'Alejandro Carrillo',
-        waifu: 'Makise Kurisu',
-        procedencia: 'Steins;gate ',
-        img: 'https://scontent.fgdl5-2.fna.fbcdn.net/v/t1.0-9/37161318_1858952767476935_8126204924351479808_o.jpg?_nc_cat=0&oh=0fdf3a78827e71f1095d7d35200b8cb2&oe=5BD36C24',
-        fecha: 2018-07-15T05:03:18.000Z,
-        racha: '7',
-        casado: false,
-        intocable: false }
-      */
-
     }
   })
   ]
