@@ -36,7 +36,7 @@ exports.getCommands = (clients) => {
         racha = `${reclamo.racha} Semanas <a:blobdance:432765514440245250>`
       msg.channel.send(`${racha}`);
       msg.channel.send(`${reclamo.racha}`);
-      if(reclamo.racha >= '9') msg.channel.send("racha de 9");
+      if(reclamo.racha >= "9") msg.channel.send("racha de 9");
       if(reclamo.racha >= '9'){
         candidato = 'Si <a:nam:393566275286073344>'
       }else{
