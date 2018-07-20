@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const utils = require('../core/utils.js')
 
-const footer = [`© ${msg.guild.name} ~ `, 'https://cdn.discordapp.com/emojis/411791637870542851.png']
+const footer = [`© FAMFAMO ~ `, 'https://cdn.discordapp.com/emojis/411791637870542851.png']
 const color = utils.randomColors();
 
 class BaseMessage extends Discord.RichEmbed {
