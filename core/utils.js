@@ -16,11 +16,6 @@ function isFirstMentionAuthor(msg) {
   return msg.author.id === msg.mentions.members.first().user.id
 }
 
-function getColor(){
-  let color = ((1 << 24) * Math.random() | 0).toString(16);
-  return `0x${color}`;
-}
-
 function countMentions(msg) {
   return msg.mentions.members.size
 }
