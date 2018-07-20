@@ -18,7 +18,7 @@ class MemeCommand extends CustomCommand {
 exports.getCommands = (clients) => {
   return [new MemeCommand({
     'name': 'meme',
-    'cooldown': clients.cooldown({'seconds': 25}),
+    'cooldown': clients.cooldown({'seconds': 20}),
     'mentions': 1,
     'execute': (msg) => {
       var mentioned = msg.mentions.users.first()
