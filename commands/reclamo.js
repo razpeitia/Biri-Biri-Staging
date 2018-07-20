@@ -31,11 +31,11 @@ exports.getCommands = (clients) => {
       else
         racha = `${reclamo.racha} Semanas <a:blobdance:432765514440245250>`
       
-      if(reclamo.racha >= '9')
+      if(reclamo.racha >= '9'){
         candidato = 'Si <a:nam:393566275286073344>'
-      else
+      }else{
         candidato = 'No <a:aFbSad:393914141796073472>'
-
+      }
       let reply = new message.BaseMessage()
       reply.setTitle("Datos del Reclamo")
       reply.setDescription(`Nombre del/la Reclamador/a : ** ${reclamo.nombre} **`)
