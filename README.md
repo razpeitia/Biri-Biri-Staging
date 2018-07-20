@@ -2,7 +2,7 @@
 Discord Bot for FAMFAMO! 
 
 *Developed by:
-`Taeko#0001` & `Rare Akuma ☆#4034`*
+`Taeko#0001` & `Rare Akuma ☆#6776`*
 
 Notes:
 This is a custom bot for discord, is not recommendable use in a new Guild, this might not work if you doesn't know what are you doing! 
