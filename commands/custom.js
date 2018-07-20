@@ -133,7 +133,7 @@ exports.getCommands = (clients) => {
     'execute': (msg) => {
       let items = msg.content.split(" ").slice(1);
       msg.channel.send(`${items}`);
-      let choose = test[Math.floor(Math.random() * test.length)];
+      let choose = items[Math.floor(Math.random() * items.length)];
       msg.channel.send(`${choose}`);
       if(!items) msg.channel.send("Necesito algo para elegir, pendejo");
       if (items.length >= 1) msg.channel.send("Necesito más de un item para elegir, pendejo");
