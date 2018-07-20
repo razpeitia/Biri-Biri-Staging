@@ -75,3 +75,4 @@ exports.sendText = sendText
 exports.isFirstMentionAuthor = isFirstMentionAuthor
 exports.getContent = getContent
 exports.formatDate = formatDate
+exports.randomColors = randomColors
