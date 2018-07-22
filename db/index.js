@@ -1,5 +1,5 @@
 const { Pool, Client } = require('pg')
-const moment = require('moment')
+const moment = require('moment-timezone')
 
 class Database {
   constructor() {
@@ -16,7 +16,7 @@ class Database {
   }
 
   lastSunday() {
-    return moment().startOf('week').toISOString()
+    return moment().tz("America/Mexico_City").startOf('week').format()
   }  
 
   async getReclamo(term) {
