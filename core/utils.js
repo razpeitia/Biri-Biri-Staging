@@ -16,11 +16,6 @@ function isFirstMentionAuthor(msg) {
   return msg.author.id === msg.mentions.members.first().user.id
 }
 
-function getColor(){
-  let color = ((1 << 24) * Math.random() | 0).toString(16);
-  return `0x${color}`;
-}
-
 function countMentions(msg) {
   return msg.mentions.members.size
 }
@@ -33,6 +28,10 @@ function getRandom(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
+function randomColors() {
+  let colors = [0x00ff80,0xc8b40a,0x2e2538,0x02e85f,0x1f4bdb];
+  return color = getRandom(colors)
+}
 
 function getMessage(msg) {
   let arr = msg.content.trim().split(' ')
@@ -76,3 +75,4 @@ exports.sendText = sendText
 exports.isFirstMentionAuthor = isFirstMentionAuthor
 exports.getContent = getContent
 exports.formatDate = formatDate
+exports.randomColors = randomColors

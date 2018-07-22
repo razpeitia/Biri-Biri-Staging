@@ -28,14 +28,15 @@ exports.getCommands = (clients) => {
       let casado = reclamo.casado ? "Si" : "No"
       var racha
       var candidato
+      
       if(reclamo.racha === '0')
         racha = 'No estas en racha! <a:apepoCry:443975688152940565>'
       else if(reclamo.racha === '1')
         racha = '1 Semana <a:yey:443975690967318541>'
       else
         racha = `${reclamo.racha} Semanas <a:blobdance:432765514440245250>`
-      
-      if(reclamo.racha >= '9'){
+
+      if(parseInt(reclamo.racha) >= parseInt('9')){
         candidato = 'Si <a:nam:393566275286073344>'
       }else{
         candidato = 'No <a:aFbSad:393914141796073472>'

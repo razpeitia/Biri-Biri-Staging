@@ -20,7 +20,7 @@ exports.getCommands = (clients) => {
         reply.addField("Viento", `${weather.wind.speed} km/h`,true)
         reply.addField("Clima", `${weather.weather[0].description}`,true)
         reply.addField("Pais", `${weather.sys.country}`,true)
-        reply.setColor(getColor())
+        reply.setColor(randomColors())
         reply.setTimestamp()
         msg.channel.send(reply)
       })
@@ -125,6 +125,19 @@ exports.getCommands = (clients) => {
       reply.addField(`Nickname:`, user.username, true)
       reply.addField("Se unió a discord el: ", utils.formatDate(join),true)
       msg.channel.send(reply)
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'choose',
+    'execute': (msg) => {
+      let items = msg.content.split(" ").slice(1);
+      if (items.length <= 1){
+        msg.delete();
+        return msg.channel.send("Necesito más de un item para elegir, pendejo")
+      }
+      let choose = items[Math.floor(Math.random() * items.length)];
+      msg.channel.send(`**Yo elijo** ${choose} 🎱`);
     }
   }),
 
