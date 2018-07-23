@@ -31,7 +31,8 @@
     "safe-buffer": "^5.1.2",
     "snekfetch": "^4.0.0",
     "sprintf-js": "^1.1.1",
-    "trello": "^0.9.0"
+    "trello": "^0.9.0",
+    "fire-emblem-heroes-stats": "^0.15.2"
   },
   "devDependencies": {
     "jasmine": "^3.1.0"

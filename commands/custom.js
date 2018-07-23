@@ -98,6 +98,20 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
+    'name': 'hero',
+    'execute' : async (msg) =>{
+      let searchTerm = utils.getMessage(msg)
+      if(utils.isEmpty(searchTerm)){
+        utils.sendText(msg, 'Aber pendejo, dame algo para buscar')
+        return
+      }
+      const stats = new clients.stats()
+      const info = stats.getHero(`${searchTerm}`)
+      msg.channel.send(`${info}`)
+    }
+  }),
+
+  new CustomCommand({
     'name': 'serverinfo',
     'execute': (msg) => {
       let reply = new message.BaseMessage()
