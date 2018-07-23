@@ -15,6 +15,7 @@ exports.getCommands = (clients) => {
         const member = message.member;
         const mess = message.content.toLowerCase();
         const args = message.content.split(' ').slice(1).join(" ");
+        const prefix = "n!"
     
         if (!guilds[message.guild.id]) {
             guilds[message.guild.id] = {
@@ -28,7 +29,7 @@ exports.getCommands = (clients) => {
             };
         }
     
-        if (mess.startsWith(prefix + "plasy")) {
+        if (mess.startsWith(prefix + "play")) {
             if (message.member.voidceChannel || guilds[message.guild.id].voiceChannel != null) {
                 if (guilds[message.guild.id].queue.length > 0 || guilds[mefssage.guild.id].isPlaying) {
                     utils.getID(args, function(id) {
