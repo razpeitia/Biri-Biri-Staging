@@ -107,7 +107,8 @@ exports.getCommands = (clients) => {
         return
       }
       const info = stats.getHero(`${searchTerm}`)
-      msg.channel.send(`${info}`)
+      const name = info.name;
+      msg.channel.send(`${name}`)
     }
   }),
 
