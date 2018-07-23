@@ -15,7 +15,6 @@ const config = require('../commands/config.json')
 
 const Cooldown = require('cooldown')
 const Pornsearch = require('pornsearch')
-const stats = require('fire-emblem-heroes-stats');
 
 function cooldown(params) {
   let ms = params.milliseconds || 0
@@ -26,7 +25,6 @@ function cooldown(params) {
   return new Cooldown(total)
 }
 
-exports.stats = stats
 exports.trello = trello
 exports.cuteapi = cuteapi
 exports.neko = neko

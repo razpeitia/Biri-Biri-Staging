@@ -1,5 +1,6 @@
 const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
+const stats = require('fire-emblem-heroes-stats')
 const message = require('../core/message.js')
 
 exports.getCommands = (clients) => {
@@ -105,7 +106,6 @@ exports.getCommands = (clients) => {
         utils.sendText(msg, 'Aber pendejo, dame algo para buscar')
         return
       }
-      const stats = new clients.stats()
       const info = stats.getHero(`${searchTerm}`)
       msg.channel.send(`${info}`)
     }
