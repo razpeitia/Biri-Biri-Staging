@@ -32,7 +32,12 @@ exports.getCommands = (clients) => {
     new ImageTitleCommand({
       'name': 'awoo',
       'image': config.awoo.images
-    }),    
+    }),
+
+    new ImageTitleCommand({
+      'name': 'actitud',
+      'image': config.actitud.images
+    }),
 
     new MentionImageTitleCommand({
       'name': 'culear',
