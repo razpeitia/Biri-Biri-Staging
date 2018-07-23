@@ -112,6 +112,14 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
+    'name': 'fheros',
+    'execute' : async (msg) =>{
+      const event = stats.getAllHeroes();
+      msg.channel.send(`${event}`)
+    }
+  }),
+
+  new CustomCommand({
     'name': 'serverinfo',
     'execute': (msg) => {
       let reply = new message.BaseMessage()
