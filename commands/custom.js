@@ -1,6 +1,6 @@
 const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
-const stats = require('fire-emblem-heroes-stats')
+var stats = require('fire-emblem-heroes-stats')
 const message = require('../core/message.js')
 
 exports.getCommands = (clients) => {
