@@ -39,7 +39,7 @@ exports.getCommands = (clients) => {
 
           // Count the total reports in the last 10 minutes
           const reportCount = reports.reduce( (acc, v) => {
-            return acc + (v.time + mutePeriod < Date.now() && v.server === server) ? 1 : 0
+            return acc + (v.time + mutePeriod > Date.now() && v.server === server) ? 1 : 0
           }, 0);
 
           // If there are enough reports, add the user to the mute list
