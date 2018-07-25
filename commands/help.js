@@ -140,6 +140,6 @@ exports.getCommands = (clients) => {
 				reply.setFooter("© FAMFAMO ~ ", "https://cdn.discordapp.com/emojis/411791637870542851.png")
   			msg.channel.send(reply).catch(console.error);
 			}
-		})
+        }),
 	]
 }
