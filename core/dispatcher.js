@@ -47,8 +47,8 @@ class Dispatcher {
     // Or if you are a bot, your opinion is not important
     if(!msg.content.startsWith(this.prefix) || msg.author.bot) return
 
-    // Maybe there is a better way to do this
-    let commandName = msg.content.trim().split(' ', 1)[0].toLowerCase()
+    // match whitespaces - capture the first set of characters - the rest > return lowercase 
+    let commandName = msg.content.replace(/\s*(\S*).*/,"\L$1");
 
     // If the command doesn't exists then we don't care
     if(!this.commands.hasOwnProperty(commandName)) return
