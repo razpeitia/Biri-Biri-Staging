@@ -17,7 +17,7 @@ exports.getCommands = (clients) => {
       let title = sprintf(type.title, {'author': author})
       let imgUrl = (await cuteapi.getJSON(type.name, false)).url
 
-      let replyMessage = new message.BaseMessage()
+      let replyMessage = new message.BaseMessage(msg)
       replyMessage.setTitle(title)
       replyMessage.setImage(imgUrl)
       msg.channel.send(replyMessage)

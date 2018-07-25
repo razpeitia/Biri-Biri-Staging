@@ -14,7 +14,7 @@ exports.getCommands = (clients) => {
         return
       }
       let reclamo = await db.getReclamo(term)
-      if(reclamo === undefined) 
+      if(reclamo === undefined)
         reclamo = await db.getReclamo(term + "%")
       if(reclamo === undefined)
         reclamo = await db.getReclamo("%" + term + "%")
@@ -28,7 +28,7 @@ exports.getCommands = (clients) => {
       let casado = reclamo.casado ? "Si" : "No"
       var racha
       var candidato
-      
+
       if(reclamo.racha === '0')
         racha = 'No estas en racha! <a:apepoCry:443975688152940565>'
       else if(reclamo.racha === '1')
@@ -41,7 +41,7 @@ exports.getCommands = (clients) => {
       }else{
         candidato = 'No <a:aFbSad:393914141796073472>'
       }
-      let reply = new message.BaseMessage()
+      let reply = new message.BaseMessage(msg)
       reply.setTitle("Datos del Reclamo")
       reply.setDescription(`Nombre del/la Reclamador/a : ** ${reclamo.nombre} **`)
       reply.addField("Waifu/Husbando/Trapfu/3D <a:kannadance:419009629113286658>", `${reclamo.waifu}`)
