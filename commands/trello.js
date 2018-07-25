@@ -8,7 +8,7 @@ exports.getCommands = (clients) => {
       'name': 'dev',
       'execute': (msg) => {
         let content = utils.getMessage(msg)
-        let replyMessage = new message.BaseMessage()
+        let replyMessage = new message.BaseMessage(msg)
 
         if(utils.isEmpty(content)) {
             replyMessage.setTitle('Tienes que darnos un mensaje, pendejo')

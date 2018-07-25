@@ -96,7 +96,7 @@ class ImageTitleCommand extends Command {
 
   async execute(msg) {
     let author = utils.getAuthor(msg)
-    let replyMessage = new message.BaseMessage()
+    let replyMessage = new message.BaseMessage(msg)
     let imgUrl = await utils.getContent(this.image)
     let title = utils.getContent(this.title)
 
@@ -136,7 +136,7 @@ class MentionImageTitleCommand extends ImageTitleCommand {
   async execute(msg) {
     let mention = utils.getFirstMention(msg)
     let author = utils.getAuthor(msg)
-    let replyMessage = new message.BaseMessage()
+    let replyMessage = new message.BaseMessage(msg)
     let imgUrl = await utils.getContent(this.image)
     replyMessage.setImage(imgUrl)
     if(utils.isEmpty(imgUrl)) throw new Error('Una imagen es requerida')
@@ -161,7 +161,7 @@ class NSFWCommand extends Command {
 
   async execute(msg) {
     let imgUrl = (await this.imageFunc()).url
-    let replyMessage = new message.BaseMessage()
+    let replyMessage = new message.BaseMessage(msg)
     replyMessage.setImage(imgUrl)
     msg.channel.send(replyMessage)
   }

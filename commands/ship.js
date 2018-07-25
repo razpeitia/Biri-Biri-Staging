@@ -9,7 +9,7 @@ exports.getCommands = (clients) => {
         let mention1 = msg.mentions.members.first().user.username
         let mention2 = msg.mentions.members.last().user.username
         let title = `${mention1} + ${mention2} = ${combinename(mention1, mention2)}`
-        let replyMessage = new message.BaseMessage()
+        let replyMessage = new message.BaseMessage(msg)
         replyMessage.setTitle(title)
         // TODO: Add image: avatar1, heart, avatar2
         msg.channel.send(replyMessage)
