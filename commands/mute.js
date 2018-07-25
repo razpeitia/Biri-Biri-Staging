@@ -27,7 +27,7 @@ exports.getCommands = (clients) => {
           Mute reports can still be given out if a user already muted.
        ----------------------------------------------------------------- */
 
-      if(reported) {
+      if(recipient) {
         // Do not allow users to report more than once every 10 minutes per server
         if(userReports[reporter].every( (v,i,a) => ( v.time + mutePeriod < Date.now() || v.server !== server ) )) {
 
