@@ -9,7 +9,11 @@ function getAuthor(msg) {
 }
 
 function getFirstMention(msg) {
-  return msg.mentions.members.first().user.username
+  try { return msg.mentions.members.first().user.username; } catch(e) { return null; } 
+}
+
+function getFirstMentionID(msg) {
+  try { return msg.mentions.members.first().user.id; } catch(e) { return null; } 
 }
 
 function isFirstMentionAuthor(msg) {

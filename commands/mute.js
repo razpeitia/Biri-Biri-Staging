@@ -8,14 +8,18 @@ const mutePeriod    = minutes * 60 * 1000;
 
 const reports       = new Array();
 const userReports   = new Array();
-const mutedUsers    = new Array();
+var mutedUsers      = new Map();
+
+exports.setMuted = (muted) => {
+  mutedUsers = muted;
+}
 
 exports.getCommands = (clients) => {
   return [new CustomCommand({
     'name': 'mute',
     'execute': async (msg) => {
 
-      const recipient   = msg.mentions.members.first().user.id; // Who is being reported
+      const recipient   = utils.getFirstMetionID(msg);          // Who is being reported
       const reporter    = msg.author.id;                        // Who is reporting
       const server      = msg.server.id;                        // Where are they reporting
       const time        = Date.now();                           // Time of the report
@@ -45,22 +49,28 @@ exports.getCommands = (clients) => {
           // If there are enough reports, add the user to the mute list
           // and do not overwrite mutes
           if(reportCount >= maxReports && !mutedUsers[recipient]) {
+            
+            // Get the servers where the user is muted
+            const servers = mutedUsers.get(recipient) || [];
+            
+            // Append the server to the servers array
+            mutedUsers.set(recipient, servers.concat(server));
 
-              // TODO mute recipient @ server
-              // Options:
-              //    1. add mute roles
-              //    2. delete messages on receive
 
-              mutedUsers[recipient] = true;
-
+            // Register a timeout for mutePeriod
             setTimeout(function(args){
-                // TODO unmute args.recipient @ args.server
+              // Get the servers where the user is muted
+              const servers = mutedUsers.get(args.recipient) || [];
 
-                this.mutedUsers[args.recipient] = true;
-              }.bind(this), mutePeriod, { recipient:recipient, server: server });
+              // Remove args.server from the servers list
+              this.mutedUsers.set(args.recipient, servers.filter( (v) => v !== args.server)); 
+
+            }.bind(this), mutePeriod, { recipient:recipient, server: server });
           }
         }
       } else {
+        // TODO answer 'no mention'
+
         return;
       }
     }

@@ -5,6 +5,7 @@ class Dispatcher {
     this.clients = clients
     this.clients.dispatcher = this
     this.commands = {}
+    this.mutedList = new Map();
   }
 
   enforceUniqueName(name) {
@@ -43,12 +44,16 @@ class Dispatcher {
     let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
     this.clients.dogstatsd.increment('discord.message', 1, tags)
 
+    // Are you muted?
+    if(mutedList[msg.author.id].server === msg.server.id)
+      msg.delete();
+
     // Is this a command?
     // Or if you are a bot, your opinion is not important
     if(!msg.content.startsWith(this.prefix) || msg.author.bot) return
 
     // match whitespaces - capture the first set of characters - the rest > return lowercase 
-    let commandName = msg.content.replace(/\s*(\S*).*/,"\L$1");
+    let commandName = msg.content.replace(/\s*(\S*).*/,"$1").toLowerCase();
 
     // If the command doesn't exists then we don't care
     if(!this.commands.hasOwnProperty(commandName)) return
@@ -84,11 +89,16 @@ class Dispatcher {
       return
     }
 
-    await command.execute(msg)
+    // Get the commands return value 
+    const answer = await command.execute(msg)
   }
 
   register() {
     this.bot.on('message', (msg) => this.dispatch(msg))
+  }
+
+  setMuted() {
+    this.commands.mute.setMuted(this.mutedList);
   }
 }
 
