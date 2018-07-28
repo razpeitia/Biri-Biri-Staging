@@ -13,7 +13,7 @@ exports.getCommands = (clients) => {
       let params = {'url': url, 'json': true}
       clients.request(params)
       .then(weather => {
-        let reply = new message.BaseMessage()
+        let reply = new message.BaseMessage(msg)
         reply.setTitle(`Clima en ${weather.name}`)
         reply.addField("Temperatura", `${weather.main.temp}°C`,true)
         reply.addField("Presión", `${weather.main.pressure} hPa`,true)
@@ -67,7 +67,7 @@ exports.getCommands = (clients) => {
         championDescription = moreInfo.title
       }
 
-      let reply = new message.BaseMessage()
+      let reply = new message.BaseMessage(msg)
       reply.setTitle(`Informacion de ${searchTerm}`)
       reply.setThumbnail(summonerIcon)
       reply.addField("Nivel de Invocador",`${level}`)
@@ -123,7 +123,7 @@ exports.getCommands = (clients) => {
   new CustomCommand({
     'name': 'serverinfo',
     'execute': (msg) => {
-      let reply = new message.BaseMessage()
+      let reply = new message.BaseMessage(msg)
       reply.setColor(0x74DF00)
       reply.setThumbnail(msg.guild.iconURL)
       reply.setTitle(`Información de ${msg.guild}`, true)
@@ -140,7 +140,7 @@ exports.getCommands = (clients) => {
       let user = msg.mentions.users.first() || msg.author;
       let join = user.createdAt || msg.author.createdAt;
 
-      let reply = new message.BaseMessage()
+      let reply = new message.BaseMessage(msg)
       reply.setColor(0x74DF00)
       reply.setThumbnail(user.avatarURL)
       reply.setTitle(`Información de ${user.username}`, true)
@@ -189,7 +189,7 @@ exports.getCommands = (clients) => {
         time: 300000,
         errors: ['time'],
       }).then((collected) => {
-        let reply = new message.BaseMessage()
+        let reply = new message.BaseMessage(msg)
         reply.setTitle(`**${collected.first().author.username}** te umiyaron`)
         reply.setColor(0x74DF00)
         reply.setImage("https://cdn.discordapp.com/emojis/449830856211693578.png")
