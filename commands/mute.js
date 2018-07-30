@@ -15,8 +15,8 @@ class MuteCommand extends CustomCommand {
         const reporter    = msg.author.id;                // Who is reporting
         const server      = msg.guild.id;                 // Where are they reporting
         const time        = Date.now();                   // Time of the report
-        let has_admin     = msg.author.has("ADMINISTRATOR") // Check if the user has admin
-        let has_manage    = msg.author.has("MANAGE_MESSAGES") // Check if the user has Manage Messages
+        let has_admin     = msg.member.permissions.has("ADMINISTRATOR") // Check if the user has admin
+        let has_manage    = msg.member.permissions.has("MANAGE_MESSAGES") // Check if the user has Manage Messages
         /* -----------------------------------------------------------------
           Considerations:
             Users can only report once per server every mutePeriod.
