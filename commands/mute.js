@@ -11,10 +11,11 @@ class MuteCommand extends CustomCommand {
     let params = {
       'name': 'mute',
       'execute': async (msg) => {
-        const recipient   = utils.getFirstMentionID(msg); // Who is being reported
-        const reporter    = msg.author.id;                // Who is reporting
-        const server      = msg.guild.id;                 // Where are they reporting
-        const time        = Date.now();                   // Time of the report
+        const recipient   = utils.getFirstMentionID(msg);          // Who is being reported
+        const reporter    = msg.author.id;                         // Who is reporting
+        const server      = msg.guild.id;                          // Where are they reporting
+        const time        = Date.now();                            // Time of the report
+        const muteRole    = msg.guild.roles.find('name','Muted');  // Look for the muted role
 
         /* -----------------------------------------------------------------
           Considerations:
@@ -50,15 +51,43 @@ class MuteCommand extends CustomCommand {
             this.mutedUsers.set(recipient, servers.concat(server));
 
 
+            // Via Roles ---------- ADD ------------
+            if(muteRole)
+              msg.member.addRole(muteRole.id)
+                .then(console.log)
+                .catch(console.error);
+            // -------------------------------------
+
+
+            // Set the argument data sent to the timer callback
+            const timerArgs = {
+              recipient:recipient,
+              server: server,
+              muteRole: muteRole,
+              member: msg.member
+            };
+
+
+            /* ----------------------
+              Timer and Callback
+            ---------------------- */
+
             // Register a timeout for mutePeriod
             setTimeout(function(args){
               // Get the servers where the user is muted
               const servers = this.mutedUsers.get(args.recipient) || [];
 
               // Remove args.server from the servers list
-              this.mutedUsers.set(args.recipient, servers.filter( (v) => v !== args.server));
+              this.mutedUsers.set(args.recipient, servers.filter( (v) => v !== args.server) );
 
-            }.bind(this), mutePeriod, { recipient:recipient, server: server });
+              // Via Roles -------- REMOVE -----------
+              if(args.muteRole)
+                args.member.removeRole(args.muteRole.id)
+                  .then(console.log)
+                  .catch(console.error);
+              // -------------------------------------
+
+            }.bind(this), mutePeriod, timerArgs);
           }
         }
       }
