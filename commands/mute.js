@@ -2,24 +2,32 @@ const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 const message = require('../core/message.js')
 
-const maxReports    = 10;
-const minutes       = 10;
-const mutePeriod    = minutes * 60 * 1000;
+var maxReports;
+var minutes;
+var mutePeriod;
 
-const reports       = new Array();
-const userReports   = new Array();
-var mutedUsers      = new Map();
+var reports;
+var userReports;
+var mutedUsers;
 
 exports.setMuted = (muted) => {
   mutedUsers = muted;
 }
 
 exports.getCommands = (clients) => {
+  maxReports    = 10;
+  minutes       = 10;
+  mutePeriod    = minutes * 60 * 1000;
+
+  reports       = new Array();
+  userReports   = new Array();
+  mutedUsers      = new Map();
+
   return [new CustomCommand({
     'name': 'mute',
     'execute': async (msg) => {
 
-      const recipient   = utils.getFirstMetionID(msg);          // Who is being reported
+      const recipient   = utils.getFirstMentionID(msg);          // Who is being reported
       const reporter    = msg.author.id;                        // Who is reporting
       const server      = msg.server.id;                        // Where are they reporting
       const time        = Date.now();                           // Time of the report
@@ -49,10 +57,10 @@ exports.getCommands = (clients) => {
           // If there are enough reports, add the user to the mute list
           // and do not overwrite mutes
           if(reportCount >= maxReports && !mutedUsers[recipient]) {
-            
+
             // Get the servers where the user is muted
             const servers = mutedUsers.get(recipient) || [];
-            
+
             // Append the server to the servers array
             mutedUsers.set(recipient, servers.concat(server));
 
