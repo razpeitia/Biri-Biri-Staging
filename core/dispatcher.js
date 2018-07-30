@@ -43,12 +43,12 @@ class Dispatcher {
     let tags = {'channel': msg.channel.name, 'type': msg.channel.type}
     this.clients.dogstatsd.increment('discord.message', 1, tags)
 
- /*   // Are you muted?
+    // Are you muted?
     if(this.getCommandByName('mute').checkMuted(msg)) {
       msg.delete()
       return
     }
-*/
+
     // Is this a command?
     // Or if you are a bot, your opinion is not important
     if(!msg.content.startsWith(this.prefix) || msg.author.bot) return
