@@ -30,6 +30,7 @@ class MuteCommand extends CustomCommand {
         if (!has_admin || !has_manage) return msg.channel.send("Necesitas ser admin para hacer esto, pendejo")
 
         if(recipient === undefined) return
+        
         // Do not allow users to report more than once every 10 minutes per server
         if(this.userReports[reporter] === undefined) this.userReports[reporter] = []
         if(this.userReports[reporter].every( (v,i,a) => ( v.time + mutePeriod < Date.now() || v.server !== server ) )) {
@@ -48,9 +49,10 @@ class MuteCommand extends CustomCommand {
 
           // If there are enough reports, add the user to the mute list
           // and do not overwrite mutes
-          if(reportCount >= maxReports) {
+          if(reportCount >= maxReports && !mutedUsers[recipient]) {
+
             // Get the servers where the user is muted
-            const servers = this.mutedUsers.get(recipient) || [];
+            const servers = mutedUsers.get(recipient) || [];
 
             // Append the server to the servers array
             this.mutedUsers.set(recipient, servers.concat(server));
