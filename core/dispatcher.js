@@ -45,7 +45,7 @@ class Dispatcher {
     this.clients.dogstatsd.increment('discord.message', 1, tags)
 
     // Are you muted?
-    if(this.mutedList[msg.author.id].indexOf(msg.server.id) > -1)
+    if(this.mutedList[msg.author.id] && this.mutedList[msg.author.id].indexOf(msg.server.id) > -1)
       msg.delete();
 
     // Is this a command?
