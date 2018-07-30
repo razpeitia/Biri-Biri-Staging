@@ -96,9 +96,6 @@ class Dispatcher {
   register() {
     this.bot.on('message', (msg) => this.dispatch(msg))
   }
-
-  setMuted() {
-  }
 }
 
 exports.Dispatcher = Dispatcher
