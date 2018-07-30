@@ -71,6 +71,7 @@ function formatDate(data) {
 exports.isEmpty = isEmpty
 exports.getAuthor = getAuthor
 exports.getFirstMention = getFirstMention
+exports.getFirstMentionID = getFirstMentionID
 exports.countMentions = countMentions
 exports.hasMention = hasMention
 exports.getRandom = getRandom
