@@ -68,12 +68,12 @@ class MuteCommand extends CustomCommand {
     this.userReports   = new Array();
     this.mutedUsers    = new Map();
   }
+
+  checkMuted(msg) {
+    return (this.mutedUsers.get(msg.author.id) || []).indexOf(msg.guild.id);
+  }
 }
 
 exports.getCommands = (clients) => {
   return [new MuteCommand()];
-}
-
-exports.checkMuted = (msg) => {
-  return (mutedUsers[msg.author.id] || []).indexOf(msg.guild.id);
 }
