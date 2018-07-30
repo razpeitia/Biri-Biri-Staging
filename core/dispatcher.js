@@ -31,8 +31,8 @@ class Dispatcher {
       command.setPrefix(prefix)
       this.enforceUniqueCommand(command)
       commands[command.getFullName()] = command
-      command.getFullAlias().forEach(name => { commands[name] = command})
-    })
+      command.getFullAlias().forEach(name => { commands[name] = command; if(name === 'mute') this.commands.mute.setMuted(this.mutedList); });
+    });
   }
 
   getCommandByName(name) {
@@ -95,10 +95,6 @@ class Dispatcher {
 
   register() {
     this.bot.on('message', (msg) => this.dispatch(msg))
-  }
-
-  setMuted() {
-    this.commands.mute.setMuted(this.mutedList);
   }
 }
 
