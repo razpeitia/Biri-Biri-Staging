@@ -19,7 +19,7 @@ exports.getCommands = (clients) => {
     'name': 'mute',
     'execute': async (msg) => {
 
-      const recipient   = utils.getFirstMetionID(msg);          // Who is being reported
+      const recipient   = utils.getFirstMentionID(msg);          // Who is being reported
       const reporter    = msg.author.id;                        // Who is reporting
       const server      = msg.server.id;                        // Where are they reporting
       const time        = Date.now();                           // Time of the report
