@@ -1,6 +1,7 @@
 const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 const message = require('../core/message.js')
+new Discord.Permissions(memberpermissions);
 
 const maxReports    = 1; // Amounts of reports
 const minutes       = 1; // Minutes Muted
@@ -15,13 +16,17 @@ class MuteCommand extends CustomCommand {
         const reporter    = msg.author.id;                // Who is reporting
         const server      = msg.guild.id;                 // Where are they reporting
         const time        = Date.now();                   // Time of the report
-
+        let has_admin     = msg.author.has("ADMINISTRATOR") // Check if the user has admin
+        let has_manage    = msg.author.has("MANAGE_MESSAGES") // Check if the user has Manage Messages
         /* -----------------------------------------------------------------
           Considerations:
             Users can only report once per server every mutePeriod.
             A mute is given when a user reaches maxReports in a server.
             Mute reports can still be given out if a user already muted.
          ----------------------------------------------------------------- */
+
+        // Check if a member has a specific permission on the guild!
+        if (!has_admin || !has_manage) return msg.channel.send("Necesitas ser admin para hacer esto, pendejo")
 
         if(recipient === undefined) return
         // Do not allow users to report more than once every 10 minutes per server
