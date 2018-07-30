@@ -70,7 +70,7 @@ class MuteCommand extends CustomCommand {
   }
 
   checkMuted(msg) {
-    return (this.mutedUsers.get(msg.author.id) || []).indexOf(msg.guild.id);
+    return (this.mutedUsers.get(msg.author.id) || []).indexOf(msg.guild.id) > -1;
   }
 }
 
