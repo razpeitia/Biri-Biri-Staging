@@ -7,14 +7,14 @@ exports.getCommands = (clients) => {
     new CustomCommand({
       'name': 'dev',
       'execute': (msg) => {
-        let content = `@${msg.author.username}(${msg.author.id})[${ts}]`
+        let content = utils.getMessage(msg)
         let replyMessage = new message.BaseMessage(msg)
 
         if(utils.isEmpty(content)) {
             replyMessage.setTitle('Tienes que darnos un mensaje, pendejo')
         } else {
           let ts = new Date().toISOString();
-          let sugestion = utils.getMessage(msg)
+          let sugestion = `@${msg.author.username}(${msg.author.id})[${ts}]`
           let boardId = "5b27dfc25561a398e3c26e3e"
           clients.trello.addCard(sugestion, content, boardId).then( (x) => {} )
           replyMessage.setTitle('Gracias, lo tomaremos en cuenta')
