@@ -6,7 +6,7 @@ exports.getCommands = (clients) => {
 		new CustomCommand({
 			'name': 'help',
 			'execute': (msg) => {
-							const reply = new message.BaseMessage()
+							const reply = new message.BaseMessage(msg)
 							.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
 							.addField(`Aqui esta la lista de comandos!`, "* Hay bastantes! ~ *")
 							.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
@@ -29,7 +29,7 @@ exports.getCommands = (clients) => {
 		new CustomCommand({
 			'name': 'hreclamo',
 			'execute': (msg) => {
-				let reply = new message.BaseMessage()
+				let reply = new message.BaseMessage(msg)
 				reply.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
 				reply.addField(`Aqui esta la informacion del comando`, " ► **n!reclamo [Nombre de la waifu/husbando reclamada/o]**")
 				reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
@@ -43,7 +43,7 @@ exports.getCommands = (clients) => {
 		new CustomCommand({
 			'name': 'hmeme',
 			'execute': (msg) => {
-				let reply = new message.BaseMessage()
+				let reply = new message.BaseMessage(msg)
 				reply.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
 				reply.addField(`Aqui esta la informacion del comando`, " ► **n!meme**")
 				reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
@@ -57,7 +57,7 @@ exports.getCommands = (clients) => {
 		new CustomCommand({
 			'name': 'hnsfw',
 			'execute': (msg) => {
-				let reply = new message.BaseMessage()
+				let reply = new message.BaseMessage(msg)
 				reply.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
 				reply.setTitle(`Aqui esta la informacion del comando <:marrano:404021624828854272>`)
 				reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
@@ -96,7 +96,7 @@ exports.getCommands = (clients) => {
 		new CustomCommand({
 			'name': 'hreacciones',
 			'execute': (msg) => {
-				let reply = new message.BaseMessage()
+				let reply = new message.BaseMessage(msg)
 				reply.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
 				reply.addField(`Aqui esta la informacion de las reacciones`, "** Son varias!**")
 				reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
@@ -117,7 +117,7 @@ exports.getCommands = (clients) => {
 		new CustomCommand({
 			'name': 'hc',
 			'execute': (msg) => {
-				let reply = new message.BaseMessage()
+				let reply = new message.BaseMessage(msg)
 				reply.setAuthor(`${msg.author.username}`, `${msg.author.avatarURL}`)
 				reply.addField(`Aqui esta la informacion de las reacciones con CuteApi`, `*Son diferentes a las de hreacciones*`)
 				reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")

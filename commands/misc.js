@@ -32,7 +32,12 @@ exports.getCommands = (clients) => {
     new ImageTitleCommand({
       'name': 'awoo',
       'image': config.awoo.images
-    }),    
+    }),
+
+    new ImageTitleCommand({
+      'name': 'actitud',
+      'image': config.actitud.images
+    }),
 
     new MentionImageTitleCommand({
       'name': 'culear',
@@ -104,7 +109,7 @@ exports.getCommands = (clients) => {
       'execute': (msg) => {
         let mention1 = msg.mentions.members.first().user.username
         let mention2 = msg.mentions.members.last().user.username
-        let replyMessage = new message.BaseMessage()
+        let replyMessage = new message.BaseMessage(msg)
         if(mention1 !== mention2) {
           let calculado = Math.floor(Math.random() * 101)
           replyMessage.setTitle('❤ Calculador de Amor ❤')
@@ -122,7 +127,7 @@ exports.getCommands = (clients) => {
       'execute': (msg) => {
         latency = new Date().getTime() - msg.createdTimestamp
         let title = latency + ' ms'
-        let replyMessage = new message.BaseMessage()
+        let replyMessage = new message.BaseMessage(msg)
         replyMessage.setTitle(title)
         msg.channel.send(replyMessage)
       }
@@ -131,7 +136,7 @@ exports.getCommands = (clients) => {
     new CustomCommand({
       'name': 'rate',
       'execute': (msg) => {
-        let replyMessage = new message.BaseMessage()
+        let replyMessage = new message.BaseMessage(msg)
         if(msg.content.split(' ').length >= 2) {
           let restMessage = utils.getMessage(msg)
           let calculado = Math.floor(Math.random() * 101)
@@ -153,9 +158,9 @@ exports.getCommands = (clients) => {
         else
           avatar = msg.author.avatarURL
         if(utils.isEmpty(avatar)) {
-          msg.channel.send(new message.BaseMessage().setTitle('Usuario sin avatar'))
+          msg.channel.send(new message.BaseMessage(msg).setTitle('Usuario sin avatar'))
         } else {
-          msg.channel.send(new message.BaseMessage().setImage(avatar))
+          msg.channel.send(new message.BaseMessage(msg).setImage(avatar))
         }
       }
     }),
@@ -194,7 +199,7 @@ exports.getCommands = (clients) => {
         let randomNumber = Math.floor(Math.random() * sides) + 1
         let author = utils.getAuthor(msg)
         let title = `**${author}** te sacaste un ${randomNumber} de un dado de ${sides} caras`
-        msg.channel.send((new message.BaseMessage()).setTitle(title))
+        msg.channel.send((new message.BaseMessage(msg)).setTitle(title))
       }
     }),
 
@@ -204,7 +209,7 @@ exports.getCommands = (clients) => {
         let mensaje = utils.getMessage(msg)
         let author = utils.getAuthor(msg)
         let description = `**${author}** ha dado sus respetos por ${mensaje} <:sad:403381288188510210>`
-        msg.channel.send((new message.BaseMessage()).setDescription(description))
+        msg.channel.send((new message.BaseMessage(msg)).setDescription(description))
       }
     }),
 
@@ -219,7 +224,7 @@ exports.getCommands = (clients) => {
           lado = 'aguila'
           url = 'https://i.imgur.com/VpcIiTD.gif'
         }
-        let replyMessage = new message.BaseMessage()
+        let replyMessage = new message.BaseMessage(msg)
         let title = `**${author}** te sacaste ${lado}`
         msg.channel.send(replyMessage.setTitle(title).setImage(url))
       }

@@ -44,7 +44,7 @@ function getMessage(msg) {
 }
 
 function sendText(msg, text) {
-  let reply = new message.BaseMessage()
+  let reply = new message.BaseMessage(msg)
   reply.setTitle(text)
   msg.channel.send(reply)
 }
