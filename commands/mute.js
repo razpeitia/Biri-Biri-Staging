@@ -1,7 +1,6 @@
 const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 const message = require('../core/message.js')
-new Discord.Permissions(memberpermissions);
 
 const maxReports    = 1; // Amounts of reports
 const minutes       = 1; // Minutes Muted
