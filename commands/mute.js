@@ -2,9 +2,9 @@ const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 const message = require('../core/message.js')
 
-const maxReports    = 5;
-const minutes       = 10;
-const mutePeriod    = minutes * 60 * 1000;
+const maxReports    = 1; // Amounts of reports
+const minutes       = 1; // Minutes Muted
+const mutePeriod    = minutes * 60 * 1000; // Cooldown time of mute
 
 class MuteCommand extends CustomCommand {
   constructor() {
