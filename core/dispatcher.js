@@ -5,7 +5,6 @@ class Dispatcher {
     this.clients = clients
     this.clients.dispatcher = this
     this.commands = {}
-    this.mutedList = new Map();
   }
 
   enforceUniqueName(name) {
@@ -31,7 +30,7 @@ class Dispatcher {
       command.setPrefix(prefix)
       this.enforceUniqueCommand(command)
       commands[command.getFullName()] = command
-      command.getFullAlias().forEach(name => { commands[name] = command; if(name === 'mute') this.commands.mute.setMuted(this.mutedList); });
+      command.getFullAlias().forEach(name => { commands[name] = command; });
     });
   }
 
@@ -45,14 +44,16 @@ class Dispatcher {
     this.clients.dogstatsd.increment('discord.message', 1, tags)
 
     // Are you muted?
-    if(this.mutedList[msg.author.id] !== undefined && this.mutedList[msg.author.id].indexOf(msg.server.id) > -1)
-      msg.delete();
+    if(this.getCommandByName('mute').checkMuted(msg)) {
+      msg.delete()
+      return
+    }
 
     // Is this a command?
     // Or if you are a bot, your opinion is not important
     if(!msg.content.startsWith(this.prefix) || msg.author.bot) return
 
-    // match whitespaces - capture the first set of characters - the rest > return lowercase 
+    // match whitespaces - capture the first set of characters - the rest > return lowercase
     let commandName = msg.content.replace(/\s*(\S*).*/,"$1").toLowerCase();
 
     // If the command doesn't exists then we don't care
@@ -89,7 +90,7 @@ class Dispatcher {
       return
     }
 
-    // Get the commands return value 
+    // Get the commands return value
     const answer = await command.execute(msg)
   }
 
