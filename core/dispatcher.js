@@ -5,7 +5,6 @@ class Dispatcher {
     this.clients = clients
     this.clients.dispatcher = this
     this.commands = {}
-    this.mutedList = new Map();
   }
 
   enforceUniqueName(name) {
@@ -31,7 +30,7 @@ class Dispatcher {
       command.setPrefix(prefix)
       this.enforceUniqueCommand(command)
       commands[command.getFullName()] = command
-      command.getFullAlias().forEach(name => { commands[name] = command; if(name === 'mute') this.commands.mute.setMuted(this.mutedList); });
+      command.getFullAlias().forEach(name => { commands[name] = command; });
     });
   }
 
@@ -45,7 +44,9 @@ class Dispatcher {
     this.clients.dogstatsd.increment('discord.message', 1, tags)
 
     // Are you muted?
-    if(this.mutedList[msg.author.id] !== undefined && this.mutedList[msg.author.id].indexOf(msg.server.id) > -1)
+    if(this.commands.mute.mutedUsers[msg.author.id] !== undefined 
+      && this.commands.mute.mutedUsers[msg.author.id].indexOf(msg.server.id) > -1)
+      
       msg.delete();
 
     // Is this a command?
