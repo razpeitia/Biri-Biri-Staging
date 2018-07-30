@@ -71,5 +71,9 @@ class MuteCommand extends CustomCommand {
 }
 
 exports.getCommands = (clients) => {
-  return [new MuteCommand()]
+  return [new MuteCommand()];
+}
+
+exports.checkMuted = (msg) => {
+  return (mutedUsers[msg.author.id] || []).indexOf(msg.guild.id);
 }

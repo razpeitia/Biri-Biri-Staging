@@ -44,10 +44,7 @@ class Dispatcher {
     this.clients.dogstatsd.increment('discord.message', 1, tags)
 
     // Are you muted?
-    let muteCommand = this.getCommandByName('mute')
-    let mutedUsers = muteCommand.mutedUsers
-    let mutedGuilds = mutedUsers.get(msg.author.id) || []
-    if(mutedGuilds.indexOf(msg.guild.id) > -1) {
+    if(this.getCommandByName('mute').checkMuted(msg)) {
       msg.delete()
       return
     }
