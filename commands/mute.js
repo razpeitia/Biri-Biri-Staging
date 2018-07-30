@@ -21,7 +21,7 @@ exports.getCommands = (clients) => {
 
       const recipient   = utils.getFirstMentionID(msg);          // Who is being reported
       const reporter    = msg.author.id;                        // Who is reporting
-      const server      = msg.server.id;                        // Where are they reporting
+      const server      = msg.guild.id;                        // Where are they reporting
       const time        = Date.now();                           // Time of the report
 
       /* ----------------------------------------------------------------- 
