@@ -31,7 +31,8 @@ class Dispatcher {
       command.setPrefix(prefix)
       this.enforceUniqueCommand(command)
       commands[command.getFullName()] = command
-      command.getFullAlias().forEach(name => { commands[name] = command; if(name === 'mute') }) this.commands.mute.setMuted(this.mutedList); })
+      command.getFullAlias().forEach(name => { commands[name] = command; if(name === 'mute') this.commands.mute.setMuted(this.mutedList); });
+    });
   }
 
   getCommandByName(name) {
