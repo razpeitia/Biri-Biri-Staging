@@ -11,18 +11,23 @@ class MuteCommand extends CustomCommand {
     let params = {
       'name': 'mute',
       'execute': async (msg) => {
-        const recipient   = utils.getFirstMentionID(msg);          // Who is being reported
-        const reporter    = msg.author.id;                         // Who is reporting
-        const server      = msg.guild.id;                          // Where are they reporting
-        const time        = Date.now();                            // Time of the report
-        const muteRole    = msg.guild.roles.find('name','Muted');  // Look for the muted role
-
+        const recipient   = utils.getFirstMentionID(msg);                 // Who is being reported
+        const reporter    = msg.author.id;                                // Who is reporting
+        const server      = msg.guild.id;                                 // Where are they reporting
+        const time        = Date.now();                                   // Time of the report
+        const muteRole    = msg.guild.roles.find('name','Muted');         // Look for the muted role
+        let has_admin     = msg.member.permissions.has("ADMINISTRATOR")   // Check if the user has admin
+        let has_manage    = msg.member.permissions.has("MANAGE_MESSAGES") // Check if the user has Manage Messages
+        
         /* -----------------------------------------------------------------
           Considerations:
             Users can only report once per server every mutePeriod.
             A mute is given when a user reaches maxReports in a server.
             Mute reports can still be given out if a user already muted.
          ----------------------------------------------------------------- */
+
+        // Check if a member has a specific permission on the guild!
+        if (!has_admin || !has_manage) return msg.channel.send("Necesitas ser admin para hacer esto, pendejo")
 
         if(recipient === undefined) return
         // Do not allow users to report more than once every 10 minutes per server
