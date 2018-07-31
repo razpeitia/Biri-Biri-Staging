@@ -4,9 +4,9 @@
 ## Notes:
 This bot it's on the most part on Spanish, the English version it's a To-Do thing.
 
-*Setup en [Español](https://github.com/LucasBares/Biri-Biri-Staging#Español)*
+*Setup en [Español](https://github.com/LucasBares/Biri-Biri-Staging#espa%C3%B1ol)*
 
-*Setup on [English](https://github.com/LucasBares/Biri-Biri-Staging#English)*
+*Setup on [English](https://github.com/LucasBares/Biri-Biri-Staging#english)*
 
 
 Agradecimientos a:
