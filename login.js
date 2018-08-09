@@ -45,6 +45,7 @@ dispatcher.add('../commands/ship.js')
 dispatcher.add('../commands/trello.js')
 dispatcher.add('../commands/reclamo.js')
 dispatcher.add('../commands/mute.js')
+dispatcher.add('../commands/seppuku.js')
 dispatcher.register()
 console.timeEnd('dispatcher')
 
