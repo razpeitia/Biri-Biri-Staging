@@ -23,6 +23,13 @@ class SeppukuCommand extends CustomCommand {
                 // Append the server to the servers array
                 this.mutedUsers.set(recipient, servers.concat(server));
 
+                let reply = new message.BaseMessage(msg)
+                reply.setDescription(`**${msg.author.username} se suicimato**`)
+                reply.setColor(0x00fd00)
+                reply.setImage("https://media1.tenor.com/images/b25511087b27597960f77dd0dbaf568d/tenor.gif")
+                msg.channel.send(reply)
+
+
 
                 // Via Roles ---------- ADD ------------
                 if(muteRole)
