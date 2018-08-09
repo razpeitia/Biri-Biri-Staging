@@ -18,7 +18,7 @@ class SeppukuCommand extends CustomCommand {
                  ----------------------------------------------------------------- */
 
                 // Get the servers where the user is muted
-                const servers = mutedUsers.get(recipient) || [];
+                const servers = this.mutedUsers.get(recipient) || [];
 
                 // Append the server to the servers array
                 this.mutedUsers.set(recipient, servers.concat(server));
