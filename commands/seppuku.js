@@ -1,6 +1,7 @@
 const CustomCommand = require('../core/command.js').CustomCommand
+const message = require('../core/message.js')
 
-const minutes       = 1; // Minutes Muted
+const minutes       = 5; // Minutes Muted
 const mutePeriod    = minutes * 60 * 1000; // Cooldown time of mute
 
 class SeppukuCommand extends CustomCommand {
