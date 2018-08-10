@@ -71,8 +71,11 @@
   "actitud":{
     "images": [
       "https://cdn.discordapp.com/attachments/468929183150768131/470822956625559573/viernes.gif",
+<<<<<<< HEAD
       "https://media.giphy.com/media/QLVFMf6gYaeqc/giphy.gif",
       "https://cdn.discordapp.com/attachments/449824936048197635/477311451984298004/1509614395884.gif",
+=======
+>>>>>>> c5b046d48e13bad3d44d5f768e39bc3956c17cf6
       "https://cdn.discordapp.com/attachments/449824936048197635/477493982067425290/Viernes_de_actitud.gif"
     ]
   },
