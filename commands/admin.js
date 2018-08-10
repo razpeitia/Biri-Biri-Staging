@@ -7,9 +7,11 @@ exports.getCommands = (clients) => {
     new CustomCommand({
       'name': 'comando',
       'execute': (msg) => {
-        let config = clients.config
-        let isAdmin = config.admins.some(uid => uid === msg.author.id)
-        if(!isAdmin) {
+        let has_admin     = msg.member.permissions.has("ADMINISTRATOR")   // Check if the user has admin
+        let has_manage    = msg.member.permissions.has("MANAGE_MESSAGES") // Check if the user has Manage Messages
+        
+        // Check if a member has a specific permission on the guild!
+        if (!has_admin || !has_manage){
           return send(msg, 'Necesitas ser un admin, pendejo')
         }
 
