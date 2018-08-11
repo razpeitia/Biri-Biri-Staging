@@ -118,10 +118,6 @@ exports.getCommands = (clients) => {
 
       // Validation of nothing found
       if (info.posts.$.count == '0') return msg.channel.send("No pude encontrar nada, marrano")
-      
-      // Get the random post
-      let seed = info.posts.$.count - 1
-      let randomPost = Math.floor(Math.random() * (0 - seed)) + seed;
 
       // Parse of posts
       let post = info.posts.post;
