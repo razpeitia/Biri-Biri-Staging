@@ -113,6 +113,9 @@ exports.getCommands = (clients) => {
       // Search the data and parse it to a json
       let info = data;
 
+      // Get the random post
+      let randomPost = Math.floor(Math.random() * (0 - 5)) + 5;
+
       // Validation of nothing found
       if (info.posts.$.count == '0') return msg.channel.send("No pude encontrar nada, marrano")
       
