@@ -35,7 +35,7 @@ const music = require('telk-music');
 music(bot, {
   apikey: process.env.YOUTUBE_API_KEY,
 	prefix: 'n!',
-	global: true,
+	global: false,
 	maxQueueSize: 100,
 	deletemsg: false,
   searchmsg: 'Buscando \`{song}\` . . . por favor espera!',

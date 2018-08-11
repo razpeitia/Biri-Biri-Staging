@@ -35,7 +35,7 @@
     "fire-emblem-heroes-stats": "^0.15.2",
     "ffmpeg-binaries": "^4.0.0",
     "opusscript": "0.0.6",
-    "telk-music": "^2.0.0",
+    "telk-music": "github:LucasBares/telk-music",
     "youtube-search": "^1.1.1",
     "ytdl-core": "^0.24.0"
   },
