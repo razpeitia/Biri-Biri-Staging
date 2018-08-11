@@ -37,7 +37,7 @@ music(bot, {
 	prefix: 'n!',
 	global: true,
 	maxQueueSize: 100,
-	deletemsg: true,
+	deletemsg: false,
   searchmsg: 'Buscando \`{song}\` . . . por favor espera!',
   addedmsg: '**{song}** fue agregado a la queue!',
   playmsg: ':notes: Está sonando **{song}**!',
