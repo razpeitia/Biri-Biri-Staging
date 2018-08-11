@@ -112,13 +112,13 @@ exports.getCommands = (clients) => {
       client.get(`https://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${parsed}`, function (data, response) {
       // Search the data and parse it to a json
       let info = data;
+
+      // Validation of nothing found
+      if (info.posts.$.count == '0') return msg.channel.send("No pude encontrar nada, marrano")
       
       // Get the random post
       let seed = info.posts.$.count - 1
       let randomPost = Math.floor(Math.random() * (0 - seed)) + seed;
-
-      // Validation of nothing found
-      if (info.posts.$.count == '0') return msg.channel.send("No pude encontrar nada, marrano")
 
       // Parse of posts
       let post = info.posts.post;
