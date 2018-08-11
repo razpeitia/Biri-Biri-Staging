@@ -37,7 +37,8 @@
     "opusscript": "0.0.6",
     "telk-music": "github:LucasBares/telk-music",
     "youtube-search": "^1.1.1",
-    "ytdl-core": "^0.24.0"
+    "ytdl-core": "^0.24.0",
+    "node-rest-client": "^3.1.0"
   },
   "devDependencies": {
     "jasmine": "^3.1.0"

@@ -2,6 +2,8 @@ const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 let stats = require('fire-emblem-heroes-stats')
 const message = require('../core/message.js')
+var Client = require('node-rest-client').Client;
+var client = new Client();
 
 exports.getCommands = (clients) => {
   return [new CustomCommand({
@@ -95,6 +97,37 @@ exports.getCommands = (clients) => {
           msg.channel.send(`Titulo: ${videos[0].title}`)
           msg.channel.send(`Url: ${videos[0].url}`);
         }
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'r34',
+    'nsfw': true,
+    'execute' : async (msg) =>{
+      let searchTerm = utils.getMessage(msg)
+      let parsed = searchTerm.replace(" ","_");
+      let randomPost = Math.floor(Math.random() * (0 - 5)) + 5;
+      client.get(`https://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${parsed}`, function (data, response) {
+
+      // Search the data and parse it to a json
+      let info = data;
+
+      // Validation of nothing found
+      if (info.posts.$.count == '0') return msg.channel.send("No pude encontrar nada, marrano")
+
+      // Parse of posts
+      let post = info.posts.post;
+
+      // Get the Image
+      let imagen = post[randomPost].$.file_url;
+
+      // Set the embed for the chat
+      let reply = new message.BaseMessage(msg)
+        reply.setTitle(`Resultados de ${parsed}`)
+        reply.setColor(0x74DF00)
+        reply.setImage(imagen)
+        msg.channel.send(reply)
+    });
     }
   }),
 
