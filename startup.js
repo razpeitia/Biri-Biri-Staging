@@ -19,7 +19,7 @@ const getDefaultChannel = async (guild) => {
 exports.startup = function(bot){
 
 	bot.on('ready', () => {
-	  bot.user.setActivity('n!help V3.1', { type: 'WATCHING', url: 'https://twitch.tv/thekazuo'});
+	  bot.user.setActivity('n!help V4.0', { type: 'WATCHING', url: 'https://twitch.tv/thekazuo'});
 	  console.log("")
 	  console.log(`Bot iniciado, con ${bot.users.size} usuarios, en ${bot.guilds.size} servidor/es.`);
 	  console.log("")
@@ -30,7 +30,7 @@ exports.startup = function(bot){
 	    const channel = getDefaultChannel(gm.guild)
 	    if(channel === undefined || channel === null) return
       try {
-	     channel.send('Bienvenido '+'<@' + gm.id +  '>' + ' <:vohiyo:412474913883160577>, no olvides leer las <#402905862274023435> <:pacman:420980551105642516>');
+	     channel.send('Bienvenido '+'<@' + gm.id +  '>' + ' <:vohiyo:412474913883160577>');
       } catch(err) {
         console.log(channel)
         console.log(err)
