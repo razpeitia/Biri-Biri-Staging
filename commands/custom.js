@@ -2,6 +2,8 @@ const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 let stats = require('fire-emblem-heroes-stats')
 const message = require('../core/message.js')
+var Client = require('node-rest-client').Client;
+var client = new Client();
 
 exports.getCommands = (clients) => {
   return [new CustomCommand({
@@ -99,6 +101,41 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
+    'name': 'r34',
+    'nsfw': true,
+    'execute' : async (msg) =>{
+      let searchTerm = utils.getMessage(msg)
+
+      // Parse the Spaces to a _ for the search
+      let parsed = searchTerm.replace(" ","_");
+
+      client.get(`https://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${parsed}`, function (data, response) {
+      // Search the data and parse it to a json
+      let info = data;
+
+      // Get the random post
+      let randomPost = Math.floor(Math.random() * (0 - 5)) + 5;
+
+      // Validation of nothing found
+      if (info.posts.$.count == '0') return msg.channel.send("No pude encontrar nada, marrano")
+
+      // Parse of posts
+      let post = info.posts.post;
+
+      // Get the Image
+      let imagen = post[randomPost].$.file_url;
+
+      // Set the embed for the chat
+      let reply = new message.BaseMessage(msg)
+        reply.setTitle(`Resultados de ${parsed}`)
+        reply.setColor(0x74DF00)
+        reply.setImage(imagen)
+        msg.channel.send(reply)
+    });
+    }
+  }),
+
+  new CustomCommand({
     'name': 'hero',
     'execute' : async (msg) =>{
       let searchTerm = utils.getMessage(msg)
@@ -109,6 +146,18 @@ exports.getCommands = (clients) => {
       let info = stats.getHero(`${searchTerm}`)
       let name = info.name;
       msg.channel.send(`${name}`)
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'invite',
+    'execute' : async (msg) =>{
+      let reply = new message.BaseMessage(msg)
+        reply.setTitle(`🎉🎉 Invitación / Invite 🎉🎉`)
+        reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
+        reply.setDescription("Haz click [Aqui](https://discordapp.com/oauth2/authorize?client_id=429093104474128394&scope=bot&permissions=8), para invitarme a tu servidor!")
+        reply.setColor(0x74DF00)
+        msg.channel.send(reply)
     }
   }),
 

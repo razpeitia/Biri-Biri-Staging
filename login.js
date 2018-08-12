@@ -27,6 +27,23 @@ const reaction = require('./reaction.js')
 startup.startup(bot)
 reaction.reaction(bot)
 
+
+//Youtube music
+
+const music = require('telk-music');
+
+music(bot, {
+  apikey: process.env.YOUTUBE_API_KEY,
+	prefix: 'n!',
+	global: false,
+	maxQueueSize: 100,
+	deletemsg: false,
+  searchmsg: 'Buscando \`{song}\` . . . por favor espera!',
+  addedmsg: '**{song}** fue agregado a la queue!',
+  playmsg: ':notes: Está sonando **{song}**!',
+  loopmsg: 'Loop iniciado! **{toggle}**!'
+});
+
 // Command register
 const prefix = 'n!'
 const ds = require('./core/dispatcher.js')

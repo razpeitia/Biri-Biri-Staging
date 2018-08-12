@@ -32,7 +32,13 @@
     "snekfetch": "^4.0.0",
     "sprintf-js": "^1.1.1",
     "trello": "^0.9.0",
-    "fire-emblem-heroes-stats": "^0.15.2"
+    "fire-emblem-heroes-stats": "^0.15.2",
+    "ffmpeg-binaries": "^4.0.0",
+    "opusscript": "0.0.6",
+    "telk-music": "github:LucasBares/telk-music",
+    "youtube-search": "^1.1.1",
+    "ytdl-core": "^0.24.0",
+    "node-rest-client": "^3.1.0"
   },
   "devDependencies": {
     "jasmine": "^3.1.0"
