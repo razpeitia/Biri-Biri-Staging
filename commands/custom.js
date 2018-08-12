@@ -156,7 +156,6 @@ exports.getCommands = (clients) => {
         reply.setTitle(`🎉🎉 Invitación / Invite 🎉🎉`)
         reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
         reply.setDescription("Haz click [Aqui](https://discordapp.com/oauth2/authorize?client_id=429093104474128394&scope=bot&permissions=1476918352), para invitarme a tu servidor!")
-        reply.addField("Para ver todos mis comandos", "Haz click [Aqui](https://biri-biri-website.herokuapp.com/)!")
         reply.setColor(0x74DF00)
         msg.channel.send(reply)
     }
