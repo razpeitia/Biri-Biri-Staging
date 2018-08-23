@@ -122,6 +122,10 @@ exports.getCommands = (clients) => {
       // Parse of posts
       let post = info.posts.post;
 
+      // TODO: Resolve this bug (Maybe library bug?)
+      // Handler of random bug
+      if (post[randomPost].$ == undefined) return msg.channel.send("No pude encontrar nada con ese nombre, intenta con otra cosa, marrano")
+
       // Get the Image
       let imagen = post[randomPost].$.file_url;
 
