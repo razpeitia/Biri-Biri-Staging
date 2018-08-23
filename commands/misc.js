@@ -38,6 +38,11 @@ exports.getCommands = (clients) => {
       'name': 'actitud',
       'image': config.actitud.images
     }),
+    
+    new ImageTitleCommand({
+      'name': 'jueves',
+      'image': config.jueves.images
+    }),
 
     new MentionImageTitleCommand({
       'name': 'culear',
