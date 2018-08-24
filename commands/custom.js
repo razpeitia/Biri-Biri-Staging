@@ -4,6 +4,7 @@ let stats = require('fire-emblem-heroes-stats')
 const message = require('../core/message.js')
 var Client = require('node-rest-client').Client;
 var client = new Client();
+var ascii = require('asciify');
 
 exports.getCommands = (clients) => {
   return [new CustomCommand({
@@ -97,6 +98,22 @@ exports.getCommands = (clients) => {
           msg.channel.send(`Titulo: ${videos[0].title}`)
           msg.channel.send(`Url: ${videos[0].url}`);
         }
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'ascii',
+    'execute' : async (msg) =>{
+      let searchTerm = utils.getMessage(msg)
+      if(utils.isEmpty(searchTerm)) {
+        utils.sendText(msg, 'Aber pendejo, dame algo para dibujar')
+        return
+      }
+
+    let codigo = "```"
+    ascii(searchTerm,{font:'standard'},function(err,res){
+      msg.channel.send(`${codigo}${res}${codigo}`);
+    });
     }
   }),
 

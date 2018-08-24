@@ -38,7 +38,8 @@
     "telk-music": "github:LucasBares/telk-music",
     "youtube-search": "^1.1.1",
     "ytdl-core": "^0.24.0",
-    "node-rest-client": "^3.1.0"
+    "node-rest-client": "^3.1.0",
+    "asciify": "^1.3.5"
   },
   "devDependencies": {
     "jasmine": "^3.1.0"
