@@ -115,9 +115,22 @@ exports.getCommands = (clients) => {
     // Validation of response
 
     if(info.Similar.Info[0].Type === "unknown") return msg.channel.send("No pude encontrar nada con eso :(")
-    
-    // Handler of the info
-    var result = JSONPath({json: info, path: "$.Similar.Results[1].Name"});
+     
+    // Get all the results from the query
+
+    let allResults = JSONPath({json: info, path: "$.Similar.Results[*].Name"});
+
+    // Counts the number of results
+
+    let contResults = allResults.length;
+
+    // With the results gets to a random number for the search
+
+    let randomNumber = Math.floor((Math.random() * contResults) + 1) - 1;
+
+    // Gets all the data gathered and do the search with the number of the array
+
+    let result = JSONPath({json: info, path: `$.Similar.Results[${randomNumber}].Name`});
 
     var opts = {
       maxResults: 1,
