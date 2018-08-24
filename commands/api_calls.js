@@ -116,6 +116,6 @@ exports.getCommands = (clients) => {
         msg.channel.send(reply)
     });
     }
-  }),
+  })
   ]
 }
