@@ -1,10 +1,12 @@
 const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 const message = require('../core/message.js')
-var Client = require('node-rest-client').Client;
-var client = new Client();
+let Client = require('node-rest-client').Client;
+let client = new Client();
 let JSONPath = require('jsonpath-plus');
 let search = require('youtube-search');
+const MovieDB = require('moviedb')('d791b226b58525f4f6c803f09892d1b9'); // FIXME: Don't hardcode api key
+const translate = require('translate-api');
 
 exports.getCommands = (clients) => {
   return [new CustomCommand({
@@ -149,6 +151,90 @@ exports.getCommands = (clients) => {
       msg.channel.send(reply)
      
     });
+    }
+  }),
+
+  new CustomCommand({
+    'name': 'pelicula',
+    'execute': async (msg) => {
+    
+    // Get the message
+
+    let searchTerm = utils.getMessage(msg)
+    
+    // Validations
+    if(!searchTerm){
+       msg.delete(3000);
+       msg.channel.send("Dame algo para buscar, pendejo").then(msg =>{msg.delete(4000)});
+       return
+    } 
+    // Apikey and URL for search of a movie
+
+    let apikey = process.env.TASTEDIVE_API_KEY
+    let url = `https://tastedive.com/api/similar?q=${searchTerm}&k=${apikey}&type=movie`;
+
+    // Save the response to a JSON
+
+    let getResult = {'url': url,'json':true}
+
+    // Get the response from the API
+
+    let info = await clients.request(getResult);
+
+    // Validation of response
+
+    if(info.Similar.Info[0].Type === "unknown"){
+      msg.delete(3000);
+      msg.channel.send("No pude encontrar nada con eso :(").then(msg =>{msg.delete(4000)});
+      return
+    }
+     
+    // Get all the results from the query
+
+    let allResults = JSONPath({json: info, path: "$.Similar.Results[*].Name"});
+
+    // Counts the number of results
+
+    let contResults = allResults.length;
+
+    // With the results gets to a random number for the search
+
+    let randomNumber = Math.floor((Math.random() * contResults) + 1) - 1;
+
+    // Gets all the data gathered and do the search with the number of the array
+
+    let result = JSONPath({json: info, path: `$.Similar.Results[${randomNumber}].Name`});
+
+    // Begins the search of a movie
+
+    MovieDB.searchMovie({ query: result }, (err, res) => 
+      {
+        // Translate the description of the movie
+
+        let transText = res.results[0].overview;
+
+        translate.getText(transText,{to: 'es'}).then(function(text){
+
+          // Gets the poster image, language, and the release date of the movie
+
+          let poster = `https://image.tmdb.org/t/p/w500${res.results[0].poster_path}`
+          let language = res.results[0].original_language;
+          let release = res.results[0].release_date;
+
+          // Starts the embed send with all the data
+          
+          let reply = new message.BaseMessage(msg)
+
+          reply.setTitle(`Peliculas similares a ${searchTerm}`)
+          reply.setThumbnail(poster)
+          reply.addField("🎥 Puedes mirar esta pelicula 🎥",`${result}`,true)
+          reply.addField("🍿 ¿De que se trata? 🍿",text.text,true)
+          reply.addField("📖 Idioma original 📖",language,true)
+          reply.addField("📅 Fecha de lanzamiento",release,true)
+          reply.setColor(0x74D92D)
+          msg.channel.send(reply)
+        });
+      });
     }
   }),
 
