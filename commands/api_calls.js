@@ -171,7 +171,7 @@ exports.getCommands = (clients) => {
     // Apikey and URL for search of a movie
 
     let apikey = process.env.TASTEDIVE_API_KEY
-    let url = `https://tastedive.com/api/similar?q=${searchTerm}&k=${apikey}&type=movie`;
+    let url = `https://tastedive.com/api/similar?q=${searchTerm}&k=${apikey}&type=movie&verbose=1`;
 
     // Save the response to a JSON
 
