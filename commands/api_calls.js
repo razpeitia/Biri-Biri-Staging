@@ -205,6 +205,9 @@ exports.getCommands = (clients) => {
 
     let result = JSONPath({json: info, path: `$.Similar.Results[${randomNumber}].Name`});
 
+    let ytId = JSONPath({json: info,path: `$.Similar.Results[${randomNumber}].yID`});
+    let movieLink = `https://www.youtube.com/watch?v=${ytId}`
+
     // Begins the search of a movie
 
     MovieDB.searchMovie({ query: result }, (err, res) => 
@@ -231,6 +234,7 @@ exports.getCommands = (clients) => {
           reply.addField("🍿 ¿De que se trata? 🍿",text.text,true)
           reply.addField("📖 Idioma original 📖",language,true)
           reply.addField("📅 Fecha de lanzamiento",release,true)
+          reply.addField("🎦 Trailer 🎦",`Haz click [Aqui](${movieLink}) para ver el tailer de la pelicula!`,true)
           reply.setColor(0x74D92D)
           msg.channel.send(reply)
         });
