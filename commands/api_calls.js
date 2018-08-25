@@ -101,7 +101,7 @@ exports.getCommands = (clients) => {
 
     // Apikey and URL for search of music
 
-    let apikey = "318113-BiriBiri-SNTJ4CJX" // FIXME : Don't hardcode api-key
+    let apikey = process.env.TASTEDIVE_API_KEY
     let url = `https://tastedive.com/api/similar?q=${searchTerm}&k=${apikey}&type=music`;
 
     // Save the response to a JSON
@@ -136,7 +136,7 @@ exports.getCommands = (clients) => {
       maxResults: 1,
       key: process.env.YOUTUBE_API_KEY
     };
-     
+    
     search(result, opts, function(err, results) {
       if(err) return console.log(err);
       
@@ -144,6 +144,7 @@ exports.getCommands = (clients) => {
       reply.setTitle(`Artistas similares a ${searchTerm}`)
       reply.setThumbnail(results[0].thumbnails.medium.url)
       reply.addField("Puedes escuchar este Artista",`[${result}](${results[0].link})`)
+      reply.addField("Te recomiendo esta cancion! 🎵")
       reply.setColor(0x74D92D)
       msg.channel.send(reply)
      
