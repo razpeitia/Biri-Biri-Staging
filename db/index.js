@@ -26,7 +26,7 @@ class Database {
   }
 
   async getWaifu(userId) {
-    const text = `select * where usuario = $1 from waifus`
+    const text = `select * where usuario = $1 from waifu`
     const res = await this.pool.query(text, [userId])
     return res.rows[0]
   }
