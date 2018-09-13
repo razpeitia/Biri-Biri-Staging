@@ -15,7 +15,7 @@ exports.getCommands = (clients) => {
       let apiKey = process.env.OPEN_WEATHER_KEY
       let city = utils.getMessage(msg)
 
-      if(!searchTerm) return msg.channel.send("Dame algo para buscar, pendejo");
+      if(!city) return msg.channel.send("Dame algo para buscar, pendejo");
 
       let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`
       let params = {'url': url, 'json': true}
