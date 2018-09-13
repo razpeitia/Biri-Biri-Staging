@@ -25,6 +25,12 @@ class Database {
     return res.rows[0]
   }
 
+  async getWaifu(userId) {
+    const text = `select * where usuario = $1 from waifus`
+    const res = await this.pool.query(text, [userId])
+    return res.rows[0]
+  }
+
   async loadChannels() {
     const text = 'SELECT command, channel_id FROM channel_command'
     const res = await this.pool.query(text)
