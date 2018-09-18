@@ -51,7 +51,7 @@ class MuteCommand extends CustomCommand {
 
             let randomImageCalculator = Math.floor(Math.random()*imagenes.length);
 
-            let randomImage = textArray[randomImageCalculator]
+            let randomImage = imagenes[randomImageCalculator]
 
             let reply = new message.BaseMessage(msg)
             reply.setDescription(`**${msg.author.username} se suicimato**`)
