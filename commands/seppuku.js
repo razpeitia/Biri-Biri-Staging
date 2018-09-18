@@ -2,8 +2,8 @@ const CustomCommand = require('../core/command.js').CustomCommand
 const utils = require('../core/utils.js')
 const message = require('../core/message.js')
 
-const maxReports    = 1; // Amounts of reports
-const minutes       = 20; // Minutes Muted
+const maxReports    = 1;                   // Amounts of reports
+const minutes       = 20;                  // Minutes Muted
 const mutePeriod    = minutes * 60 * 1000; // Cooldown time of mute
 
 class MuteCommand extends CustomCommand {
@@ -45,10 +45,18 @@ class MuteCommand extends CustomCommand {
             const reportCount = this.reports[recipient].reduce( (acc, v) => {
                 return acc + ((v.time + mutePeriod) > Date.now() && v.server === server) ? 1 : 0
             }, 0);
+
+
+            let imagenes = ["https://media1.tenor.com/images/b25511087b27597960f77dd0dbaf568d/tenor.gif","https://media.giphy.com/media/yjGdFXbm8KpXF5Xqco/giphy.gif","https://media.giphy.com/media/c6DIpCp1922KQ/giphy.gif","https://media.giphy.com/media/zqdbOacOP9Djy/giphy.gif"]
+
+            let randomImageCalculator = Math.floor(Math.random()*imagenes.length);
+
+            let randomImage = textArray[randomImageCalculator]
+
             let reply = new message.BaseMessage(msg)
             reply.setDescription(`**${msg.author.username} se suicimato**`)
             reply.setColor(0x00fd00)
-            reply.setImage("https://media1.tenor.com/images/b25511087b27597960f77dd0dbaf568d/tenor.gif")
+            reply.setImage(randomImage)
             msg.channel.send(reply)
 
             // If there are enough reports, add the user to the mute list
