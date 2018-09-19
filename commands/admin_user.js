@@ -44,9 +44,10 @@ exports.getCommands = (clients) => {
           return send(msg,`No te puedes hacer esto a ti mismo, pendejo`)
         }
         
-        if(id != NaN){
+        if(id === NaN || !id){
           return send(msg,`Algo salio mal. Etiquetaste a alguien, pendejo?`)
         }
+        
         
         let maybeAction = msg.content.trim().split(/\s+/)[2]
 
