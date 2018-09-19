@@ -37,6 +37,13 @@ function randomColors() {
   return color = getRandom(colors)
 }
 
+function removeExtraFromId (data){
+  let remove = data.replace("<","");
+  let remove1 = remove.replace(">","");
+  let remove2 = remove1.replace("@","");
+  return remove2;
+}
+
 function getMessage(msg) {
   let arr = msg.content.trim().split(' ')
   arr.shift()
@@ -81,3 +88,4 @@ exports.isFirstMentionAuthor = isFirstMentionAuthor
 exports.getContent = getContent
 exports.formatDate = formatDate
 exports.randomColors = randomColors
+exports.removeExtraFromId = removeExtraFromId

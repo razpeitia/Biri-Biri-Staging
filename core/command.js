@@ -35,6 +35,14 @@ class Command {
     db.enableCommandForChannel(this.getFullName(), `${msg.channel.id}`)
   }
 
+  disableUser(msg) {
+    db.disableCommandForUser(this.getFullName(), `${msg.user.id}`)
+  }
+
+  enableUser(msg) {
+    db.enableCommandForUser(this.getFullName(), `${msg.user.id}`)
+  }
+
   isEnable(msg) {
     let name = this.getFullName()
     return db.isCommandEnableForChannel(this.getFullName(), `${msg.channel.id}`)
