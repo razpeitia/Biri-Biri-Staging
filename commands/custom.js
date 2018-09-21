@@ -51,9 +51,9 @@ exports.getCommands = (clients) => {
         let reply = new message.BaseMessage(msg)
         reply.setColor(0x74DF00)
         reply.setTitle(`Información de ${msg.guild}`, true)
-        reply.setDescription(`El bot se encuentra en ${client.guild.size}`)
-        reply.addField("El bot cuenta con ", `${client.users.size} usuarios`, true)
-        reply.addField("En",  `${client.channels.size} canales`, true)
+        reply.setDescription(`El bot se encuentra en ${bot.guild.size}`)
+        reply.addField("El bot cuenta con ", `${bot.users.size} usuarios`, true)
+        reply.addField("En",  `${bot.channels.size} canales`, true)
         msg.channel.send(reply) 
       } else {
         msg.delete(3000)
