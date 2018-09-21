@@ -42,6 +42,27 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
+    'name': 'botinfo',
+    'execute' : async (msg) =>{
+      let taeko = "274159725967572992";
+      let raz = "357008976052879371";
+      let akuma = "250044591686811669";
+      if(taeko || raz || akuma){
+        let reply = new message.BaseMessage(msg)
+        reply.setColor(0x74DF00)
+        reply.setTitle(`Información de ${msg.guild}`, true)
+        reply.setDescription(`El bot se encuentra en ${client.guild.size}`)
+        reply.addField("El bot cuenta con ", `${client.users.size} usuarios`, true)
+        reply.addField("En",  `${client.channels.size} canales`, true)
+        msg.channel.send(reply) 
+      } else {
+        msg.delete(3000)
+        msg.channel.send("Lo siento, solo el ownership team del bot puede ver este mensaje").then(msg => {msg.delete(3000)});
+      }
+    }
+  }),
+
+  new CustomCommand({
     'name': 'hero',
     'execute' : async (msg) =>{
       let searchTerm = utils.getMessage(msg)
