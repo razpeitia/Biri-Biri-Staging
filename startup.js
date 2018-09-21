@@ -34,8 +34,7 @@ exports.startup = function(bot){
     if(taeko || raz || akuma){
       const embed = new Discord.RichEmbed()
       .setColor(0x74DF00)
-      .setTitle(`Información de ${msg.guild}`, true)
-      .setDescription(`El bot se encuentra en ${bot.guild.size}`)
+      .setDescription(`El bot se encuentra en ${bot.guilds.size}`)
       .addField("El bot cuenta con ", `${bot.users.size} usuarios`, true)
       .addField("En",  `${bot.channels.size} canales`, true)
       msg.channel.send({embed});
