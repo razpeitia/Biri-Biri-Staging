@@ -32,12 +32,9 @@ exports.startup = function(bot){
     let akuma = "250044591686811669";
 
     if(taeko || raz || akuma){
-      const embed = new Discord.RichEmbed()
-      .setColor(0x74DF00)
-      .setDescription(`El bot se encuentra en ${bot.guilds.size}`)
-      .addField("El bot cuenta con ", `${bot.users.size} usuarios`, true)
-      .addField("En",  `${bot.channels.size} canales`, true)
-      msg.channel.send({embed});
+      msg.channel.send(`El bot se encuentra en ${bot.guilds.size}`);
+      msg.channel.send(`El bot cuenta con ${bot.users.size} usuarios`)
+      msg.channel.send(`En ${bot.channels.size} Canales`)
       } else {
       msg.delete(3000)
       msg.channel.send("Lo siento, solo el ownership team del bot puede ver este mensaje").then(msg => {msg.delete(3000)});
