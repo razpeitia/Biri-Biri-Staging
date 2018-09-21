@@ -36,11 +36,11 @@ class Command {
   }
 
   disableUser(msg) {
-    db.disableCommandForUser(this.getFullName(), `${msg.user.id}`)
+    db.disableCommandForUser(this.getFullName(), `${id}`)
   }
 
   enableUser(msg) {
-    db.enableCommandForUser(this.getFullName(), `${msg.user.id}`)
+    db.enableCommandForUser(this.getFullName(), `${id}`)
   }
 
   isEnable(msg) {
@@ -49,7 +49,8 @@ class Command {
   }
 
   onDisable(msg) {
-    // Maybe you want to execute some action on this event
+    msg.delete(3000);
+    return msg.channel.send("Este comando esta deshabilitado!").then(msg =>{msg.delete(4000)});
   }
 
   isPaused(msg) {

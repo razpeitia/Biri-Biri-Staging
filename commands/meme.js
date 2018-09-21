@@ -11,7 +11,7 @@ class MemeCommand extends CustomCommand {
   }
 
   onInvalidMentions(msg) {
-    msg.channel.send("Te falto etiquitar a la gente, pendejo [n!meme @alguien]")
+    msg.channel.send("Te falto etiquitar a la gente, pendejo *n!meme @alguien**")
   }
 }
 
