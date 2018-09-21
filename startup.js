@@ -23,8 +23,7 @@ exports.startup = function(bot){
 	  console.log("")
 	  console.log(`Bot iniciado, con ${bot.users.size} usuarios, en ${bot.guilds.size} servidor/es.`);
 	  console.log("")
-	});
-
+  });
 
 	bot.on('guildMemberAdd',(gm) => {
 	    const channel = getDefaultChannel(gm.guild)
