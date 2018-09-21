@@ -24,23 +24,6 @@ exports.startup = function(bot){
 	  console.log(`Bot iniciado, con ${bot.users.size} usuarios, en ${bot.guilds.size} servidor/es.`);
 	  console.log("")
   });
-  
-  bot.on("message", async msg => {
-    if (msg.content.startsWith("n!botinfo")){
-    let taeko = "274159725967572992";
-    let raz = "357008976052879371";
-    let akuma = "250044591686811669";
-
-    if(taeko || raz || akuma){
-      msg.channel.send(`El bot se encuentra en ${bot.guilds.size}`);
-      msg.channel.send(`El bot cuenta con ${bot.users.size} usuarios`)
-      msg.channel.send(`En ${bot.channels.size} Canales`)
-      } else {
-      msg.delete(3000)
-      msg.channel.send("Lo siento, solo el ownership team del bot puede ver este mensaje").then(msg => {msg.delete(3000)});
-      }
-    }
-  });
 
 	bot.on('guildMemberAdd',(gm) => {
 	    const channel = getDefaultChannel(gm.guild)
