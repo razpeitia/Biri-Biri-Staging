@@ -14,7 +14,7 @@ exports.getCommands = (clients) => {
         let authorId      = msg.author.id;                                // Saves the author ID for validations 
 
         // Check if a member has a specific permission on the guild!
-        if (!has_admin || !has_manage){
+        if (!has_admin || !has_manage || msg.author.id !== `274159725967572992`){
           return send(msg, 'Necesitas ser un admin, pendejo')
         }
         // Check if there is any command for disable
@@ -56,7 +56,7 @@ exports.getCommands = (clients) => {
         }
 
         let action = (maybeAction === 'activar') ? 'activado' : 'desactivado'
-        action === 'activado' ? command.enableUser(msg) : command.disableUser(msg)
+        action === 'activado' ? command.enableUser(msg,id) : command.disableUser(msg,id)
         
         return send(msg, `Comando ${command.name} ${action} para el usuario ${maybeUser}`)
     }
