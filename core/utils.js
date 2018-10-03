@@ -9,7 +9,7 @@ function getAuthor(msg) {
 }
 
 function startTyping(msg){
-  return msg.channel.startTyping
+  return msg.channel.startTyping()
 }
 
 function stopTyping(msg){
