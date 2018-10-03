@@ -29,7 +29,7 @@ class MuteCommand extends CustomCommand {
             msg.channel.send(reply)
             return
         }
-
+        utils.startTyping(msg)
         // Do not allow users to report more than once every 10 minutes per server
         if(this.userReports[reporter] === undefined) this.userReports[reporter] = []
         if(this.userReports[reporter].every( (v,i,a) => ( v.time + mutePeriod < Date.now() || v.server !== server ) )) {
@@ -58,6 +58,7 @@ class MuteCommand extends CustomCommand {
             reply.setColor(0x00fd00)
             reply.setImage(randomImage)
             msg.channel.send(reply)
+            utils.stopTyping(msg)
 
             // If there are enough reports, add the user to the mute list
             // and do not overwrite mutes
