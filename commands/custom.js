@@ -14,6 +14,7 @@ exports.getCommands = (clients) => {
           utils.sendText(msg, 'Aber pendejo, necesito un termino')
           return
         }
+        utils.startTyping()
         const Searcher = new clients.pornsearch()
         let videos = await Searcher.videos()
         if(videos === undefined || videos.length === 0) {
@@ -21,6 +22,7 @@ exports.getCommands = (clients) => {
         } else {
           msg.channel.send(`Titulo: ${videos[0].title}`)
           msg.channel.send(`Url: ${videos[0].url}`);
+          utils.stopTyping()
         }
     }
   }),
@@ -33,10 +35,11 @@ exports.getCommands = (clients) => {
         utils.sendText(msg, 'Aber pendejo, dame algo para dibujar')
         return
       }
-
+    utils.startTyping()
     let codigo = "```"
     ascii(searchTerm,{font:'standard'},function(err,res){
       msg.channel.send(`${codigo}${res}${codigo}`);
+      utils.stopTyping()
     });
     }
   }),
@@ -58,18 +61,21 @@ exports.getCommands = (clients) => {
   new CustomCommand({
     'name': 'invite',
     'execute' : async (msg) =>{
+      utils.startTyping()
       let reply = new message.BaseMessage(msg)
         reply.setTitle(`🎉🎉 Invitación / Invite 🎉🎉`)
         reply.setThumbnail("https://cdn.discordapp.com/avatars/429093104474128394/916faa4c27db28be1d3a5171398ca4d0.png")
         reply.setDescription("Haz click [Aqui](https://discordapp.com/oauth2/authorize?client_id=429093104474128394&scope=bot&permissions=8), para invitarme a tu servidor!")
         reply.setColor(0x74DF00)
         msg.channel.send(reply)
+        utils.stopTyping()
     }
   }),
 
   new CustomCommand({
     'name': 'serverinfo',
     'execute': (msg) => {
+      utils.startTyping()
       let reply = new message.BaseMessage(msg)
       reply.setColor(0x74DF00)
       reply.setThumbnail(msg.guild.iconURL)
@@ -78,12 +84,14 @@ exports.getCommands = (clients) => {
       reply.addField("Usuarios", msg.guild.memberCount, true)
       reply.addField("Creado el ", utils.formatDate(msg.guild.createdAt), true)
       msg.channel.send(reply)
+      utils.stopTyping()
     }
   }),
 
   new CustomCommand({
     'name': 'userinfo',
     'execute': (msg) => {
+      utils.startTyping()
       let user = msg.mentions.users.first() || msg.author;
       let join = user.createdAt || msg.author.createdAt;
 
@@ -95,6 +103,7 @@ exports.getCommands = (clients) => {
       reply.addField(`Nickname:`, user.username, true)
       reply.addField("Se unió a discord el: ", utils.formatDate(join),true)
       msg.channel.send(reply)
+      utils.stopTyping()
     }
   }),
 
@@ -106,8 +115,10 @@ exports.getCommands = (clients) => {
         msg.delete();
         return msg.channel.send("Necesito más de un item para elegir, pendejo")
       }
+      utils.startTyping()
       let choose = items[Math.floor(Math.random() * items.length)];
       msg.channel.send(`**Yo elijo** ${choose} 🎱`);
+      utils.stopTyping()
     }
   }),
 
@@ -120,9 +131,13 @@ exports.getCommands = (clients) => {
         time: 300000,
         errors: ['time'],
       }).then((collected) => {
+        utils.startTyping()
         msg.channel.send(`**${collected.first().author.username}** es joto <:pacman:420980551105642516>`);
+        utils.stopTyping()
       }).catch(() => {
+        utils.startTyping()
         msg.channel.send('Nadie escribió nada :c')
+        utils.stopTyping()
       })
     }
   }),
@@ -131,6 +146,7 @@ exports.getCommands = (clients) => {
     'name': 'umiyar',
     'execute': msg => {
       msg.delete()
+      utils.startTyping()
       msg.channel.awaitMessages(username => username, {
         max: 1,
         time: 300000,
@@ -141,8 +157,10 @@ exports.getCommands = (clients) => {
         reply.setColor(0x74DF00)
         reply.setImage("https://cdn.discordapp.com/emojis/449830856211693578.png")
         msg.channel.send(reply)
+        utils.stopTyping()
       }).catch(() => {
         msg.channel.send('Nadie escribió nada :c')
+        utils.stopTyping()
       })
     }
   })

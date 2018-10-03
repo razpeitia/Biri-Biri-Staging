@@ -7,6 +7,7 @@ exports.getCommands = (clients) => {
   return [new CustomCommand({
     'name': 'c',
     'execute': async (msg) => {
+      utils.startTyping()
       let author = msg.author.username
       let cuteapi = clients.cuteapi
       let types = clients.config.cuteapi.types
@@ -21,6 +22,7 @@ exports.getCommands = (clients) => {
       replyMessage.setTitle(title)
       replyMessage.setImage(imgUrl)
       msg.channel.send(replyMessage)
+      utils.stopTyping()
     }
   })]
 }

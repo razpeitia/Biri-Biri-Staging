@@ -29,7 +29,7 @@ exports.getCommands = (clients) => {
       var pichula = chop[1].split('|')
       utils.startTyping();
       msg.channel.send({'files': [memeCreator(pichula[0], pichula[1], pic)]}).then(msg => {
-      utils.stopTyping() });
+      utils.stopTyping()});
     }
   })]
 }
