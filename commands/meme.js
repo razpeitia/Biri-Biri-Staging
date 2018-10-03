@@ -26,7 +26,10 @@ exports.getCommands = (clients) => {
       var pic = mAvatarURL.replace(".png?size=2048", ".png")
       var chop = msg.content.split('>')
       var pichula = chop[1].split('|')
-      msg.channel.send({'files': [memeCreator(pichula[0], pichula[1], pic)]});
+      channel.startTyping().then(msg =>{
+        channel.stopTyping(true)
+        msg.channel.send({'files': [memeCreator(pichula[0], pichula[1], pic)]});
+      });
     }
   })]
 }
