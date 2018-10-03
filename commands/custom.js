@@ -75,7 +75,7 @@ exports.getCommands = (clients) => {
   new CustomCommand({
     'name': 'serverinfo',
     'execute': (msg) => {
-      utils.startTyping()
+      utils.startTyping(msg)
       let reply = new message.BaseMessage(msg)
       reply.setColor(0x74DF00)
       reply.setThumbnail(msg.guild.iconURL)
@@ -84,7 +84,7 @@ exports.getCommands = (clients) => {
       reply.addField("Usuarios", msg.guild.memberCount, true)
       reply.addField("Creado el ", utils.formatDate(msg.guild.createdAt), true)
       msg.channel.send(reply)
-      utils.stopTyping()
+      utils.stopTyping(msg)
     }
   }),
 
