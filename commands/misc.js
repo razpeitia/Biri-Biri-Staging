@@ -183,13 +183,11 @@ exports.getCommands = (clients) => {
     new ImageTitleCommand({
       'name': 'birb',
       'image': async () => {
-        utils.startTyping(msg)
         let params = {
           'url': 'https://random.birb.pw/tweet.json/',
           'json': true
         }
         let response = await clients.request(params)
-        utils.stopTyping(msg)
         return `https://random.birb.pw/img/${response.file}`
       },
       'title': '%(author)s fue pajaredo!!!!!'
@@ -199,13 +197,11 @@ exports.getCommands = (clients) => {
       'name': 'dog',
       'title': '<:webos:450520773652905984>',
       'image': async () => {
-        utils.startTyping(msg)
         let params = {
           'url': 'https://dog.ceo/api/breeds/image/random',
           'json': true
         }
         let response = await clients.request(params)
-        utils.stopTyping(msg)
         return response.message
       }
     }),
