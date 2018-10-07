@@ -25,6 +25,8 @@ exports.startup = function(bot){
 	  console.log("")
   });
 
+  bot.on('error', console.error);
+
 	bot.on('guildMemberAdd',(gm) => {
 	    const channel = getDefaultChannel(gm.guild)
 	    if(channel === undefined || channel === null) return
