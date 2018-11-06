@@ -38,11 +38,19 @@ exports.startup = function(bot){
 				title: "Informacion del bot",
 				fields: [{
 						name: "Cantidad de servidores",
-						value: `${bot.guilds.size}`
+						value: `${bot.guilds.size}`,
+						inline: true
+					
 					},
 					{
 						name: "Cantidad de usuarios",
-						value: `${bot.users.size}`
+						value: `${bot.users.size}`,
+						inline: true
+					},
+					{
+						name: "Voice Chats",
+						value: `${bot.channels.size}`,
+						inline: true
 					}
 				]
 			}
