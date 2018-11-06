@@ -27,6 +27,29 @@ exports.startup = function(bot){
 
   bot.on('error', console.error);
 
+  bot.on('message', (msg) => {
+		if (msg.content == "n!globalinfo") {
+			msg.channel.send({embed: {
+				color: 3447003,
+				author: {
+					name: bot.user.username,
+					icon_url: bot.user.avatarURL
+				},
+				title: "Informacion del bot",
+				fields: [{
+						name: "Cantidad de servidores",
+						value: `${bot.guilds.size}`
+					},
+					{
+						name: "Cantidad de usuarios",
+						value: `${bot.users.size}`
+					}
+				]
+			}
+		});
+		}
+	});
+
 	bot.on('guildMemberAdd',(gm) => {
 	    const channel = getDefaultChannel(gm.guild)
 	    if(channel === undefined || channel === null) return
