@@ -37,9 +37,9 @@ exports.getCommands = (clients) => {
         racha = `${reclamo.racha} Semanas <a:blobdance:432765514440245250>`
 
       if(parseInt(reclamo.racha) >= parseInt('9')){
-        candidato = 'Si <a:nam:393566275286073344>'
+        candidato = 'Si <a:happy:443975690870849536>'
       }else{
-        candidato = 'No <a:aFbSad:393914141796073472>'
+        candidato = 'No <:SadPepe:491319332199202823>'
       }
       let reply = new message.BaseMessage(msg)
       reply.setTitle("Datos del Reclamo")
