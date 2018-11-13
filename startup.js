@@ -29,6 +29,7 @@ exports.startup = function(bot){
 
   bot.on('message', (msg) => {
 		if (msg.content == "n!globalinfo") {
+			const utils = require('./core/utils.js')
 			msg.channel.send({embed: {
 				color: 3447003,
 				author: {
@@ -40,7 +41,6 @@ exports.startup = function(bot){
 						name: "Cantidad de servidores",
 						value: `${bot.guilds.size}`,
 						inline: true
-					
 					},
 					{
 						name: "Cantidad de usuarios",
@@ -50,6 +50,21 @@ exports.startup = function(bot){
 					{
 						name: "Voice Chats",
 						value: `${bot.channels.size}`,
+						inline: true
+					},
+					{
+						name: "Cantidad de Emojis",
+						value: `${bot.emojis.size}`,
+						inline: true
+					},
+					{
+						name: "Websocket",
+						value: `${bot.ping} ms ❤`,
+						inline: true
+					},
+					{
+						name: "Uptime",
+						value: utils.msToTime(bot.uptime),
 						inline: true
 					}
 				]
