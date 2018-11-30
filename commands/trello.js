@@ -7,7 +7,6 @@ exports.getCommands = (clients) => {
     new CustomCommand({
       'name': 'dev',
       'execute': (msg) => {
-        utils.startTyping(msg)
         let sugestion = utils.getMessage(msg)
         let replyMessage = new message.BaseMessage(msg)
         if(utils.isEmpty(sugestion)) {
@@ -20,8 +19,7 @@ exports.getCommands = (clients) => {
           clients.trello.addCard(sugestion, content, boardId).then( (x) => {} )
           replyMessage.setTitle('Gracias, lo tomaremos en cuenta')
         }
-        msg.channel.send(replyMessage)
-        utils.stopTyping(msg)
+        msg.channel.send(replyMessage);
       }
     })
   ]

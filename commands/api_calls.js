@@ -19,7 +19,6 @@ exports.getCommands = (clients) => {
 
       let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`
       let params = {'url': url, 'json': true}
-      utils.startTyping(msg);
       clients.request(params)
       .then(weather => {
         let reply = new message.BaseMessage(msg)
@@ -33,11 +32,9 @@ exports.getCommands = (clients) => {
         reply.setColor(utils.randomColors())
         reply.setTimestamp()
         msg.channel.send(reply)
-        utils.stopTyping(msg)
       })
       .catch(e => {
         utils.sendText(msg, 'No pude encontrar nada con esa ciudad :c')
-        utils.stopTyping(msg)
       })
 
     }
@@ -49,7 +46,6 @@ exports.getCommands = (clients) => {
       let searchTerm = utils.getMessage(msg)
 
       if(!searchTerm) return msg.channel.send("Dame a alguien para buscar, pendejo");
-      utils.startTyping(msg)
 
       let apikey = process.env.RIOT_API_KEY
 
@@ -90,7 +86,6 @@ exports.getCommands = (clients) => {
       reply.addField("Nivel / Puntos de maestria",`${masteryLevel} / ${masteryPoints}`)
       reply.setColor(0x74D92D)
       msg.channel.send(reply)
-      utils.stopTyping(msg)
     }
   }),
 
@@ -139,8 +134,6 @@ exports.getCommands = (clients) => {
 
     let result = JSONPath({json: info, path: `$.Similar.Results[${randomNumber}].Name`});
 
-    utils.startTyping(msg)
-
     var opts = {
       maxResults: 1,
       key: process.env.YOUTUBE_API_KEY
@@ -156,7 +149,6 @@ exports.getCommands = (clients) => {
       reply.addField("Te recomiendo esta cancion! 🎵")
       reply.setColor(0x74D92D)
       msg.channel.send(reply)
-      utils.stopTyping(msg)
     });
     }
   }),
@@ -196,7 +188,6 @@ exports.getCommands = (clients) => {
       return
     }
     
-    utils.startTyping(msg)
     // Get all the results from the query
 
     let allResults = JSONPath({json: info, path: "$.Similar.Results[*].Name"});
@@ -245,7 +236,6 @@ exports.getCommands = (clients) => {
           reply.addField("🎦 Trailer 🎦",`Haz click [Aqui](${movieLink}) para ver el tailer de la pelicula!`,true)
           reply.setColor(0x74D92D)
           msg.channel.send(reply)
-          utils.stopTyping(msg)
         });
       });
     }
@@ -271,7 +261,6 @@ exports.getCommands = (clients) => {
 
       // Validation of nothing found
       if (info.posts.$.count == '0') return msg.channel.send("No pude encontrar nada, marrano")
-      utils.startTyping(msg)
       // Parse of posts
       let post = info.posts.post;
 
@@ -288,7 +277,6 @@ exports.getCommands = (clients) => {
         reply.setColor(0x74DF00)
         reply.setImage(imagen)
         msg.channel.send(reply)
-        utils.stopTyping(msg)
     });
     }
   })
