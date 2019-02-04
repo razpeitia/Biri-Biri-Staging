@@ -54,7 +54,7 @@ Agradecimientos a:
   * Node Env = *login.js* `let env = node_env...`
   * Database y Reclamo URL = *index.js* `class Database { connectionString: "url of the database"`
   * Riot Api Key = *custom.js linea 39* `let apikey = "riot api key`
-  * Open Weather Api Key = *custom.js linea 10* `let apikey = "openweather api key`
+  * Open Weather Api Key = *custom.js linea 10* `let apikey = "openweather api key"
   
 
 # English
