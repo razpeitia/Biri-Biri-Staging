@@ -86,7 +86,6 @@ exports.getCommands = (clients) => {
       let user = msg.mentions.users.first() || msg.author;
       let join = user.createdAt || msg.author.createdAt;
 
-
       let reply = new message.BaseMessage(msg)
       reply.setColor(0x74DF00)
       reply.setThumbnail(user.avatarURL)
@@ -96,7 +95,6 @@ exports.getCommands = (clients) => {
       reply.addField("Se unió a discord el: ", utils.formatDate(join), true)
       reply.addField(`Status:`, user.presence.status, true)
       reply.addField(`Jugando a:`, user.presence.game.name, true)
-      reply.addField(`Verificado:`, user.verified, true)
       msg.channel.send(reply)
     }
   }),
