@@ -85,7 +85,6 @@ exports.getCommands = (clients) => {
     'execute': (msg) => {
       let user = msg.mentions.users.first() || msg.author;
       let join = user.createdAt || msg.author.createdAt;
-      let joinserver = msg.guild.joinedAt;
 
       let reply = new message.BaseMessage(msg)
       reply.setColor(0x74DF00)
@@ -94,7 +93,6 @@ exports.getCommands = (clients) => {
       reply.addField(`Nombre Completo:`, user.tag, true)
       reply.addField(`Nickname:`, user.username, true)
       reply.addField("Se unió a discord el: ", utils.formatDate(join), true)
-      reply.addField(`Se unió al servidor el:`, utils.formatDate(joinserver), true)
       reply.addField(`Status:`, user.presence.status, true)
       reply.addField(`Jugando a:`, user.presence.game.name, true)
       msg.channel.send(reply)
