@@ -86,13 +86,17 @@ exports.getCommands = (clients) => {
       let user = msg.mentions.users.first() || msg.author;
       let join = user.createdAt || msg.author.createdAt;
 
+
       let reply = new message.BaseMessage(msg)
       reply.setColor(0x74DF00)
       reply.setThumbnail(user.avatarURL)
       reply.setTitle(`Información de ${user.username}`, true)
       reply.addField(`Nombre Completo:`, user.tag, true)
       reply.addField(`Nickname:`, user.username, true)
-      reply.addField("Se unió a discord el: ", utils.formatDate(join),true)
+      reply.addField("Se unió a discord el: ", utils.formatDate(join), true)
+      reply.addField(`Bot:`, user.bot, true)
+      reply.addField(`Status:`, user.presence, true)
+      reply.addField(`Verificado:`, user.verified, true)
       msg.channel.send(reply)
     }
   }),
