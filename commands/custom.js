@@ -102,7 +102,7 @@ exports.getCommands = (clients) => {
       reply.addField("Se unió a discord el: ", utils.formatDate(join), true)
       reply.addField(`Bot:`, texto, true)
       reply.addField(`Status:`, user.presence.status, true)
-      reply.addField(`Jugando a:`, user.presence.game.detail, true)
+      reply.addField(`Jugando a:`, user.presence.game.name, true)
       reply.addField(`Verificado:`, user.verified, true)
       msg.channel.send(reply)
     }
