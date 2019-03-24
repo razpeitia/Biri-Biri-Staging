@@ -29,7 +29,6 @@ class MuteCommand extends CustomCommand {
             msg.channel.send(reply)
             return
         }
-
         // Do not allow users to report more than once every 10 minutes per server
         if(this.userReports[reporter] === undefined) this.userReports[reporter] = []
         if(this.userReports[reporter].every( (v,i,a) => ( v.time + mutePeriod < Date.now() || v.server !== server ) )) {
