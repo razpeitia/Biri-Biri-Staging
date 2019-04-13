@@ -8,14 +8,6 @@ function getAuthor(msg) {
   return msg.author.username
 }
 
-function startTyping(msg){
-  return msg.channel.startTyping()
-}
-
-function stopTyping(msg){
-  return msg.channel.stopTyping(true)
-}
-
 function getFirstMention(msg) {
   try { return msg.mentions.members.first().user.username; } catch(e) { return null; } 
 }
@@ -109,5 +101,3 @@ exports.getContent = getContent
 exports.formatDate = formatDate
 exports.randomColors = randomColors
 exports.removeExtraFromId = removeExtraFromId
-exports.startTyping = startTyping
-exports.stopTyping = stopTyping

@@ -23,7 +23,6 @@ exports.getCommands = (clients) => {
         msg.reply("esa persona/waifu no esta en el servidor, intenta nuevamente!").then(msg =>{msg.delete(4000)})
         return
       }
-      utils.startTyping(msg)
       let intocable = reclamo.intocable ? "Si" : "No"
       let casado = reclamo.casado ? "Si" : "No"
       var racha
@@ -63,7 +62,6 @@ exports.getCommands = (clients) => {
       reply.setImage(`${reclamo.img}`)
       reply.setTimestamp()
       msg.channel.send(reply)
-      utils.stopTyping(msg)
     }
   })
   ]
