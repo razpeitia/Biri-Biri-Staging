@@ -11,7 +11,6 @@ exports.getCommands = (clients) => {
         let replyMessage = new message.BaseMessage(msg)
         if(utils.isEmpty(sugestion)) {
           replyMessage.setTitle('Tienes que darnos un mensaje, pendejo')
-          utils.stopTyping(msg)
         } else {
           let ts = new Date().toISOString();
           let content = `@${msg.author.username}(${msg.author.id})[${ts}]`
