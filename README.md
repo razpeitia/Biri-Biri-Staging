@@ -96,6 +96,6 @@ Agradecimientos a:
   * Sentry Uri = *login.js* `Raven.config(sentry_URI,{.....`
   * Node Env = *login.js* `let env = node_env...`
   * Database and Reclamo URL = *index.js* `class Database { connectionString: "url of the database"`
-  * Riot Api Key = *custom.js line 39* `let apikey = "riot api key`
-  * Open Weather Api Key = *custom.js line 10* `let apikey = "openweather api key`
+  * Riot Api Key = *custom.js line 39* `let apikey = "riot api key"`
+  * Open Weather Api Key = *custom.js line 10* `let apikey = "openweather api key"`
   
