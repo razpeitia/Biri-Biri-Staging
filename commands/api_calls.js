@@ -7,6 +7,7 @@ let JSONPath = require('jsonpath-plus');
 let search = require('youtube-search');
 const MovieDB = require('moviedb')('d791b226b58525f4f6c803f09892d1b9'); // FIXME: Don't hardcode api key
 const translate = require('translate-api');
+const removeA = require('remove-accents')
 
 exports.getCommands = (clients) => {
   return [new CustomCommand({
@@ -16,8 +17,9 @@ exports.getCommands = (clients) => {
       let city = utils.getMessage(msg)
 
       if(!city) return msg.channel.send("Dame algo para buscar, pendejo");
-
-      let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`
+      let ciudad = removeA(city)
+      
+      let url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${apiKey}&units=metric&lang=es`
       let params = {'url': url, 'json': true}
       clients.request(params)
       .then(weather => {
