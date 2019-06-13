@@ -95,7 +95,7 @@ exports.getCommands = (clients) => {
     new MentionImageTitleCommand({
       'name': 'apresiar',
       'alias': ['apreciar','praise'],
-      'selfError': ' ',
+      'selfError': 'No te puedes apresiar a ti mismo',
       'image': config.apresiar.images,
       'title': config.apresiar.texts
     }),
@@ -184,7 +184,7 @@ exports.getCommands = (clients) => {
 
     new ImageTitleCommand({
       'name': 'dog',
-      'title': '<:webos:450520773652905984>',
+      'title': ' ',
       'image': async () => {
         let params = {
           'url': 'https://dog.ceo/api/breeds/image/random',
@@ -212,7 +212,7 @@ exports.getCommands = (clients) => {
       'execute': (msg) => {
         let mensaje = utils.getMessage(msg)
         let author = utils.getAuthor(msg)
-        let description = `**${author}** ha dado sus respetos por ${mensaje} <:sad:403381288188510210>`
+        let description = `**${author}** ha dado sus respetos por ${mensaje} <:sad:588526267012481030>`
         msg.channel.send((new message.BaseMessage(msg)).setDescription(description));
       }
     }),
