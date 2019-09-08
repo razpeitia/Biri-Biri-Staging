@@ -15,7 +15,7 @@ exports.getCommands = (clients) => {
         let replyMessage = new message.BaseMessage(msg)
         if(!(/^\d+$/.test(nuclearCode))) {
           replyMessage.setTitle('Tienes que darnos un codigo nuclear, pendejo')
-          msg.channel.senpnd(replyMessage)
+          msg.channel.send(replyMessage)
         } else {
           let sauceFun = (name, url, nuclearCode) => {
             let params = {'url': hitomi_url, 'resolveWithFullResponse': true}
