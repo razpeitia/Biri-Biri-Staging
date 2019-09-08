@@ -8,7 +8,7 @@ exports.getCommands = (clients) => {
   return [
     new CustomCommand({
       'name': 'sauce',
-      'alias': 'salsa',
+      'alias': ['salsa'],
       'nsfw': true,
       'execute': (msg) => {
         let nuclearCode = utils.getMessage(msg)
@@ -17,9 +17,6 @@ exports.getCommands = (clients) => {
           replyMessage.setTitle('Tienes que darnos un codigo nuclear, pendejo')
           msg.channel.senpnd(replyMessage)
         } else {
-          // https://hitomi.la/galleries/1476167.html
-          // https://nhentai.net/g/283515/
-          
           let sauceFun = (name, url, nuclearCode) => {
             let params = {'url': hitomi_url, 'resolveWithFullResponse': true}
             clients.request(params).then((response) => {
