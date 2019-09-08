@@ -18,7 +18,7 @@ exports.getCommands = (clients) => {
           msg.channel.send(replyMessage)
         } else {
           let sauceFun = (name, url, nuclearCode) => {
-            let params = {'url': hitomi_url, 'resolveWithFullResponse': true}
+            let params = {'url': url, 'resolveWithFullResponse': true}
             clients.request(params).then((response) => {
               if(response.statusCode == 200) {
                 replyMessage.setTitle(`Salsa ${url}`)
