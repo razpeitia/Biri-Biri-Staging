@@ -86,10 +86,13 @@ function msToTime(duration) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-function makeGifWord(word) {
+function makeGifWord(text) {
+  let word = text.toLowerCase();
   let separated = word.split("");
   let arr = separated.map(i => ':gif'+i+":");
-  let finalWord = arr.join('')
+
+  for( var i = arr.length-1; i--;){if ( arr[i] === ':gif :') arr.splice(arr.indexOf(':gif :'),1)}
+  let finalWord = arr.join(' ')
   return finalWord
 }
 
