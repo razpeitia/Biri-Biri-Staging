@@ -86,6 +86,13 @@ function msToTime(duration) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
+function makeGifWord(word) {
+  let separated = word.split("");
+  let arr = separated.map(i => ':gif'+i+":");
+  let finalWord = arr.join('')
+  return finalWord
+}
+
 exports.msToTime = msToTime
 exports.isEmpty = isEmpty
 exports.getAuthor = getAuthor
@@ -101,3 +108,4 @@ exports.getContent = getContent
 exports.formatDate = formatDate
 exports.randomColors = randomColors
 exports.removeExtraFromId = removeExtraFromId
+exports.makeGifWord = makeGifWord
