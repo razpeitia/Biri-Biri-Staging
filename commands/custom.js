@@ -113,7 +113,8 @@ exports.getCommands = (clients) => {
         return
       }
       let finalWord = utils.makeGifWord(gifWord)
-      msg.channel.send(finalWord);
+      let codigo = "```"
+      msg.channel.send(`${codigo}${finalWord}${codigo}`);
     }
   }),
 
