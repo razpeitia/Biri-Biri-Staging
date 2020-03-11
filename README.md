@@ -41,17 +41,4 @@ Agradecimientos a:
 * `git clone https://github.com/LucasBares/Biri-Biri-Staging.git`
 * `cd Biri-Biri-Staging`
 * `npm install --save`
-
-## Como ejecutar el Bot
-
-* `node login.js`
-
-* Cosas que debes cambiar:
-  * Token del bot = *login.js* `bot.login("bot token here");`
-  * Token de Cute Api = *clients.js* `const cuteapi = new cute("cuteapi token here");`
-  * Token, Key y Board Id de Trello = *clients.js* `const trello = new Trello("trello key here", "trello token here")` - *trello.js* `let boardId = "board id here"`
-  * Sentry Uri = *login.js* `Raven.config(sentry_URI,{.....`
-  * Node Env = *login.js* `let env = node_env...`
-  * Riot Api Key = *custom.js linea 39* `let apikey = "riot api key`
-  * Open Weather Api Key = *custom.js linea 10* `let apikey = "openweather api key"`
  
