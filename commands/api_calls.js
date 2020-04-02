@@ -43,7 +43,7 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
-    'name': 'waifu',
+    'name': 'gif',
     'execute': async (msg) => {
       let apiKey = process.env.GIPHY_API_KEY
       let query = utils.getMessage(msg)
@@ -55,6 +55,8 @@ exports.getCommands = (clients) => {
       let response = await clients.request(params)
       let contResults = response.data.length;
       let randomNumber = Math.floor((Math.random() * contResults) + 1) - 1;
+
+      if (response.data.id === undefined) return msg.channel.send("No pude encontrar nada con ese termino")
       let image = `https://media2.giphy.com/media/${response.data[randomNumber].id}/giphy.gif`
 
       let reply = new message.BaseMessage(msg)
