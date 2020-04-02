@@ -104,7 +104,7 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
-    'name': 'gif',
+    'name': 'textgif',
     'execute' : async (msg) =>{
       let gifWord = utils.getMessage(msg);
       msg.delete()

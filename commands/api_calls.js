@@ -50,20 +50,18 @@ exports.getCommands = (clients) => {
 
       if(!query) return msg.channel.send("Dame algo para buscar, pendejo");
 
-      let url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=1`
+      let url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=100`
       let params = {'url': url, 'json': true}
+      let response = await clients.request(params)
+      let contResults = response.data.length;
+      let randomNumber = Math.floor((Math.random() * contResults) + 1) - 1;
+      let image = `https://media2.giphy.com/media/${response.data[randomNumber].id}/giphy.gif`
 
-      let image = `https://media2.giphy.com/media/${params.data.id}/giphy.gif`
-
-      clients.request(image)
-      .then(image => {
-        let reply = new message.BaseMessage(msg);
-        reply.setImage(image);
-      })
-      .catch(e => {
-        utils.sendText(msg, 'No pude encontrar nada con esa waifu')
-      })
-
+      let reply = new message.BaseMessage(msg)
+      reply.setTitle(`Resultados para: ${query}`)
+      reply.setImage(image)
+      reply.setColor(0x74D92D)
+      msg.channel.send(reply)
     }
   }),
 
