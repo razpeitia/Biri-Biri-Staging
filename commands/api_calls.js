@@ -56,7 +56,7 @@ exports.getCommands = (clients) => {
       let contResults = response.data.length;
       let randomNumber = Math.floor((Math.random() * contResults) + 1) - 1;
 
-      if (response.data.id === undefined) return msg.channel.send("No pude encontrar nada con ese termino")
+      if (response.data.length == 0 ) return msg.channel.send("No pude encontrar nada con ese termino")
       let image = `https://media2.giphy.com/media/${response.data[randomNumber].id}/giphy.gif`
 
       let reply = new message.BaseMessage(msg)
