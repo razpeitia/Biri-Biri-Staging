@@ -15,6 +15,12 @@ exports.getCommands = (clients) => {
     }),
 
     new ImageTitleCommand({
+      'name': 'lavarmanos',
+      'image': config.lavar.images,
+      'title': config.lavar.texts
+    }),
+
+    new ImageTitleCommand({
       'name': 'wag',
       'image': config.wag.images
     }),
@@ -66,6 +72,13 @@ exports.getCommands = (clients) => {
       'selfError': 'No te puedes cepillar a ti mismo, pendejo!',
       'image': config.cepillar.images,
       'title': config.cepillar.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'lavar',
+      'selfError': 'No te puedes lavar a ti mismo, pendejo!',
+      'image': config.lavarmanos.images,
+      'title': config.lavarmanos.texts
     }),
 
     new MentionImageTitleCommand({

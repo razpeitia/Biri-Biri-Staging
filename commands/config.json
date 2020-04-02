@@ -56,6 +56,15 @@
     ],
     "texts": ["#DabIsDead", "Dabear es de nubs", "El Dab está fuera de moda"]
   },
+  "lavar": {
+    "images": [
+      "https://k61.kn3.net/taringa/2/2/D/6/E/7/vagonettas/BBA.gif",
+      "https://reygif.com/media/hay-lavarse-muy-bien-las-manos-sino-queres-contagiarte-coronavirus-94414.gif",
+      "https://i.makeagif.com/media/4-09-2015/7jvZij.gif",
+      "https://agronoticiascommx.files.wordpress.com/2018/10/tumblr_n1xzoq5ny21t37ljno1_500.gif",
+      "https://jorgeescobar23.files.wordpress.com/2018/02/lavadomanos.gif?w=300"
+    ]
+  },
   "wag": {
     "images": [
       "https://cdn.weeb.sh/images/rynHqkKD-.gif",
@@ -146,6 +155,18 @@
     "texts": [
       "%(mention)s, te esta puteando %(author)s",
       "%(mention)s, te esta poniendo una putiza %(author)s"
+    ]
+  },
+  "lavarmanos": {
+    "images": [
+      "https://k61.kn3.net/taringa/2/2/D/6/E/7/vagonettas/BBA.gif",
+      "https://reygif.com/media/hay-lavarse-muy-bien-las-manos-sino-queres-contagiarte-coronavirus-94414.gif",
+      "https://i.makeagif.com/media/4-09-2015/7jvZij.gif",
+      "https://agronoticiascommx.files.wordpress.com/2018/10/tumblr_n1xzoq5ny21t37ljno1_500.gif",
+      "https://jorgeescobar23.files.wordpress.com/2018/02/lavadomanos.gif?w=300"
+    ],
+    "texts": [
+      "%(mention)s, te esta lavando las manos %(author)s"
     ]
   },
   "morder":{
