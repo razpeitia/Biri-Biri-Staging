@@ -77,6 +77,19 @@
       "https://cdn.weeb.sh/images/HklUqyFP-.gif"
     ]
   },
+  "nalgueada": {
+    "images": [
+      "https://media.giphy.com/media/iSOe5a2NeQ6yc/giphy.gif",
+      "https://media1.tenor.com/images/2bf0122435c8a7fcfa4c3ee835a0fa71/tenor.gif",
+      "https://i.imgur.com/YD4kBgb.gif",
+      "https://media1.tenor.com/images/d0f32f61c2964999b344c6846b30e1d6/tenor.gif"
+    ],
+    "texts": [
+      "%(mention)s, te esta nalgeando %(author)s",
+      "%(mention)s te ha nalgueado %(author)s"
+    ]
+
+  },
   "actitud":{
     "images": [
       "https://cdn.discordapp.com/attachments/449824936048197635/477510960106700840/giphy.gif"

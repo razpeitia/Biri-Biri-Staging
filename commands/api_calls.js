@@ -43,6 +43,32 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
+    'name': 'waifu',
+    'execute': async (msg) => {
+      let apiKey = process.env.GIPHY_API_KEY
+      let query = utils.getMessage(msg)
+
+      if(!query) return msg.channel.send("Dame algo para buscar, pendejo");
+
+      let url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=1`
+      let params = {'url': url, 'json': true}
+
+      let image = `https://media2.giphy.com/media/${params.data.id}/giphy.gif`
+
+      clients.request(image)
+      .then(image => {
+        let reply = new message.BaseMessage(msg);
+        reply.setImage(image);
+      })
+      .catch(e => {
+        utils.sendText(msg, 'No pude encontrar nada con esa waifu')
+      })
+
+    }
+  }),
+
+
+  new CustomCommand({
     'name': 'lolinfo',
     'execute': async (msg) => {
       let searchTerm = utils.getMessage(msg)

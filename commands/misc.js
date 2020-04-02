@@ -67,6 +67,14 @@ exports.getCommands = (clients) => {
     }),
 
     new MentionImageTitleCommand({
+      'name': 'nalguear',
+      'alias': ['spank','nalgazo'],
+      'selfError': 'No te puedes nalguear a ti mismo, pendejo',
+      'image': config.nalgueada.images,
+      'title': config.nalgueada.texts
+    }),
+
+    new MentionImageTitleCommand({
       'name': 'cepillar',
       'alias': ['cepillada','cepillar'],
       'selfError': 'No te puedes cepillar a ti mismo, pendejo!',
