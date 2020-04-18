@@ -1,5 +1,4 @@
 # Biri Biri Bot
-*Discord Bot for FAMFAMO*
 
 ## Notes:
 This bot it's on the most part on Spanish, the English version it's a To-Do thing.
