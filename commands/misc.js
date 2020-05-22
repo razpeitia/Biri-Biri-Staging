@@ -50,6 +50,11 @@ exports.getCommands = (clients) => {
       'image': config.jueves.images
     }),
 
+    new ImageTitleCommand({
+      'name': 'godzilla',
+      'image': config.godzilla.images
+    }),
+
     new MentionImageTitleCommand({
       'name': 'culear',
       'alias': ['culiar','culiada'],
@@ -72,6 +77,13 @@ exports.getCommands = (clients) => {
       'selfError': 'No te puedes nalguear a ti mismo, pendejo',
       'image': config.nalgueada.images,
       'title': config.nalgueada.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'funar',
+      'selfError': 'No te puedes funar a ti mismo, pendejo',
+      'image': config.funada.images,
+      'title': config.funada.texts
     }),
 
     new MentionImageTitleCommand({
