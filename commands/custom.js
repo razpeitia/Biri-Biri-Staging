@@ -104,6 +104,21 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
+    'name': 'textgif',
+    'execute' : async (msg) =>{
+      let gifWord = utils.getMessage(msg);
+      msg.delete()
+      if(utils.isEmpty(gifWord)) {
+        utils.sendText(msg, 'Aber pendejo, dame algo para escribir')
+        return
+      }
+      let finalWord = utils.makeGifWord(gifWord)
+      let codigo = "```"
+      msg.channel.send(`${codigo}${finalWord}${codigo}`);
+    }
+  }),
+
+  new CustomCommand({
     'name': 'joto',
     'execute': msg => {
       msg.delete()

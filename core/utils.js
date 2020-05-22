@@ -86,6 +86,16 @@ function msToTime(duration) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
+function makeGifWord(text) {
+  let word = text.toLowerCase();
+  let separated = word.split("");
+  let arr = separated.map(i => ':gif'+i+":");
+
+  for( var i = arr.length-1; i--;){if ( arr[i] === ':gif :') arr.splice(arr.indexOf(':gif :'),1)}
+  let finalWord = arr.join(' ')
+  return finalWord
+}
+
 exports.msToTime = msToTime
 exports.isEmpty = isEmpty
 exports.getAuthor = getAuthor
@@ -101,3 +111,4 @@ exports.getContent = getContent
 exports.formatDate = formatDate
 exports.randomColors = randomColors
 exports.removeExtraFromId = removeExtraFromId
+exports.makeGifWord = makeGifWord

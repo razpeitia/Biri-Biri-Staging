@@ -15,6 +15,12 @@ exports.getCommands = (clients) => {
     }),
 
     new ImageTitleCommand({
+      'name': 'lavarmanos',
+      'image': config.lavar.images,
+      'title': config.lavar.texts
+    }),
+
+    new ImageTitleCommand({
       'name': 'wag',
       'image': config.wag.images
     }),
@@ -44,6 +50,11 @@ exports.getCommands = (clients) => {
       'image': config.jueves.images
     }),
 
+    new ImageTitleCommand({
+      'name': 'godzilla',
+      'image': config.godzilla.images
+    }),
+
     new MentionImageTitleCommand({
       'name': 'culear',
       'alias': ['culiar','culiada'],
@@ -61,11 +72,33 @@ exports.getCommands = (clients) => {
     }),
 
     new MentionImageTitleCommand({
+      'name': 'nalguear',
+      'alias': ['spank','nalgazo'],
+      'selfError': 'No te puedes nalguear a ti mismo, pendejo',
+      'image': config.nalgueada.images,
+      'title': config.nalgueada.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'funar',
+      'selfError': 'No te puedes funar a ti mismo, pendejo',
+      'image': config.funada.images,
+      'title': config.funada.texts
+    }),
+
+    new MentionImageTitleCommand({
       'name': 'cepillar',
       'alias': ['cepillada','cepillar'],
       'selfError': 'No te puedes cepillar a ti mismo, pendejo!',
       'image': config.cepillar.images,
       'title': config.cepillar.texts
+    }),
+
+    new MentionImageTitleCommand({
+      'name': 'lavar',
+      'selfError': 'No te puedes lavar a ti mismo, pendejo!',
+      'image': config.lavarmanos.images,
+      'title': config.lavarmanos.texts
     }),
 
     new MentionImageTitleCommand({

@@ -43,6 +43,32 @@ exports.getCommands = (clients) => {
   }),
 
   new CustomCommand({
+    'name': 'gif',
+    'execute': async (msg) => {
+      let apiKey = process.env.GIPHY_API_KEY
+      let query = utils.getMessage(msg)
+
+      if(!query) return msg.channel.send("Dame algo para buscar, pendejo");
+
+      let url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=100`
+      let params = {'url': url, 'json': true}
+      let response = await clients.request(params)
+      let contResults = response.data.length;
+      let randomNumber = Math.floor((Math.random() * contResults) + 1) - 1;
+
+      if (response.data.length == 0 ) return msg.channel.send("No pude encontrar nada con ese termino")
+      let image = `https://media2.giphy.com/media/${response.data[randomNumber].id}/giphy.gif`
+
+      let reply = new message.BaseMessage(msg)
+      reply.setTitle(`Resultados para: ${query}`)
+      reply.setImage(image)
+      reply.setColor(0x74D92D)
+      msg.channel.send(reply)
+    }
+  }),
+
+
+  new CustomCommand({
     'name': 'lolinfo',
     'execute': async (msg) => {
       let searchTerm = utils.getMessage(msg)
