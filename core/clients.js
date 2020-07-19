@@ -1,8 +1,5 @@
-const cute = require('cuteapi')
-
 const nekoClient = require("nekos.life")
 const neko = new nekoClient()
-const cuteapi = new cute(process.env.CUTE_TOKEN)
 
 const Trello = require('trello')
 const trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN)
@@ -26,7 +23,6 @@ function cooldown(params) {
 }
 
 exports.trello = trello
-exports.cuteapi = cuteapi
 exports.neko = neko
 exports.request = request
 exports.config = config
