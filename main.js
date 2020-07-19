@@ -76,12 +76,4 @@ dispatcher.add('../commands/sauce.js')
 dispatcher.register()
 console.timeEnd('dispatcher')
 
-// Emmit bot metrics every 10 seconds
-console.time('datadog')
-setInterval(() => {
-  clients.dogstatsd.histogram('discord.users', bot.users.size)
-  clients.dogstatsd.histogram('discord.servers', bot.guilds.size)
-  clients.dogstatsd.histogram('discord.latency', bot.ping)
-}, 10 * 1000)
-console.timeEnd('datadog')
 console.timeEnd('total')
