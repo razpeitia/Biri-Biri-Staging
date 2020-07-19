@@ -2,10 +2,10 @@
   "name": "biri-bot",
   "version": "1.0.0",
   "description": "Biri biri bot for Famfamo",
-  "main": "login.js",
+  "main": "main.js",
   "scripts": {
     "test": "jasmine",
-    "start": "node login.js"
+    "start": "node main.js"
   },
   "keywords": [
     "discord",

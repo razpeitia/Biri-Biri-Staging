@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD [ "node", "login.js" ]
+CMD [ "node", "main.js" ]
