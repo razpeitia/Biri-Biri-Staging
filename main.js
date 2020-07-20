@@ -17,9 +17,11 @@ if(env === 'production') {
 
 /* Workarround for shards disconnections */
 
+/* We need to port workaround to v12 of discord.js
 setTimeout(() => {
   bot.ws.connection.triggerReady()
 },30000)
+*/
 
 /* End */
 
