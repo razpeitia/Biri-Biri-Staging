@@ -15,7 +15,7 @@ class MuteCommand extends CustomCommand {
         const reporter    = msg.author.id;                                // Who is reporting
         const server      = msg.guild.id;                                 // Where are they reporting
         const time        = Date.now();                                   // Time of the report
-        const muteRole    = msg.guild.roles.find('name','Muted');         // Look for the muted role
+        const muteRole    = msg.guild.roles.cache.find(role => role.name === 'Muted');         // Look for the muted role
         let has_admin     = msg.member.permissions.has("ADMINISTRATOR")   // Check if the user has admin
         let has_manage    = msg.member.permissions.has("MANAGE_MESSAGES") // Check if the user has Manage Messages
         
