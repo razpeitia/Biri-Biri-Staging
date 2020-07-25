@@ -41,7 +41,7 @@ exports.startup = function(bot){
 					},
 					{
 						name: "Websocket",
-						value: `${bot.ping} ms ❤`,
+						value: `${bot.ws.ping} ms ❤`,
 						inline: true
 					},
 					{
