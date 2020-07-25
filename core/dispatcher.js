@@ -40,8 +40,15 @@ class Dispatcher {
   }
 
   async dispatch(msg) {
-    let tags = {'channel': msg.channel.name, 'type': msg.channel.type, 'guild': msg.guild.name}
-    this.clients.dogstatsd.increment('discord.message', 1, tags)
+    let channel = msg.channel
+    let guild = msg.guild
+    if(channel === null || channel === undefined) {
+      return
+    }
+    if(guild === null || guild === undefined) {
+      return
+    }
+    let tags = {'channel': channel.name, 'type': channel.type, 'guild': msg.guild.name}
 
     // Are you muted?
     if(this.getCommandByName('mute').checkMuted(msg)) {

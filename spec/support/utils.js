@@ -56,7 +56,6 @@ exports.makeFakeClients = () => {
       'getSFWHolo': () => { return { 'url': 'https://neko.com/Holo.png'}}
   },
     'request': {},
-    'dogstatsd': {'increment': () => {}},
     'cooldown': {},
     'pornsearch': {},
   }

@@ -5,9 +5,6 @@ const Trello = require('trello')
 const trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN)
 var request = require('request-promise')
 
-const StatsD = require('hot-shots')
-const dogstatsd = new StatsD()
-
 const config = require('../commands/config.json')
 
 const Cooldown = require('cooldown')
@@ -26,6 +23,5 @@ exports.trello = trello
 exports.neko = neko
 exports.request = request
 exports.config = config
-exports.dogstatsd = dogstatsd
 exports.cooldown = cooldown
 exports.pornsearch = Pornsearch
