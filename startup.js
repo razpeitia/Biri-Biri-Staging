@@ -1,10 +1,10 @@
 exports.startup = function(bot){
-
 	bot.on('ready', () => {
-	  bot.user.setActivity('n!help V4.0', { type: 'WATCHING', url: 'https://twitch.tv/thekazuo'});
-	  console.log("")
-	  console.log(`Bot iniciado, con ${bot.users.size} usuarios, en ${bot.guilds.size} servidor/es.`);
-	  console.log("")
+		bot.user.setActivity('n!help V4.0', { type: 'WATCHING', url: 'https://twitch.tv/thekazuo'});
+		console.log("")
+		
+		console.log(`Bot iniciado, con ${bot.users.cache.size} usuarios, en ${bot.guilds.cache.size} servidor/es.`);
+		console.log("")
   });
 
   bot.on('error', console.error);
@@ -21,22 +21,22 @@ exports.startup = function(bot){
 				title: "Informacion del bot",
 				fields: [{
 						name: "Cantidad de servidores",
-						value: `${bot.guilds.size}`,
+						value: `${bot.guilds.cache.size}`,
 						inline: true
 					},
 					{
 						name: "Cantidad de usuarios",
-						value: `${bot.users.size}`,
+						value: `${bot.users.cache.size}`,
 						inline: true
 					},
 					{
 						name: "Voice Chats",
-						value: `${bot.channels.size}`,
+						value: `${bot.channels.cache.size}`,
 						inline: true
 					},
 					{
 						name: "Cantidad de Emojis",
-						value: `${bot.emojis.size}`,
+						value: `${bot.emojis.cache.size}`,
 						inline: true
 					},
 					{
@@ -59,7 +59,6 @@ exports.startup = function(bot){
       try {
 	     gm.send(`Bienvenido <@${gm.id}> <:vohiyo:412474913883160577>`);
       } catch(err) {
-        console.log(channel)
         console.log(err)
       }
 	});
@@ -67,5 +66,4 @@ exports.startup = function(bot){
 	bot.on("disconnect", event => {
 	  console.log(`Disconnected: ${event.reason} (${event.code})`);
 	});
-
 };
