@@ -40,9 +40,6 @@ class Dispatcher {
   }
 
   async dispatch(msg) {
-    let channel = msg.channel
-    let guild = msg.guild
-
     // Are you muted?
     if(this.getCommandByName('mute').checkMuted(msg)) {
       msg.delete()

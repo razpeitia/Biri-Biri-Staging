@@ -109,6 +109,14 @@ class MuteCommand extends CustomCommand {
   }
 
   checkMuted(msg) {
+    if(msg.author === null) {
+      console.log(`null author ${msg.id}`)
+      return false
+    }
+    if(msg.guild === null) {
+      console.log(`null guild ${msg.id}`)
+      return false
+    }
     return (this.mutedUsers.get(msg.author.id) || []).indexOf(msg.guild.id) > -1;
   }
 }
