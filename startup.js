@@ -16,7 +16,7 @@ exports.startup = function(bot){
 				color: 3447003,
 				author: {
 					name: bot.user.username,
-					icon_url: bot.user.avatarURL
+					icon_url: bot.user.avatarURL()
 				},
 				title: "Informacion del bot",
 				fields: [{
