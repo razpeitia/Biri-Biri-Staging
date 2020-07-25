@@ -15,16 +15,6 @@ if(env === 'production') {
   console.timeEnd('SENTRY')
 }
 
-/* Workarround for shards disconnections */
-
-/* We need to port workaround to v12 of discord.js 
-setTimeout(() => {
-  bot.ws.connection.triggerReady()
-}, 30000)
-*/
-
-/* End */
-
 console.time('discord')
 const Discord = require('discord.js')
 const bot = new Discord.Client({autoReconnect: true, max_message_cache: 0})
