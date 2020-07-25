@@ -42,12 +42,6 @@ class Dispatcher {
   async dispatch(msg) {
     let channel = msg.channel
     let guild = msg.guild
-    
-    if((channel === null || channel === undefined) || (guild === null || guild === undefined)) {
-      console.log(`Channel (${channel}) or Guild (${guild}) null.`)
-      return
-    }
-    let tags = {'channel': channel.name, 'type': channel.type, 'guild': msg.guild.name}
 
     // Are you muted?
     if(this.getCommandByName('mute').checkMuted(msg)) {
