@@ -195,7 +195,7 @@ exports.getCommands = (clients) => {
       'name': 'birb',
       'image': async () => {
         let params = {
-          'url': 'https://random.birb.pw/tweet.json/',
+          'url': 'https://random.birb.pw/tweet.json',
           'json': true
         }
         let response = await clients.request(params)
