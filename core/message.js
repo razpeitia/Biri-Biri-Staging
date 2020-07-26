@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 
 const color = 0xff0000
 
-class BaseMessage extends Discord.RichEmbed {
+class BaseMessage extends Discord.MessageEmbed {
   constructor(msg) {
     super()
     this.setColor(color)
