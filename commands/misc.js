@@ -156,6 +156,7 @@ exports.getCommands = (clients) => {
         else {
           replyMessage.setTitle('Forever alone </3')
         }
+        msg.channel.send(replyMessage)
       }
     }),
 
