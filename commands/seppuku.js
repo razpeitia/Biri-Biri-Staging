@@ -71,7 +71,7 @@ class MuteCommand extends CustomCommand {
 
                 // Via Roles ---------- ADD ------------
                 if(muteRole)
-                    msg.member.addRole(muteRole.id)
+                    msg.member.roles.add(muteRole.id)
                         .catch(console.error);
                 // -------------------------------------
 
@@ -99,7 +99,7 @@ class MuteCommand extends CustomCommand {
 
                     // Via Roles -------- REMOVE -----------
                     if(args.muteRole)
-                        args.member.removeRole(args.muteRole.id)
+                        args.member.roles.remove(args.muteRole.id)
                             .catch(console.error);
                     // -------------------------------------
 
